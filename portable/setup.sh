@@ -30,24 +30,28 @@ fi
 "$VENV/bin/pip" install --quiet "$WHEEL"
 echo "  citecoon -> $("$VENV/bin/citecoon" --version 2>/dev/null || echo '已安装')"
 
-echo "== 2/4 拷贝 skill 到隔离配置目录 =="
-mkdir -p "$CONFIG_DIR/skills"
-rm -rf "$CONFIG_DIR/skills/citecoon"
-cp -R "$CITECOON_ROOT/skill/citecoon" "$CONFIG_DIR/skills/citecoon"
+echo "== 2/4 拷贝 skill 到宿主 qoder（~/.qoder/skills，非隔离） =="
+QODER_HOME="${QODER_CONFIG_DIR:-$HOME/.qoder}"
+mkdir -p "$QODER_HOME/skills"
+rm -rf "$QODER_HOME/skills/citecoon"
+cp -R "$CITECOON_ROOT/skill/citecoon" "$QODER_HOME/skills/citecoon"
+echo "  skill -> $QODER_HOME/skills/citecoon"
 
-echo "== 3/4 写 mcpServers 配置（指向包内 venv，绝对路径） =="
-mkdir -p "$CONFIG_DIR"
-cat > "$CONFIG_DIR/settings.json" <<EOF
-{
-  "mcpServers": {
-    "citecoon": {
-      "command": "$VENV/bin/citecoon",
-      "args": ["mcp", "-p", "$DATA/projects"]
-    }
-  }
-}
-EOF
+echo "== 3/4 写 mcpServers 配置（宿主 settings.json，指向包内 venv） =="
 mkdir -p "$DATA/projects"
+if [ -f "$QODER_HOME/settings.json" ]; then
+  python3 - "$QODER_HOME/settings.json" "$VENV/bin/citecoon" "$DATA/projects" << 'PYEOF'
+import json, sys
+path, cmd, proj = sys.argv[1], sys.argv[2], sys.argv[3]
+d = json.load(open(path))
+d.setdefault("mcpServers", {})["citecoon"] = {
+    "command": cmd, "args": ["mcp", "-p", proj]}
+json.dump(d, open(path, "w"), indent=2, ensure_ascii=False)
+print("  mcpServers.citecoon 已写入", path)
+PYEOF
+else
+  echo "  ⚠ 宿主 $QODER_HOME/settings.json 不存在，未写 MCP 配置"
+fi
 
 echo "== 4/4 检查 qodercli =="
 if command -v qodercli >/dev/null 2>&1; then
