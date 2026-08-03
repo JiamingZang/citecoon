@@ -1,0 +1,19 @@
+[14:56:20] study_codebase https://github.com/zhenhuat/STCFormer
+
+I'll clone the STCFormer repo and then analyze its spatio-temporal cross-attention implementation.
+
+Cloning the repo now.
+
+Clone succeeded. Now exploring the repo structure and key attention code.
+
+Now let me read the core model files to find the spatio-temporal cross-attention implementation.
+
+Now let me read the remaining key files for the full picture.
+
+Let me check the refine module and dataset setup for completeness.
+
+I have all the information needed. Writing the repo card now.
+
+Done. Repo card written to `./STCFormer.md`.
+
+Core finding: STCFormer's spatio-temporal criss-cross attention (`model/stcformer.py:74-130`) splits QKV channels 50/50 — one half computes spatial attention across 17 joints per frame (O(T·S²)), the other computes temporal attention across frames per joint (O(S·T²)), reducing full spatio-temporal attention ~10× at T=27, S=17. Two auxiliary branches (d

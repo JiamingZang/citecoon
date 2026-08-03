@@ -1,0 +1,15 @@
+{
+  "problem": "现有6D位姿估计方法要么需要CAD模型，要么需要多视角视频序列，限制了对未见物体的泛化能力。本文致力于解决开放词汇（open-vocabulary）设定下的物体6D位姿估计问题，仅凭自然语言文本描述即可在两幅RGBD场景图像间估计物体的相对6D位姿，无需任何物体模型或参考视频。",
+  "method": "Horyon基于视觉语言模型（VLM），首先用开放词汇检测器GroundingDINO对两幅RGBD场景图像进行裁剪定位，然后分别用视觉编码器（DINO）和文本编码器（BERT）提取视觉与文本特征，通过图像-文本双向交叉注意力融合模块（ϕTV）生成多模态特征图，再经解码器（ϕD）上采样并与高分辨率视觉编码器的跳跃连接特征融合，输出192×192的高分辨率特征图。最终通过最近邻匹配、预测分割掩码过滤匹配点、将匹配反投影至3D空间并用配准算法估计位姿。训练采用最难负样本对比损失（hardest contrastive loss）监督特征匹配，Dice损失监督分割。",
+  "core_assumption": "输入的两幅场景图像均包含同一目标物体，且提供RGBD数据及相机内参；用户提供的自然语言描述足以通过开放词汇检测器定位物体；测试物体在训练集中从未出现（零样本泛化）。",
+  "limitation": "【作者承认】需要深度图和相机内参，限制了在纯RGB场景中的应用（作者建议用DepthAnything缓解）；对非最优提示词仍有显著性能下降；训练数据中提示词缺乏颜色、材质等属性描述，限制了测试时可用提示词的多样性。【读出的局限】在强遮挡、小物体（如Linemod）和跨场景光照变化大（如Toyota-Light）的场景中性能仍明显偏低；对具有部分对称性的物体（如水壶把手）难以正确匹配小区域特征；方法依赖GroundingDINO的检测质量，若检测失败则位姿估计整体失效；训练仅使用合成数据（ShapeNet6D），真实域迁移能力尚未深入验证。",
+  "eval_setup": "训练集：ShapeNet6D（大规模合成数据集，20K训练元组）；测试集：REAL275（18个物体）、Toyota-Light（21个物体）、Linemod（15个物体）、YCB-Video（22个物体），每个测试集抽取2K图像对；基线方法：Oryon（主要基线）、ObjectMatch、SIFT+PointDSC、LatentFusion（crop-free与crop-based两组）、PoseDiffusion、RelPose++（稀疏视角组）；评估指标：AR（Average Recall，融合VSD/MSSD/MSPD）、ADD(S)-0.1d、mIoU；硬件：4块Nvidia V100 GPU，训练约12小时。",
+  "resources": "代码：作者提到Oryon有官方仓库，Horyon代码未明确说明是否开源；数据：使用公开数据集（ShapeNet6D、REAL275、Toyota-Light、Linemod、YCB-Video）；算力：4×Nvidia V100 GPU，单次训练约12小时。",
+  "paper_id": "W4400023965",
+  "paper_ids": [
+    "W4400023965"
+  ],
+  "paper_title": "High-resolution open-vocabulary object 6D pose estimation",
+  "year": 2024,
+  "citation_count": 9
+}

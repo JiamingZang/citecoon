@@ -1,0 +1,15 @@
+{
+  "problem": "类别级9-DoF物体位姿与尺寸估计需要从合成数据训练泛化到真实场景，但现有方法要么依赖昂贵的真实标注数据，要么需要构建繁琐的CAD形状先验库，要么受限于合成域与真实域之间的巨大域差距，难以实现真正的域泛化。",
+  "method": "将位姿估计重新定义为生成问题：基于DDPM对9-DoF位姿（平移、旋转、尺寸）进行前向加噪与反向去噪，从纯高斯噪声生成真实位姿。条件提取模块用轻量ResNet18提取RGB全局特征、PointNet提取点云全局/局部特征，并通过形状估计-编码网络引入3D形状与NOCS形状条件；去噪器采用基于Transformer的结构（因位姿数据稀疏，无法使用交叉注意力）。利用DDIM调度器将反向扩散步数压缩至3步，实现17.2 FPS的近实时推理，全程无需任何3D形状先验或真实数据。",
+  "core_assumption": "扩散模型沿马尔可夫链采样大量位姿数据可使位姿分布更均匀，从而利用扩散模型的潜在泛化能力弥合合成域与真实域之间的域差距；生成式建模（从噪声创造位姿）比判别式回归对域偏移更鲁棒。",
+  "limitation": "作者承认：反向扩散需顺序执行多步，实时性受限（仅17.2 FPS近实时）。读出局限：1) 依赖上游Mask R-CNN实例分割，分割错误会级联影响位姿精度；2) 仅在6个类别（碗、瓶、罐、相机、杯、笔记本）上验证，对更广泛类别或高遮挡/纹理缺失场景的泛化未知；3) 形状估计-编码分支实质上隐式学习了形状先验，并非完全prior-free；4) DDIM 3步采样在精度与速度间的权衡未充分讨论极端场景下的退化；5) 开放问题：该生成范式能否扩展到更多样类别、更复杂多物体场景及动态场景尚无后续跟进。",
+  "eval_setup": "训练集：CAMERA25（275K合成RGB-D图像，6类1085实例）；测试集：REAL275（2754张真实图像，6类18实例）和Wild6D（486个测试视频，5类162物体）；另有真实机器人抓取场景。指标：IoU3D（3D50/3D75）和n°mcm（5°2cm/5°5cm/10°2cm/10°5cm）。基线：SPD、CR-Net、SGPA、STG6D、SAR-Net、SSC6D、RePoNet、UDA-COPE、DPDN、TTA-COPE、DiffusionNOCS、VI-Net、SecondPose等。",
+  "resources": "硬件：Intel Xeon Gold 6138 CPU + NVIDIA RTX 3090 GPU；框架：PyTorch；训练数据：CAMERA25合成数据集（公开）；推理速度17.2 FPS；batch size 48，学习率CyclicLR（1e-4至1e-6），图像分辨率640×480缩放至192×192。",
+  "paper_id": "arxiv:2502.02525",
+  "paper_ids": [
+    "arxiv:2502.02525"
+  ],
+  "paper_title": "Diff9D: Diffusion-Based Domain-Generalized Category-Level 9-DoF Object Pose Estimation",
+  "year": 2025,
+  "citation_count": 0
+}

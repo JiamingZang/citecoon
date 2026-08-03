@@ -1,0 +1,44 @@
+[19:03:21] revise_report 遮挡鲁棒的多人绝对3D位姿估计_几何先验增强的RootNet
+
+I'll start by reading the review checklist and the report to understand what needs fixing.
+
+Now let me verify the claims from the source cards before making edits.
+
+Let me verify the 3DPCKabs value in the paper.
+
+I've verified all three issues against the source cards. The review is correct on all counts:
+1. **P1**: Root-GAST-Net card confirms "Human3.6M上MRPE 178 mm vs RootNet 289 mm" — not MuPoTS-3D
+2. **P2**: camera_distance_aware card has no "44%" value; paper Table 2 shows 43.8
+3. **P2**: MuPoTS-3D descr
+
+Let me check line 440 and the conclusion section.
+
+All three review findings verified against sources. Now I'll make the targeted edits.
+
+Now I'll make the edits. Starting with §1.1.
+
+Now fixing the §1.2 table.
+
+Now fixing §3.1 metrics table.
+
+Now fixing §3.4 MuPoTS-3D description and §5 conclusion.
+
+Now fixing §4.5 timeline references where MRPE is attributed to MuPoTS-3D.
+
+Let me check for any remaining incorrect MRPE+MuPoTS associations.
+
+All MRPE+MuPoTS occurrences are now correct. Line 316 ("MuPoTS-3D协议：报告MRPE/3DPCKabs/AP_root_25") is fine — MRPE is indeed a metric used on MuPoTS-3D, the error was only about attributing the specific 289/178 values to that dataset.
+
+Final consistency check — verifying remaining 289/178 references are coherent.
+
+Let me verify line 34 is consistent.
+
+Line 34 already correctly says "在H36M上将MRPE从289降至178 mm" — consistent. §4.3 line 375 references "原版289 mm" without specifying a dataset, but contextually refers to the same H36M baseline — no contradiction.
+
+修订完成，汇报如下：
+
+**已修订（3条审校意见全部处理）：**
+
+1. **[P1] MRPE 289/178 mm 数据集归属错误**：经核实 Root-GAST-Net 卡原文为"Human3.6M上MRPE 178 mm vs RootNet 289 mm"，审校正确。共修改7处：§1.1正文、§1.1量化汇总表、§1.2表格（列标题改为"关键指标"并为各行标注数据集）、§3.1指标表、§4.5时间线W3-4和W13-14两行、§5结论。所有"MRPE 289/178 (MuPoTS-3D)"均已改为"(Human3.6M)"。
+
+2. **[P2] 3DPCKabs约44%来源不精确

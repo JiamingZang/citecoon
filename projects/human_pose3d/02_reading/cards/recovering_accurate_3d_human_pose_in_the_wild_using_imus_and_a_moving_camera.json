@@ -1,0 +1,15 @@
+{
+  "problem": "现有3D人体姿态数据集（HumanEva、H3.6M）局限于室内静态场景，缺乏户外自然环境中带精确3D标注的数据；纯IMU系统存在航向漂移且无法与视频对齐，多相机系统受限于固定录制体积。本文旨在利用单台手持移动相机与穿戴式IMU，在多人、遮挡、杂乱背景的户外场景中恢复精确3D人体姿态，并据此构建首个野外3D姿态数据集。",
+  "method": "提出Video Inertial Poser (VIP)，分三步：(1) 初始化——将SMPL骨骼朝向拟合至IMU测量，获得初始3D姿态候选；(2) 关联——构建图模型，以2D检测为节点，通过二元二次优化（Gurobi求解）在全序列范围内将2D姿态分配给对应IMU穿戴者，一元代价衡量重投影一致性，成对代价（帧间平移/旋转一致性、帧内相机一致性）保证时空连贯；(3) 数据融合——以Levenberg-Marquardt联合优化全序列SMPL姿态、逐帧相机位姿及每IMU航向漂移角，目标函数包含IMU朝向项、加速度项、图像重投影项和姿态先验项。关联与融合迭代执行两次以相互改善。",
+  "core_assumption": "IMU传感器相对骨骼固定不动（传感器-骨骼偏移恒定）；航向漂移可建模为绕竖直轴的单参数旋转且在单段跟踪序列内保持恒定；录制起始时被试处于已知直立姿态以完成标定；SMPL统计人体模型提供的运动学与人体测量约束足以消除姿态歧义。",
+  "limitation": "作者承认：缺乏与3DPW同等户外条件的真值数据集，定量验证仅在室内TotalCapture上完成；方法需穿戴6-17个IMU且起始姿态受限。进一步读出的局限：(1) 全序列联合优化非实时，计算开销大；(2) 最多同时跟踪2人，扩展性有限；(3) 精度强依赖2D检测器质量（GT 2D下15mm vs 自动检测26mm）；(4) 3DPW的\"真值\"即VIP自身输出，存在循环验证风险，无独立外部ground truth；(5) 图标注问题NP-hard，大规模多人场景下求解效率存疑；(6) 航向漂移恒定的假设在长时间录制或强磁干扰环境中可能失效，论文未讨论失败案例。",
+  "eval_setup": "验证集：TotalCapture（5名被试，8台静态标定相机，13个IMU，marker-based MoCap真值，60Hz）。指标：MPJPE(mm)、MPJAE(°)。基线：TotalCapture原始方法[39] 70mm、Malleson等[16] 55mm（均用8相机）。VIP用单相机+13 IMU达26mm MPJPE / 12.1° MPJAE。消融：IT 55mm、VIP-2D(GT 2D) 15.1mm、VIP-Cam(GT相机) 25.3mm、VIP-IMU6 39.6mm、VIP-IT 26.0mm。3DPW数据集：60段序列、51000+帧、7名被试、18种服装；关联精度99.3%、召回92.2%。",
+  "resources": "数据与重建结果公开于 http://virtualhumans.mpi-inf.mpg.de/3DPW ；硬件需6-17个IMU+一部带IMU的智能手机；2D检测使用OpenPose (Cao et al. 2017)；图优化需Gurobi商业求解器；需对每位被试进行3D扫描以拟合SMPL体型参数；训练关联权重使用5段手动标注的3DPW序列，融合权重通过贝叶斯优化在TotalCapture训练集上确定。",
+  "paper_id": "W2895748257",
+  "paper_ids": [
+    "W2895748257"
+  ],
+  "paper_title": "Recovering Accurate 3D Human Pose in the Wild Using IMUs and a Moving Camera",
+  "year": 2018,
+  "citation_count": 1067
+}

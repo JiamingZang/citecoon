@@ -1,0 +1,15 @@
+{
+  "problem": "仅用RGB图像进行6D物体位姿估计精度不足：现有分类/回归方法的小误差直接导致位姿失配，传统位姿精修依赖手工特征或匹配分数函数，且难以同时处理有纹理与无纹理物体、光照变化及遮挡。",
+  "method": "提出DeepIM深度迭代匹配网络：给定初始位姿，用3D模型渲染该位姿下的图像，将渲染图与观测图配对输入网络，直接回归一个相对SE(3)变换（解耦的旋转+平移表示）来精修位姿；精修后的位姿再次渲染、再次输入，迭代直至收敛。网络以FlowNet-Simple预训练权重初始化，辅以光流损失和前景mask损失稳定训练；解耦表示使其可泛化到训练时未见过的物体。",
+  "core_assumption": "初始位姿须在真值一定邻域内（训练时旋转噪声限制在45°以内），渲染图像与真实观测图像之间的外观差异可被网络学习弥合；需要已知且准确的3D模型用于渲染；解耦SE(3)表示中旋转参考系的选取对精度至关重要。",
+  "limitation": "作者承认：仍依赖外部方法（如PoseCNN）提供初始位姿，且与RGB-D+ICP方法仍有差距。可读出但无人跟进的开放问题：1) 训练时初始位姿噪声上限45°，大偏差初始化下能否收敛未验证；2) 依赖精确3D模型渲染，对形变/未知几何物体不适用；3) 严重遮挡下渲染图与观测图差异过大，迭代可能发散；4) 推理需逐物体渲染，多物体场景效率受限；5) 对称物体的位姿歧义未专门讨论。",
+  "eval_setup": "数据集：LINEMOD(13物体)、Occlusion LINEMOD、YCB-Video(21物体/133827帧)，初步实验含T-LESS及未见物体(Wu et al. 2015)。基线：PoseCNN、BB8、SSD-6D、Tekin et al.、Brachmann et al.。指标：5°5cm、6D Pose(10%模型直径)、2D Projection(2/5/10px)。规模：LINEMOD上PoseCNN+DeepIM达88.6%(6D Pose)、97.5%(Proj 2D)。",
+  "resources": "训练：4 GPU，batch=16(每GPU 4张)，FlowNet-Simple预训练权重；合成数据用PASCAL VOC背景+随机光照。测试：NVIDIA 1080 Ti，12 fps/物体(2次迭代)。代码/数据：论文未明确给出开源链接。",
+  "paper_id": "W2962783853",
+  "paper_ids": [
+    "W2962783853"
+  ],
+  "paper_title": "DeepIM: Deep Iterative Matching for 6D Pose Estimation",
+  "year": 2018,
+  "citation_count": 584
+}

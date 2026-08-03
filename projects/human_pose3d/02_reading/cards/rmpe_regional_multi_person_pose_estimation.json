@@ -1,0 +1,15 @@
+{
+  "problem": "两步式多人姿态估计框架中，单人姿态估计器（SPPE）对检测框定位误差极为敏感——即使IoU>0.5的\"正确\"检测框仍会导致姿态估计失败；同时冗余检测框会为同一人产生多个重复姿态。本文旨在使SPPE在给定不精确检测框时仍能输出准确姿态。",
+  "method": "提出RMPE框架，包含三个组件：(1) 对称空间变换网络（SSTN）：在SPPE前后分别加STN和SDTN，用2D仿射变换从不精确框中裁剪高质量单人区域，并引入冻结权重的并行SPPE分支作为正则化，迫使STN将人体移至裁剪区域中心；(2) 参数化姿态NMS：定义结合关节置信度软匹配（KSim）与空间距离（HSim）的姿态距离度量，四个参数通过验证集mAP数据驱动迭代优化，消除冗余姿态；(3) 姿态引导提议生成器（PGPG）：按原子姿态聚类后学习检测框偏移的条件高斯混合分布P(δB|atom(P))，训练时密集采样生成大量模拟检测器输出的增强样本。",
+  "core_assumption": "(1) 检测框偏移分布可按原子姿态条件建模为高斯混合，且该分布在不同数据集/检测器间具有可迁移性；(2) 2D仿射变换足以校正检测框的定位与尺度误差，将人体对齐到SPPE敏感的中心区域；(3) 姿态相似性可由关节置信度匹配加空间距离的线性组合充分刻画，且其参数在验证集上优化后对测试集泛化。",
+  "limitation": "作者承认：罕见姿态（如人体旗帜）SPPE无法处理；高度重叠的两人无法分离；检测器漏检直接导致姿态缺失；类人物体可同时欺骗检测器与SPPE。进一步开放问题：框架非端到端，检测器与姿态估计器无法联合优化（作者列为未来工作）；PGPG的高斯混合假设可能无法刻画检测器在极端遮挡/截断下的多模态偏移；参数化Pose NMS在验证集上调参，跨域泛化性未验证；整体性能上限仍受限于检测器质量（oracle框仅84.2 mAP，说明SPPE本身仍有瓶颈）。",
+  "eval_setup": "数据集：MPII多人（3844训练/1758测试组，28000+单人样本）与MSCOCO 2016 Keypoints（105698训练/~80000测试实例）。基线：DeeperCut、Cao et al.(OpenPose)、Insafutdinov et al.(ArtTrack)、Levinkov et al.、CMU-Pose、G-RMI、R4D、Caltech等。指标：MPII mAP（按关节）、COCO AP/AP50/AP75/APM/APL。规模：人体检测器VGG-SSD-512，SPPE为Stacked Hourglass，STN定位网络ResNet-18，并行SPPE为4-stack小hourglass；MPII测试集76.7 mAP，COCO test-dev 61.8 AP。",
+  "resources": "模型与源代码公开（https://cvsjtu.wordpress.com/rmpe-regional-multi-person-pose-estimation/）。网络组件：VGG-SSD-512、Stacked Hourglass、ResNet-18。具体GPU型号与训练时长未在正文给出。",
+  "paper_id": "W2963781481",
+  "paper_ids": [
+    "W2963781481"
+  ],
+  "paper_title": "RMPE: Regional Multi-person Pose Estimation",
+  "year": 2017,
+  "citation_count": 1933
+}

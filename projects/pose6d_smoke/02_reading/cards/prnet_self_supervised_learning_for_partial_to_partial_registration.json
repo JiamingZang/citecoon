@@ -1,0 +1,15 @@
+{
+  "problem": "现有基于学习的点云配准方法（如PointNetLK、DCP）假设形状完整可见，无法处理部分到部分（partial-to-partial）的点云配准问题。经典方法（ICP等）虽可处理部分重叠，但速度慢、易陷入局部最优，且超参数需逐案调整。",
+  "method": "PRNet采用迭代式自监督框架：①用DGCNN+Transformer提取点特征，以特征L2范数的top-k选取关键点，去除两视角不共享的点；②用Gumbel-Softmax加直通梯度估计器生成近似可微的锐利匹配矩阵；③设计Actor-Critic Closest Point（ACP）模块，由值网络自适应预测Gumbel-Softmax温度λ，使早期迭代匹配模糊（粗对齐）、后期迭代匹配锐利（精对齐）；④对齐关键点后用SVD（Procrustes）求刚体变换，迭代精化。损失由刚体运动损失、循环一致性损失和全局特征对齐损失加权求和，并施加折扣因子。",
+  "core_assumption": "特征L2范数可隐式反映点的\"重要性\"，从而无监督地检测出两视角共有的关键点区域。训练时使用合成旋转平移对（ModelNet40 CAD模型），假设合成数据的分布能覆盖实际部分扫描场景，且自监督的配准代理任务所学表示可迁移到其他下游任务。",
+  "limitation": "作者承认：①推理时在真实扫描上需要推断阶段微调（inference-time fine-tuning），导致实际速度很慢，缺乏开箱即用的泛化表示；②匹配结果不具双射性（non-bijective），在汽车、椅子等形状上可见多对一匹配；③尚未扩展到LiDAR大规模场景。读出的开放问题：关键点检测完全依赖特征范数而无显式几何监督，其可靠性在高度对称或低纹理形状上未经验证；Gumbel-Sinkhorn替换以强制双射性仅作为未来工作提及，尚无跟进实验；与SLAM/SfM集成及医疗/粒子物理等应用场景均未实现；旋转范围限于[0,45°]，大角度配准能力未充分验证。",
+  "eval_setup": "数据集：ModelNet40（12,311个CAD模型，40类，训练9,843/测试2,468），每点云采样1024点，部分扫描取768近邻点；旋转范围[0,45°]，平移[-0.5,0.5]；亦在真实扫描数据上测试。基线：ICP、Go-ICP、Fast Global Registration（FGR）、DCP。指标：旋转/平移的MSE、RMSE、MAE、R²；表示迁移用线性SVM分类精度（ModelNet40）。",
+  "resources": "代码已开源：https://github.com/WangYueFt/prnet；训练数据为ModelNet40公开数据集；算力需求论文未明确说明。",
+  "paper_id": "W2971088236",
+  "paper_ids": [
+    "W2971088236"
+  ],
+  "paper_title": "PRNet: Self-Supervised Learning for Partial-to-Partial Registration",
+  "year": 2019,
+  "citation_count": 466
+}

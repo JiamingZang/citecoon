@@ -1,0 +1,15 @@
+{
+  "problem": "现有多帧提升方法在3D人体姿态估计中，对序列中每个姿态仅建立单一的1-to-T时间映射，无法全面刻画姿态序列内复杂的时间相关性；且随着输入帧数增加，性能提升趋于饱和（如从243帧扩到351帧仅降低0.2-0.3mm误差）。",
+  "method": "提出TCPFormer，引入可训练的隐式姿态代理（implicit pose proxy）作为中间表示，通过三个模块协作：PUM用交叉注意力将姿态序列的代表性信息编码到代理中；PIM以代理为key/value增强姿态序列的运动语义；PAM将PUM和PIM的两个交叉注意力矩阵相乘得到聚合注意力矩阵，再通过可学习参数μ与原始自注意力矩阵自适应融合，从而为每个姿态建立多条1-to-T映射以学习更全面的时间相关性。代理以高斯分布初始化，时间维度设为T/3。",
+  "core_assumption": "假设在姿态序列与自身之间插入一组可学习的隐式代理token，能够将单一1-to-T映射分解为多条经由代理的映射路径，从而更充分地捕获复杂时间相关性；并假设两个交叉注意力矩阵的乘积（T×L乘L×T）能有效近似序列内缺失的时间关联模式。",
+  "limitation": "作者未讨论代理长度L和初始化分布对性能影响的理论解释，仅靠消融实验选取最优超参；方法仍依赖准确的2D姿态检测作为输入，深度模糊问题未被根本解决；评估仅在室内为主的Human3.6M和有限规模的MPI-INF-3DHP上进行，缺乏对遮挡、多人、极端运动等困难场景的定量分析；代理机制增加了额外计算开销但未报告效率对比；PAM中聚合矩阵为两个交叉注意力的简单矩阵乘积，其表达能力上界及在更长序列上的可扩展性未被探讨。",
+  "eval_setup": "数据集：Human3.6M（3.6M帧、11受试者、15动作）和MPI-INF-3DHP（8训练/7测试受试者）；基线：MHFormer、MixSTE、P-STMO、STCFormer、PoseFormerV2、GLA-GCN、MotionBERT、KTPFormer等；指标：MPJPE、P-MPJPE（H3.6M），MPJPE、PCK@150mm、AUC（3DHP）；输入帧数T=9/27/81/243；模型N=16层、H=8头、C=128、L=T/3；最优结果H3.6M上MPJPE 37.9mm、P-MPJPE 31.7mm（T=243），3DHP上MPJPE 15.0mm（T=81）。",
+  "resources": "代码：https://github.com/AsukaCamellia/TCPFormer；算力：2×NVIDIA 4090 GPU；训练：AdamW优化器，90 epochs，batch size 16，初始学习率5e-4，指数衰减因子0.99，权重衰减0.01；框架：PyTorch。",
+  "paper_id": "W4409366800",
+  "paper_ids": [
+    "W4409366800"
+  ],
+  "paper_title": "TCPFormer: Learning Temporal Correlation with Implicit Pose Proxy for 3D Human Pose Estimation",
+  "year": 2025,
+  "citation_count": 30
+}

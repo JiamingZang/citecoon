@@ -1,0 +1,15 @@
+{
+  "problem": "现有6D物体检测方法在遮挡、背景杂波和环境动态变化下鲁棒性不足，且通常依赖物体纹理或不对称形状，并需要大量真实位姿标注数据和较长运行时间。本文旨在仅从单张RGB图像实现快速、鲁棒、无需真实位姿标注的6D物体检测。",
+  "method": "提出增强自编码器(AAE)，即广义去噪自编码器：对输入施加随机几何与颜色增强（光照、背景、对比度、遮挡等），而重建目标保持干净，从而在潜空间中隐式学习仅编码3D朝向的表征，无需显式SO(3)位姿标注。结合域随机化(Domain Randomization)策略弥合合成渲染与真实图像之间的域差距。测试时，将场景裁剪编码后与由合成视角构建的码本进行余弦相似度kNN匹配得到3D旋转，再通过投影距离估计和透视校正完成完整6D位姿。",
+  "core_assumption": "去噪自编码器的训练策略不仅对噪声、而且对任意输入增强都能产生不变性表征（Hypothesis 1），因此潜空间可仅编码朝向而忽略尺度、平移、光照、背景等无关因素。域随机化假设：若网络在足够多样的半真实渲染条件下训练，则真实图像与合成图像的差异会被视为又一种无关变化而被忽略。基于外观的表征天然处理对称性引起的位姿歧义，避免图像到朝向的一对多映射。",
+  "limitation": "作者承认：纯RGB结果（T-LESS均值recall约26.79%）远低于基于深度的方法（约67-68%），必须借助深度ICP后处理才能达到竞争水平（约68.57%）；部分T-LESS三维重建几何不准确会严重影响RGB距离估计；码本离散化限制了朝向精度；对高相似物体（如T-LESS中多个相似工业件）仍表现较差（多个物体recall<10%）。开放问题：域随机化的增强参数需手工调优且缺乏理论保证；潜空间维度饱和后精度上限受限于码本分辨率；方法对无纹理且高度对称物体的歧义处理虽优于显式参数化方法，但仍未根本解决；缺乏对极端遮挡和严重截断场景的系统分析。",
+  "eval_setup": "数据集：T-LESS（30个工业物体，Primesense/Kinect）和LineMOD；评测协议：SIXD/BOP benchmark，禁止使用测试场景像素；指标：errvsd<0.3（τ=20mm，>10%可见性）的物体召回率，LineMOD另报ADD，消融实验报AUCvsd；基线：SSD6D、Brachmann et al.、Kehl et al.、Vidal et al.、Drost et al.等15种方法；规模：T-LESS全部30个物体×所有Primesense测试场景，每物体渲染20000视角训练。",
+  "resources": "代码开源：https://github.com/DLR-RM/AugmentedAutoencoder ；训练：单张Nvidia GTX 1080约4小时（40000 iterations，batch=64）；渲染：OpenGL，每物体20000视角；背景增强使用Pascal VOC数据集；推理：42fps（RGB-only）；无需真实位姿标注数据，仅需物体3D模型（CAD或三维重建）。",
+  "paper_id": "W2895439318",
+  "paper_ids": [
+    "W2895439318"
+  ],
+  "paper_title": "Implicit 3D Orientation Learning for 6D Object Detection from RGB Images",
+  "year": 2018,
+  "citation_count": 600
+}

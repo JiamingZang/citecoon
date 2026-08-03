@@ -1,0 +1,23 @@
+[23:05:58] review_report 输入自适应可学习解剖先验门控_3D人体姿态估计的先验注入新范式
+
+I'll start by reading the report and exploring the source library structure.
+
+Now I'll systematically verify claims. Let me read the key source files referenced in the report.
+
+Good progress. Let me verify a few more specific claims that haven't been covered yet.
+
+Let me verify a few more specific claims.
+
+Let me verify a few more specific claims.
+
+Now I have comprehensive verification data. Let me write the review.
+
+审校完成，已写入 `review.md`。
+
+**结果：0 P0 / 1 P1 / 4 P2，判定"需修订后发布"。**
+
+核心发现：
+- **P1**：§3.1 评估指标表中 P-MPJPE 基线"~42.0"无来源且未标"待验证"（同表其他行均已标注）。
+- **P2×4**：MHFormer 学习率衰减描述遗漏逐 epoch ×0.95（行号也偏移1行）；门控 MLP 公式维度与参数量计算不一致；"10-13mm 鸿沟"下界无数据支撑（实际各方法差距均 ≥13mm）；§2.2 MoE/attention 类比为装饰性段落。
+
+报告事实基础扎实：22 篇文献全部真实、数十个数字逐项命中 c

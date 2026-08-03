@@ -1,0 +1,15 @@
+{
+  "problem": "基于Transformer的3D人体姿态估计中，全时空自注意力的计算复杂度随帧数和关节数呈二次增长（O(T²S²)），导致在视频序列上不可行；而现有两步式（先空间后时间）方法仅在帧级特征间挖掘相关性，缺乏对不同帧间同一关节轨迹的细粒度建模。",
+  "method": "提出时空十字交叉注意力（STC）模块：将输入特征沿通道维度均分为两组，分别并行执行空间轴注意力（同帧内关节间）和时间轴注意力（同关节跨帧轨迹），再拼接后经MLP混合通道信息，复杂度降为O(T²S)+O(TS²)。堆叠多个STC块构成STCFormer，并设计结构增强位置编码（SPE）：part-aware embedding为同属一个身体部位的关节赋予相同可学习向量以描述静态结构，3×3时空分组卷积捕获动态部位的局部运动模式。",
+  "core_assumption": "空间与时间相关性可在不同通道子空间上独立学习，通过拼接与MLP即可充分交互，堆叠多层后能逼近全时空注意力；人体关节可按运动模式划分为静态部位（轨迹高度相关）和动态部位（含局部运动模式），且该五部位划分是固定先验。",
+  "limitation": "作者承认：两步分离式方法对运动模式学习不充分，STC旨在缓解但仍是分解近似而非真正联合建模。我读出的局限：(1) 空间/时间通道固定50%划分缺乏自适应机制；(2) SPE中静态/动态部位划分硬编码为5组，未验证对不同骨架拓扑或动作类型的鲁棒性；(3) 仅在室内场景（Human3.6M、MPI-INF-3DHP）验证，缺少户外、遮挡、多人等复杂场景实验；(4) 未讨论对2D检测器噪声的敏感度分析（仅对比CPN与GT输入）；(5) 开放问题：通道分组策略与部位划分能否端到端学习、能否推广到更长序列或实时推理场景，文中未涉及。",
+  "eval_setup": "数据集：Human3.6M（S1/5/6/7/8训练，S9/11测试，15类动作）和MPI-INF-3DHP（GT 2D输入，T=9/27/81）。基线：MixSTE、MHFormer、StridedFormer、PATA、P-STMO、CrossFormer、PoseFormer等。指标：MPJPE P1/P2（mm）、PCK@150mm、AUC。规模：标准版4.75M参数，大版18.9M参数；T=27/81/243帧。最佳结果：H3.6M P1=40.5mm（CPN输入）、21.3mm（GT输入+后处理）；MPI-INF-3DHP PCK=98.7%、AUC=83.9%、P1=23.1mm。",
+  "resources": "单卡GTX 2080Ti；batch size 128；Adam优化器，lr=0.001，每epoch衰减0.96，训练20 epoch；PyTorch实现；未明确提及代码是否开源。",
+  "paper_id": "W4386076485",
+  "paper_ids": [
+    "W4386076485"
+  ],
+  "paper_title": "3D Human Pose Estimation with Spatio-Temporal Criss-Cross Attention",
+  "year": 2023,
+  "citation_count": 200
+}

@@ -1,0 +1,15 @@
+{
+  "paper_id": "W7167017267",
+  "paper_title": "MHDPose: Multi-hypothesis 3D human pose estimation using bidirectional Mamba diffusion models",
+  "problem": "单目 3D 人体位姿估计的深度歧义、预测不稳与遮挡问题；扩散式多假设方法的效果高度依赖去噪网络对空间与长程时序依赖的建模能力。",
+  "method": "PMamba 去噪器 = (i) 关节间空间 transformer + Kin-RoPE（kinematic-aware rotary position embeddings，把骨架树结构编码进旋转位置编码），(ii) 双向 Mamba 块做长程时序建模，(iii) 残差 Mamba 头做姿态精化；以单张 2D 姿态为条件生成多个 3D 位姿假设。",
+  "core_assumption": "骨架树结构可以用运动学感知的位置编码（Kin-RoPE）注入 transformer 而无需显式图卷积；双向 Mamba 的线性复杂度长程时序建模足以支撑扩散去噪所需的多帧依赖；多假设采样能覆盖深度歧义的多模态后验。",
+  "limitation": "仅拿到摘要级信息（全文未在 papers/ 落盘）：具体 MPJPE/3D-PCK 数字、假设数量、采样步数、推理速度未核；双向 Mamba 需要全序列，天然不支持流式/causal 推理——与论文二的流式叙事正交，可作对照而非竞品；多假设的选择/择优机制摘要未提（是否依赖外部打分器未知）。",
+  "eval_setup": "Human3.6M + MPI-INF-3DHP 两基准；单目 2D 姿态输入条件生成多个 3D 假设；与既有扩散式多假设方法对比（摘要口径'competitive'，具体数字需读全文）。",
+  "resources": "venue 为 Pattern Recognition（2026）；代码/仓库信息摘要未给，待验证。",
+  "year": 2026,
+  "citation_count": 0,
+  "paper_ids": [
+    "W7167017267"
+  ]
+}

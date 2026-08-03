@@ -1,0 +1,15 @@
+{
+  "problem": "单目3D人体姿态估计面临深度模糊与复杂关节运动挑战。具体而言：GCN随层数增加呈低通滤波特性，衰减关节轨迹中的高频几何细节从而降低深度精度；标准自注意力未显式编码骨骼拓扑，对骨骼连接性的建模是间接的。",
+  "method": "提出SBAHGNet双分支时空融合网络。GCN分支嵌入多尺度高频增强模块MSHFE，用1×3和1×5深度可分离卷积分别以预定义平滑核与差分核提取低频/高频子路径，并通过可学习增益因子α、β自适应放大高频分量，再经跨尺度注意力融合。注意力分支提出骨骼偏置注意力SBA，基于多尺度归一化关联矩阵（13×17细粒度与6×17粗粒度超边）将骨骼拓扑先验以外积形式注入空间注意力分数，仅增加376个参数。两分支输出通过逐关节逐帧自适应融合模块（2C+2参数线性层+Softmax）动态加权合并，最终回归3D姿态。",
+  "core_assumption": "GCN的低通平滑是高频细节丢失的主因且可通过后处理式多尺度差分核有效补偿；骨骼拓扑先验可通过固定超边划分以加性偏置形式有效注入注意力分布；双分支特征具有互补性且可用轻量线性门控自适应融合。",
+  "limitation": "作者承认GCN存在过平滑、注意力缺乏显式结构编码。我读出的局限：MSHFE的平滑核与差分核为手工预定义而非端到端学习，对非标准骨架或极端运动的泛化性存疑；超边划分（13/6个超边）依赖特定17关节格式，迁移至其他骨架需重新设计；时间邻接矩阵KNN的K=2为固定超参，对快速非线性运动可能欠拟合；88.9G MACs在声称轻量级的前提下仍高于多数对比方法；论文未报告遮挡、极端姿态等失败案例分析，也无跨数据集泛化实验；双分支设计在推理延迟上的实际开销未充分讨论。",
+  "eval_setup": "Human3.6M（S1/5/6/7/8训练，S9/11测试；243帧输入；P1 MPJPE、P2 PA-MPJPE；检测2D用Stacked Hourglass，GT 2D）；MPI-INF-3DHP（GT 2D输入；MPJPE、PCK@150mm、AUC）。基线含MotionBERT、TCPFormer、MotionAGFormer、STCFormer、GLA-GCN等。结果：H3.6M检测2D下37.24/31.57mm，GT 2D下12.38mm；MPI-INF-3DHP 13.83mm/99.02%/88.22。18.3M参数，88.9G MACs。",
+  "resources": "单卡NVIDIA RTX 3080 Ti；PyTorch实现；batch size 2，AdamW优化器，120 epochs，初始学习率5e-4指数衰减（γ=0.99），权重衰减0.01；特征维度D=128，注意力头数h=8。",
+  "paper_id": "W7128608150",
+  "paper_ids": [
+    "W7128608150"
+  ],
+  "paper_title": "SBAHGNet:3D Human Pose Estimation via Skeleton-Biased Attention and High-Frequency Enhanced Graph Convolution",
+  "year": 2026,
+  "citation_count": 0
+}

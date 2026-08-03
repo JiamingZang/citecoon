@@ -1,0 +1,15 @@
+{
+  "problem": "零样本6D物体位姿估计旨在杂乱RGB-D场景中检测训练时未见过的新物体并估计其6D位姿，对模型泛化能力提出极大挑战，现有方法在物体检测与位姿估计两端均存在显著不足。",
+  "method": "SAM-6D将任务分解为实例分割(ISM)与位姿估计(PEM)两步。ISM以SAM生成类别无关 proposals，并通过语义(DINOv2类嵌入余弦相似度)、外观(patch嵌入匹配)、几何(粗位姿投影框与proposal框IoU)三项匹配分数筛选有效实例。PEM将位姿估计建模为partial-to-partial点匹配问题，设计背景token处理非重叠点，采用粗-精两阶段匹配：粗阶段建立稀疏对应得初始位姿，精阶段通过Sparse-to-Dense Point Transformer(几何Transformer处理196稀疏点+Linear Transformer扩散至2048稠密点)建立稠密3D-3D对应以精化位姿。",
+  "core_assumption": "1) SAM的零样本分割能力足以生成覆盖目标新物体的所有可能proposals；2) DINOv2预训练特征能有效区分语义与外观相似物体；3) 深度图可提供可靠3D点云用于点匹配；4) 合成数据(ShapeNet/Google-Scanned-Objects)训练的PEM可泛化至真实场景。",
+  "limitation": "作者承认：几何匹配分数sgeo易受遮挡影响，需可见率rvis修正；SAM版本推理较慢(4.37s/图)。读出局限：1) 强依赖RGB-D输入，纯RGB场景不适用；2) 在T-LESS(47.9 vs 51.5)和ITODD(56.2)等数据集上优势缩小，对无纹理/对称物体泛化有限；3) 需为每个目标物体渲染42个模板，扩展至大量物体时计算开销大；4) 两阶段级联误差传播——ISM漏检或误分割直接导致PEM失败；5) 背景token设计假设非重叠点可统一对齐至背景，对严重遮挡/截断场景的鲁棒性未充分验证。",
+  "eval_setup": "数据集：BOP Benchmark 7个核心数据集(LM-O, T-LESS, TUD-L, IC-BIN, ITODD, HB, YCB-V)；训练集：ShapeNet-Objects + Google-Scanned-Objects合成数据(200万张图像, ~5万物体)；基线：MegaPose, ZeroPose, GigaPose, CNOS；指标：实例分割用mAP(IoU 0.50-0.95)，位姿估计用mean AR(VSD+MSSD+MSPD)；规模：PEM训练600K迭代，batch 28，RTX 3090 GPU。",
+  "resources": "代码：论文未明确给出开源链接；数据：BOP公开数据集 + MegaPose提供的合成训练集(ShapeNet-Objects/Google-Scanned-Objects, 200万图像)；预训练模型：SAM(ViT-H)/FastSAM + DINOv2(ViT-L)均为公开模型；算力：单卡RTX 3090，PEM训练600K迭代；ISM无需重训练或微调。",
+  "paper_id": "W4402727436",
+  "paper_ids": [
+    "W4402727436"
+  ],
+  "paper_title": "SAM-6D: Segment Anything Model Meets Zero-Shot 6D Object Pose Estimation",
+  "year": 2024,
+  "citation_count": 171
+}

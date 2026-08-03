@@ -1,0 +1,15 @@
+{
+  "problem": "从RGB-D图像中估计已知物体的6D位姿时，如何充分利用颜色与深度两种互补数据源。已有方法要么分别提取RGB和深度信息，要么依赖昂贵的后处理步骤（如PoseCNN中的ICP），在高度遮挡场景和实时应用中性能受限。",
+  "method": "提出异构架构分别处理颜色（CNN编码器-解码器输出逐像素特征）和深度（PointNet变体用平均池化输出逐点几何特征），通过相机内参将3D点投影到图像平面实现逐像素稠密融合；融合后每个像素独立预测一个位姿及自监督置信度分数，取置信度最高者作为最终预测。此外集成端到端可微迭代精化模块（2次迭代，4层全连接输出位姿残差），以课程学习方式训练，替代传统后处理ICP。",
+  "core_assumption": "假设可获得准确的物体分割掩码以提取目标区域点云与图像裁剪；假设相机内参已知且像素与3D点之间存在唯一映射；假设逐像素置信度机制能有效区分可见物体部分与遮挡/分割噪声区域的预测质量。",
+  "limitation": "作者承认：对高度对称且无纹理物体（如碗、香蕉）仍存在朝向歧义，需迭代精化缓解；对形状相似物体（large clamp、extra large clamp）精度仍明显偏低（<80%）。读出的开放问题：方法强依赖外部分割网络质量，分割失败则位姿估计崩溃；仅适用于已知3D模型的物体类别，无法泛化到未知物体；逐像素预测+投票机制在物体可见面积极小时置信度区分力下降；未讨论深度传感器噪声和缺失深度对PointNet分支的影响；16FPS虽称近实时但未达高帧率机器人控制需求。",
+  "eval_setup": "数据集：YCB-Video（21物体，80视频训练+12视频2949关键帧测试+80k合成图像）和LineMOD（13物体，无额外合成数据）。基线：PoseCNN+ICP、PointFusion及自身消融变体（single/per-pixel/iterative）。指标：YCB-Video用ADD-S AUC(<0.1m)和ADD-S<2cm；LineMOD用ADD（非对称）和ADD-S（对称）。结果：迭代版在YCB-Video上ADD-S<2cm达96.8%，超PoseCNN+ICP 3.5%，推理速度快约200倍（16FPS）。",
+  "resources": "代码与视频：https://sites.google.com/view/densefusion/。网络：ResNet-18编码器+4层上采样解码器（颜色分支），MLP+平均池化PointNet（几何分支），特征维度均128，迭代精化为4层全连接。训练含80k合成图像。具体GPU型号与训练时长未在文中给出。",
+  "paper_id": "arxiv:1901.04780",
+  "paper_ids": [
+    "arxiv:1901.04780"
+  ],
+  "paper_title": "DenseFusion: 6D Object Pose Estimation by Iterative Dense Fusion",
+  "year": 2019,
+  "citation_count": 0
+}

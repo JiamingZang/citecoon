@@ -1,0 +1,15 @@
+{
+  "problem": "MASt3R 将图像匹配重新定义为 3D 任务并在精度上达到 SOTA，但在 A40 GPU 上处理一对图像仍需约 198 ms，ViT encoder-decoder 与 FastNN 匹配阶段占主要开销，无法满足混合现实导航、大规模三维重建等实时应用需求。",
+  "method": "Speedy MASt3R 是一个无需重新训练的后训练优化框架，集成四项技术：FlashMatch 在编码器-解码器自注意力中引入 FlashAttention v2 与分块策略降低显存访问；GraphFusion 借助 TensorRT 进行计算图优化、层/张量融合与内核自动调优；FastNN-Lite 将 FastNN 的嵌套循环改为单循环，把内存访问复杂度从二次降至线性并加速块相关评分；HybridCast 采用 FP16/FP32 混合精度保证数值精度的同时提速。整体在保持精度的前提下将单对图像推理时延从 198 ms 降至 91 ms。",
+  "core_assumption": "方法假设 MASt3R 的公开预训练权重可以直接作为后训练优化起点而无需重训练即可保持精度；假设 FlashAttention v2、TensorRT 等部署侧优化不改变原 FastNN 互惠匹配的理论保证；假设关键运算采用 FP16/FP32 混合精度不会导致匹配精度显著下降。",
+  "limitation": "作者承认即使优化后 MASt3R 的计算开销仍是实际部署的重大挑战；91 ms/对图像仅对应约 11 FPS，对严格实时场景仍偏慢；论文未在移动端/低功耗硬件、更高分辨率或更轻量化架构上验证；代码、模型与训练数据是否公开文中未提及；视觉定位任务在 top40 检索时总耗时仍达数十秒。",
+  "eval_setup": "相对位姿估计：ScanNet1500、MegaDepth1500（各 1500 对），指标 AUC@5/10/20、mAA 及各模块耗时；视觉定位：Aachen Day-Night（824 白天+98 夜间查询，5235 张参考图）、InLoc（356 查询，4681 参考图）、7-Scenes（7 个场景各 1000–5000 查询），指标为定位成功率（Aachen 阈值 0.25m/2°、0.5m/5°、5m/10°；InLoc 阈值 0.25m/10°、0.5m/10°、1m/10°）及 7-Scenes 中位平移/旋转误差；基线为原始 MASt3R（ViT-L encoder + ViT-B decoder + CatMLP+DPT head）；实验平台为 A40 GPU。",
+  "resources": "算力：A40 GPU；代码与数据公开情况：文中未说明。",
+  "paper_id": "arxiv:2503.10017",
+  "paper_ids": [
+    "arxiv:2503.10017"
+  ],
+  "paper_title": "Speedy MASt3R",
+  "year": 2025,
+  "citation_count": 0
+}

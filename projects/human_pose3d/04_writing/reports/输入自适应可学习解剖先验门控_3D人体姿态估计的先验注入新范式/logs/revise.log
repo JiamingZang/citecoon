@@ -1,0 +1,27 @@
+[15:22:48] revise_report 输入自适应可学习解剖先验门控_3D人体姿态估计的先验注入新范式
+
+I'll read the review checklist and the report first, then verify against the source library.
+
+Now let me check the source library for the additional revision requirements (POT, AugLift, DDHPose, and the idea file).
+
+Let me read the idea file and themes.json for exact text.
+
+Now I have all the source material. Let me verify the review items against the current report and then apply the idea-layer updates.
+
+All 5 review items (P1×1, P2×4) are already fixed in the current report. Now I'll apply the 4 idea-layer updates. Starting with ①: supplementing the latest theme tension text.
+
+Now ②: adding POT/AugLift empirical support paragraph at the end of §1.3.
+
+Now ③: adding POT orthogonality distinction in §2.2.
+
+Now ④: adding POT, AugLift, DDHPose to §1.2. Let me find the right insertion point in Route 4.
+
+All four edits applied. Let me now re-read the modified sections to verify coherence.
+
+Let me verify the §1.3 and §2.2 additions in context.
+
+All modifications verified in context — coherent and consistent. Let me finalize.
+
+## 修订汇报
+
+**审校清单 5 条（P1×1 + P2×4）：全部跳过，因已在当前报告版本中修复。** 逐条核实：P1（P-MPJPE ~42.0）已改为"待验证（需复现测量；参考SAP-Net Protocol 2 = 42.2mm…）"；P2-LR衰减已改为"每epoch×0.95、每5 epoch×0.5替代（opt.py:32-35、main.py:157-164）"；P2-公式维度已补"$\mathbf{W}_1 \in \mathbb{R}^{64 \times 118}, \mathbf{W}_2 \in \mathbb{R}^{32 \times 64}$"；P2-10-1

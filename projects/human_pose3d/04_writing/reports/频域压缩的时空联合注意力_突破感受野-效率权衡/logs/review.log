@@ -1,0 +1,18 @@
+[23:05:59] review_report 频域压缩的时空联合注意力_突破感受野-效率权衡
+
+I'll review the report adversarially against the project's source library. Let me start by reading the report and exploring the available sources.
+
+Let me read the key source files to verify claims.
+
+Now let me read the key paper cards to verify numerical claims.
+
+Now let me verify specific numerical claims by reading the paper sources.
+
+Now I have enough data to compile the review. Let me write the review file.
+
+审校完成，已写入 `reports/频域压缩的时空联合注意力_突破感受野-效率权衡/review.md`。
+
+**判定：需修订后发布。** 核心发现：
+
+- **P0×2**：§1.1 逐动作误差编造了不存在的 52.5mm 并将 Sitting Down 的 56.8mm 张冠李戴到 Smoking（实际 Smoking 仅 41.8mm）；StridedTransformer 43.7mm 实为 T=351 而非报告标注的 T=243。
+- **P1×5**：StridedTransformer 4.23M 参数无来源；MotionAGFormer Table 6 消融结论表述歪曲；STC

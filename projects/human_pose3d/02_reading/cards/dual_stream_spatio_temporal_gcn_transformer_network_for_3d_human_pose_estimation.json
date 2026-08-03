@@ -1,0 +1,15 @@
+{
+  "problem": "现有基于Transformer的2D-to-3D人体姿态提升方法侧重建模全局时空关系，忽视了局部骨骼节点间的关系及不同通道间的信息交互；而GCN虽擅长局部依赖建模却受限于层数难以感知全局信息。本文旨在同时捕获时空维度上的全局与局部依赖以提升3D姿态估计精度。",
+  "method": "提出MixTGFormer，其核心为双流Mixformer架构：两条并行分支以相反顺序（空间-时间 vs 时间-空间）堆叠Mixformer Block，实现时空信息的首次分支内融合；每个Mixformer Block将MHSA与GCN并行计算后通过可学习softmax权重自适应融合，分别以关节和帧为token建模空间与时间关系。双流输出经自适应融合后再通过SE Layer对通道维度进行squeeze-excitation重加权，补充通道间依赖建模。损失函数包含3D位置损失、加速度平滑损失及2D检测损失。",
+  "core_assumption": "人体骨骼可表示为图结构数据，GCN的局部邻域聚合与Transformer的全局自注意力具有互补性，二者并行融合优于单一架构。双流以不同时空顺序构建可产生互补的建模侧重，自适应权重能有效学习两分支的贡献比例。SE Layer的通道重加权可补偿GCN全局建模不足与MHSA忽视局部结构的缺陷。",
+  "limitation": "作者承认：计算复杂度仍有优化空间，尚未拓展至实时姿态跟踪与多视角估计等场景。进一步观察：(1)双流自适应融合权重的收敛行为与可解释性未分析，无法确认两分支确实学到互补信息而非冗余；(2)缺乏对遮挡、2D检测噪声等退化输入的鲁棒性讨论；(3)T-GCN的时间邻接矩阵构建细节在文中不完整，可复现性存疑；(4)无逐关节误差分析或失败案例讨论，末端关节误差累积问题仅提及SE Layer缓解但未量化验证；(5)仅在标准协议下评估，未涉及野外数据或跨域泛化。",
+  "eval_setup": "数据集：Human3.6M（S1/5/6/7/8训练，S9/11测试）与MPI-INF-3DHP（绿幕/非绿幕/户外三设置）。指标：Human3.6M上用MPJPE(P1)和P-MPJPE(P2)；MPI-INF-3DHP上用MPJPE、PCK(150mm阈值)、AUC。结果：P1分别为37.6mm和15.7mm，声称SOTA。模型有MixTGFormer-s和MixTGFormer两个版本（不同层数/参数量）。基线包括Poseformer、MixSTE、MotionBERT、GraFormer、DiffPose、MotionAGFormer等。",
+  "resources": "代码未公开；数据声明\"Data will be made available on request\"；算力需求未明确给出；受浙江省重点研发项目(No.2025C02045)资助。",
+  "paper_id": "W7155247101",
+  "paper_ids": [
+    "W7155247101"
+  ],
+  "paper_title": "Dual-stream Spatio-Temporal GCN-Transformer Network for 3D Human Pose Estimation",
+  "year": 2026,
+  "citation_count": 6
+}

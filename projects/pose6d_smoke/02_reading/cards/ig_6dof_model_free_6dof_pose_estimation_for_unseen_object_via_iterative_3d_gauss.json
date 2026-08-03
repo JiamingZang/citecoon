@@ -1,0 +1,15 @@
+{
+  "problem": "现有无模型(model-free)6DoF位姿估计方法在面向未见物体时存在局限：FS6D需要额外深度监督，Gen6D仅依赖2D表示难以应对大位移/大旋转，OnePose在弱纹理区域建立2D-3D对应效果不佳。本文旨在仅用一组参考图像（无需CAD模型、无需深度/法线）即可对未见物体进行鲁棒的6DoF位姿估计。",
+  "method": "方法由三模块组成：(1)基于相关卷积的检测器输出像素级物体掩码；(2)初始位姿估计器对参考图做多尺度数据增强（kπ/2旋转+2×/0.5×缩放），将RGB映射为3D点云后用PointNet提取特征，并在正二十面体群(60个旋转)上构建旋转等变群特征空间，通过余弦相似度从候选中选出最优初始位姿；(3)位姿精化器利用3DGS迭代渲染-比较，将SE(3)增量解耦为先估计平移再估计旋转（旋转中心移至物体中心），以SSIM/MS-SSIM损失驱动迭代收敛。",
+  "core_assumption": "方法成立依赖：(1)可获取一组带已知相机内外参的参考图像（通过SfM/ARKit标注）并据此重建出质量足够的3DGS模型；(2)多尺度群特征匹配给出的初始位姿足够接近真值，使迭代渲染-比较能收敛而非陷入局部极值；(3)物体为刚体且参考图像能覆盖查询时可能出现的视角范围。",
+  "limitation": "作者承认：参考图像数量对性能影响显著（Nr=16时ARVSD仅0.432 vs Nr=128时0.587），且神经渲染方法在渲染图与查询图差异过大时收敛困难。进一步读出的局限：(1)每换一个物体都需重建3DGS模型，扩展到新物体的前置成本未被量化；(2)迭代精化本质是局部优化，对初始位姿偏差的容错边界未给出分析；(3)评测仅涉及刚体、静态场景，对遮挡、多实例、动态/可变形物体无讨论；(4)0.5s/帧的推理速度（含0.4s精化）难以满足实时机器人操作需求；(5)群特征仅覆盖正二十面体群60个离散旋转，对连续大角度旋转的逼近精度存在理论上限。",
+  "eval_setup": "训练：MegaPose合成数据集（BlenderProc渲染，1000个Google Scanned Objects物体，100万张RGB图）。评测：LINEMOD(13物体)、OnePose-LowTexture(8个低纹理扫描物体)、GenMOP(10物体×2视频序列，每序列约200帧)、自采数据。基线：Gen6D、OnePose/OnePose++、MFOS、GS-Pose、Cas6D、OSOP、PVNet、ObjDesc、DeepIM等。指标：ADD(S)-0.1d、ADD-AUC(10cm)、Proj2D(5px)、cm-degree准确率、BOP指标。分辨率480×640。",
+  "resources": "训练数据：MegaPose 100万合成图（公开）。硬件：Intel Xeon Silver 4310 CPU + Nvidia RTX 3090 GPU，推理约0.5s/帧（检测0.12s+初始位姿0.01s+精化0.4s）。代码：论文未明确提供开源链接。",
+  "paper_id": "W4413156710",
+  "paper_ids": [
+    "W4413156710"
+  ],
+  "paper_title": "iG-6DoF: Model-Free 6DoF Pose Estimation for Unseen Object via Iterative 3D Gaussian Splatting",
+  "year": 2025,
+  "citation_count": 6
+}

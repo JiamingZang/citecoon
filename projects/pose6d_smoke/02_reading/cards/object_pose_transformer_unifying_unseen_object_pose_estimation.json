@@ -1,0 +1,15 @@
+{
+  "problem": "无模型（model-free）的未见实例物体姿态估计是3D视觉的基础难题。现有方法分裂为两个互斥范式：类别级方法能在规范空间预测绝对9-DoF SA(3)姿态，但依赖预定义分类学和推理时的类别标签；相对姿态方法只能估计跨视图6-DoF SE(3)变换，无法恢复单视图绝对姿态。缺乏单一模型能在无CAD模型、无类别先验的情况下统一这两种互补任务并利用其相互关系。",
+  "method": "提出Object Pose Transformer (OPT-Pose)，一个统一的前馈框架，通过任务分解在单一模型中联合预测深度图、点图、相机参数与NOCS。对采样像素提取视觉-几何融合的关键点描述符，并用对比InfoNCE目标学习跨视图共享的物体中心潜在嵌入，从而在无语义标签条件下实现类别无关的规范空间（canonicalization）。利用深度+NOCS分支恢复绝对SA(3)姿态，利用深度+点图分支在相机空间进行跨帧相对SE(3)推理；通过跨帧特征交互与共享物体嵌入减少单视图歧义。相机头实时估计内参，可选传感器深度通过绝对尺度头恢复度量尺度，RGB-only模式下也可运行。",
+  "core_assumption": "方法成立依赖两个互补几何对应关系足以桥接规范空间与相机空间：深度+NOCS可实现类别级绝对SA(3)对齐，深度+点图可实现相机空间跨视图SE(3)对齐。同时假设通过跨视图对比学习得到的物体潜在嵌入能够替代显式类别标签实现类别无关的规范空间，且多视图相对几何一致性能够为单视图绝对姿态提供有效约束。",
+  "limitation": "作者在Toyota-Light benchmark上承认，方法对光照变化较为敏感，几何对齐在这些条件下精度下降，导致该数据集上提升有限。此外，多视图增强推理需要额外输入帧，RGB-only模式下度量尺度恢复仅依赖相对尺度头，可能受单目尺度歧义限制。",
+  "eval_setup": "评估覆盖类别级绝对姿态（RGB-D：HouseCat6D、Omni6DPose；RGB-only尺度无关：REAL275）与未见物体相对姿态（RGB-D：NOCS-REAL、Toyota-Light）。指标包括(5°,2cm)/(5°,5cm)/(10°,2cm)/(10°,5cm)、3D IoU、VUS、AUC、NIoU，以及相对任务的ADD(-S)、AR、MSSD、MSPD、VSD。基线涵盖UniDet、GIVEPose、DMSR、LaPose、GCE-Pose、AG-Pose、GenPose++、CPPF++、Oryon等。实现使用518×518输入、patch size 14、每帧K=1024采样像素、M=128个关键点。",
+  "resources": "项目页面：https://colin-de.github.io/OPT-Pose/；代码、公开数据与算力细节文中未明确说明。",
+  "paper_id": "W7140953602",
+  "paper_ids": [
+    "W7140953602"
+  ],
+  "paper_title": "Object Pose Transformer: Unifying Unseen Object Pose Estimation",
+  "year": 2026,
+  "citation_count": 0
+}

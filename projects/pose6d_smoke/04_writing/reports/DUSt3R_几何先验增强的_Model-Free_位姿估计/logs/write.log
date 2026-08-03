@@ -1,0 +1,36 @@
+[17:48:42] write_tech_report DUSt3R_几何先验增强的_Model-Free_位姿估计
+
+I'll write this technical feasibility report. Let me start by reading the review checklist and key source materials.
+
+Let me read the review checklist and the idea file first.
+
+Now let me read the existing report and the key source materials (codebases and cards).
+
+Let me read the key cards and the FoundPose codebase card.
+
+Let me read the FoundPose codebase card and a few more key cards.
+
+Let me read a few more cards needed for verification.
+
+Let me check the DUSt3R paper for the 40ms/pair claim and verify a few more details.
+
+Now I have all the source materials needed. Let me write the revised report fixing all P0/P1/P2 issues from the review.
+
+Now let me do the self-review pass to verify all fixes and check for remaining issues.
+
+Let me verify a few specific details in the written report.
+
+All P0/P1 issues confirmed fixed. Let me verify the P2 fixes are in place.
+
+All P2 fixes confirmed. Now let me do the final self-review pass checking for unsourced numbers and citation accuracy.
+
+Good - all unsourced numbers are marked as estimates. Let me verify the VRAM section and the information theory fix.
+
+All review issues verified as fixed. Let me update the todo list.
+
+报告已完成修订并写入 `reports/DUSt3R_几何先验增强的_Model-Free_位姿估计.md`（约 32,700 字符）。
+
+审校清单中全部 10 项问题已逐条修复：
+
+- **P0×2**：置信度值域从 `[0,1]` 修正为 `[1,+∞)`，阈值从 0.5 改为 3（对齐仓库默认 `min_conf_thr=3`）；"直接恢复度量尺度"改为"up-to-scale 点云经 Procrustes 对齐后获得度量尺度"。
+- **P1×5**：FoundPose 性能表述修正为"最佳仍需 MegaPose 精修器"；删除"亚像素精化毫米级"无来源声明；所有无来源推理时间/显存数

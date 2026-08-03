@@ -1,0 +1,15 @@
+{
+  "paper_id": "W7127918771",
+  "paper_title": "A Survey of Linear Attention: Algorithm, Theory, Application, and Infrastructure",
+  "problem": "线性注意力机制（含 SSM 与线性 RNN）快速发展但缺乏覆盖算法、理论、应用与基础设施四个维度的统一综述。",
+  "method": "按四轴组织：算法（传统线性注意力/SSM/线性 RNN 三大族的状态传播机制）、理论、应用、基础设施（混合框架的关键要素、鲁棒高效部署、下游任务场景特性）；强调这些方法以状态传播实现隐式历史信息整合，获得近似恒定显存与线性时间复杂度。",
+  "core_assumption": "线性注意力家族共享的核心赌注：隐式状态传播足以编码长程历史，近似恒定显存+线性时间即可在效果上逼近二次注意力；综述本身假设该领域已成熟到可按'算法/理论/应用/基础设施'四轴分类。",
+  "limitation": "仅摘要级信息：各线性注意力家族在时序视觉任务（尤其流式/causal 推理）上的系统对比结论未核，需查全文相应章节；综述时效性取决于清单更新频率。",
+  "eval_setup": "综述无实验；提供策展论文清单 github.com/btzyd/Awesome-Linear-Attention-Survey；覆盖传统线性注意力、SSM 系（S4/Mamba/Mamba-2）、线性 RNN 系（DeltaNet/GDN 等）及混合框架。",
+  "resources": "策展清单开源（Awesome-Linear-Attention-Survey）。",
+  "year": 2026,
+  "citation_count": 1,
+  "paper_ids": [
+    "W7127918771"
+  ]
+}

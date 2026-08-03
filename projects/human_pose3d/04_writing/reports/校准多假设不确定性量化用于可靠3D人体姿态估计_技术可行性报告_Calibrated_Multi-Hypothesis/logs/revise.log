@@ -1,0 +1,46 @@
+[15:14:15] revise_report 校准多假设不确定性量化用于可靠3D人体姿态估计_技术可行性报告_Calibrated_Multi-Hypothesis
+
+The report appears to already contain many of the review's fixes. Let me verify by grepping for old strings and check the source library for the new 2026-07-28 requirements.
+
+The P1/P2 review items appear already fixed in the report. Now I need to verify the new 2026-07-28 requirements against the source library.
+
+All 6 review items (P1×3, P2×3) are already fixed in the report. Now I need to apply the 2026-07-28 idea updates. Let me verify the remaining sources.
+
+Now let me check for STCFormer/MixSTE cards and the themes file for the bone-length uncertainty quote.
+
+Starting edits. First, §1.2.3 — Gap精确化.
+
+Now §1.1.2 — add AugLift cross-domain evidence to the table.
+
+Now §2.2 — upgrade anatomy-aware component to DDHPose bone-length/direction decomposition.
+
+Now update §2.2.2 to incorporate bone direction scoring alongside bone length.
+
+Now add the backbone upgrade discussion paragraph after §2.4.
+
+Now §3.3 — add baseline (d) DDHPose and POT/UGRN qualitative comparison.
+
+I also need to add B3 to the ablation matrix in §3.2.
+
+Now §1.2 — add new related papers. DDHPose goes in §1.2.2 (multi-hypothesis route).
+
+Now add §1.2.5 for the survey and backbone upgrade candidate references.
+
+Now let me update §2.2.4 to reference the DDHPose-style bone statistics.
+
+Update the §2 intro paragraph to reference DDHPose.
+
+Let me check for remaining Anatomy-Aware references that should be updated in the C2 context.
+
+Let me update the code file reference in §4.1.2 from `bone_length.py` to `bone_stats.py`.
+
+Now let me reread the modified sections to verify coherence.
+
+Let me check the conclusion section for consistency with the new changes.
+
+修订完成。汇报如下：
+
+**审校清单（P1×3 + P2×3）**：全部 6 条已在报告中修正到位（参数量/FLOPs 增量改为≈0、训练时长来源归因修正、DiffPose 采样步数注明仓库默认 2 步、推理时间分项改为"待实测"），无需再改。
+
+**2026-07-28 idea 局部更新（5 条）**：全部落实——
+1. §1.2.3 重写：承认 POT/UGRN (W4382457852) 已做逐关节异方差不确定性，明确其三重局限（训练时信号/未校准/未用于选择性预测），Gap 收窄为"多假设分歧→校准→选择性预测"完整链条；补充母题"无人将骨长建模为带不确定性的分布"作为第二结构支撑。

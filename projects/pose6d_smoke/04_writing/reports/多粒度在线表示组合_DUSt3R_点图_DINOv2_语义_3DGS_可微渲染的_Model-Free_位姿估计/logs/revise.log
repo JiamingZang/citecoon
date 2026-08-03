@@ -1,0 +1,34 @@
+[20:40:03] revise_report 多粒度在线表示组合_DUSt3R_点图_DINOv2_语义_3DGS_可微渲染的_Model-Free_位姿估计
+
+I'll start by reading the review checklist and the report to understand the required changes.
+
+Now I need to verify the additional revision requirements against the source library. Let me check the ideas file and themes.
+
+Let me read the key source files to verify the additional revision requirements.
+
+Now I have all the source material. Let me verify what's already been fixed and what still needs to be added. The review P1/P2 items are already addressed in the report (confirmed by the v1.1 note in the header). I now need to implement the 2026-07-28 v3 idea updates (a)-(e). Let me make the edits.
+
+Now I'll make the edits. Starting with (a) - adding residual spatial distribution criterion to §2.4.2.
+
+Now (b) - adding "路径B优先" default execution order to §2.4.5.
+
+Now (c) - adding ablation entries to §3.2. I need to add A11 (path priority), A12 (equal-budget discriminative baseline for symmetry), and A13 (residual spatial distribution).
+
+Now I need to add the corresponding entries in the "关键消融预期" section.
+
+Now (d) - adding 3DGS densification signal monitoring to §2.2.2 步骤 3.
+
+Now (e) - adding the 3DGS original paper to the reference list.
+
+Let me verify the changes by reading the modified sections to ensure coherence.
+
+Let me verify the themes claims about 0.4-0.5s/帧 and 扩散/生成模型 "无公平对比" in the source.
+
+All claims verified against source. Let me finalize.
+
+修订完成。汇报如下：
+
+**已改（5 条，均为 2026-07-28 v3 idea 局部更新）：**
+
+1. **(a) §2.4.2** — 新增"残差空间分布判据（表示缺陷 vs 位姿错误）"段落，来源为 3DGS 原论文卡 W4385318467 的 limitation 字段（观测不足伪影/斑块高斯/popping），已核实 cards/3d_gaussian_splatting...json 逐字一致。
+2. **(b) §2.4.5** — 新增"默认执行顺序（路径 B 优先）"段落，来源为 cards/_themes.json 母题《渲染-比较-迭代精化》tension 字段"

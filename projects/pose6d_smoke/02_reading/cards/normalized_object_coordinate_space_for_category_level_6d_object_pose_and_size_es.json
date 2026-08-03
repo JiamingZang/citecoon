@@ -1,0 +1,15 @@
+{
+  "problem": "在RGB-D图像中估计未见过物体实例的6D位姿与尺寸（3平移+3旋转+3尺度参数），且训练和测试阶段均无精确CAD模型可用。现有实例级方法依赖CAD模型，类别级3D检测方法又无法给出精确朝向，二者均不满足需求。",
+  "method": "提出归一化物体坐标空间（NOCS）作为同类别所有物体实例的共享标准表示，将所有实例统一缩放并对齐至单位立方体内。在Mask R-CNN框架上附加3个坐标头，从RGB图像中联合预测类别标签、实例掩码和NOCS map（即每个物体像素到NOCS坐标的稠密对应）；NOCS map预测采用32类分类（优于直接回归），并引入对称损失函数处理轴对称物体。最终将预测的NOCS map与深度图点云通过Umeyama算法+RANSAC进行7自由度相似变换对齐，从而恢复完整的度量6D位姿与物体尺寸。",
+  "core_assumption": "同一类别内不同物体实例在NOCS中具有一致的朝向与比例规范化，使得跨实例的坐标对应关系具有语义一致性。网络能够从大量包含ShapeNetCore模型的合成混合现实数据中学到可泛化的NOCS map预测，并迁移至真实场景。RGB图像本身携带足够的形状信息以预测NOCS坐标，深度图仅在后处理阶段用于度量尺度恢复。",
+  "limitation": "作者承认：真实数据量较少（REAL275仅2.75K帧），合成到真实的域gap仍存在；对遮挡严重场景存在漏检、错分类及坐标图不一致等失败模式；对称物体处理依赖预定义对称轴，泛化性有限。读出的局限：NOCS规范化依赖ShapeNetCore中已有的类别形状分布，对形态差异极大的类别（如工具类）可能失效；每类别共享一个NOCS空间，无法区分子类形态差异；仅评估6个桌面物体类别，场景多样性有限；Umeyama算法假设观测点云与NOCS点云的对应关系足够准确，遮挡或预测噪声大时鲁棒性存疑；类别级位姿定义的规范性（如mug把手可见性的特殊处理）尚无统一框架，难以自动扩展至新类别。",
+  "eval_setup": "数据集：合成混合现实数据CAMERA（275K训练/25K测试）；真实数据集REAL（18场景，6类别，42实例，约2.75K测试帧REAL275）；OccludedLINEMOD用于实例级对比。基线：去掉NOCS头的Mask R-CNN+ICP对齐随机类别模型。指标：3D检测用IoU@50% mAP；6D位姿用(n°, m cm)平均精度（主要报告5°5cm）；与实例级方法对比用2D投影度量。规模：6个物体类别，ResNet50+FPN骨干，输入分辨率640×360。",
+  "resources": "代码基于MatterPort Mask RCNN（Python 3/Keras/TensorFlow）；项目主页：https://hughw19.github.io/NOCS_CVPR2019；硬件：Intel Xeon Gold 5122 CPU + NVIDIA TITAN Xp，推理约210ms/帧+34ms位姿对齐，约4fps；训练数据含ShapeNetCore渲染的275K合成图像及真实扫描数据集；代码与数据集是否公开未在正文中明确说明（项目主页提供链接）。",
+  "paper_id": "W2909314588",
+  "paper_ids": [
+    "W2909314588"
+  ],
+  "paper_title": "Normalized Object Coordinate Space for Category-Level 6D Object Pose and Size Estimation",
+  "year": 2019,
+  "citation_count": 913
+}

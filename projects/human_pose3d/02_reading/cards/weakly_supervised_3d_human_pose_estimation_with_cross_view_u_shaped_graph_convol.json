@@ -1,0 +1,15 @@
+{
+  "problem": "多视角3D人体姿态估计中，体积化CNN方法需要大量3D标注且计算开销大，PSM方法复杂度达O(N^6)；单目方法因深度模糊无法估计绝对3D姿态。本文旨在仅用2D标注（无需3D真值）实现轻量、实时的跨视角绝对3D姿态估计。",
+  "method": "提出由粗到精的两阶段流程：先对两个同步标定相机的2D关键点做三角化得到粗略3D姿态，再用跨视角U形图卷积网络（CV-UGCN）进行精化。CV-UGCN以S-GCN单元独立捕获单视角空间构型，再以M-GCN单元在U形编解码结构中融合跨视角关联；图卷积将邻接矩阵按自连接、物理连接、二阶连接、对称连接、视角连接五类子矩阵分解。训练采用弱监督目标，包含2D重投影一致性损失与骨骼方向/长度一致性损失，无需3D真值即可端到端优化。",
+  "core_assumption": "两台相机已同步且标定准确，三角化能提供合理的粗略初始化；2D关键点检测精度足够；跨视角几何约束（重投影一致）与人体结构先验（骨骼方向/长度一致）作为监督信号足以替代3D标注来约束网络学习。",
+  "limitation": "作者承认：即使使用2D真值，三角化因标定噪声仍有9.1 mm误差；3D误差随2D检测误差线性增长。进一步局限：仅用2个视角，对严重遮挡鲁棒性有限；弱监督损失对沿极线方向的根节点平移约束较弱；未利用时序信息；对未见相机的泛化仅在同一数据集内验证；真实场景仅做定性展示，无定量评估；未讨论多人场景。",
+  "eval_setup": "数据集：Human3.6M（S1/5/6/7/8训练，S9/S11测试）与HumanEva-I；指标：MPJPE（Protocol#1）与P-MPJPE（Protocol#2）；基线：Qiu et al.(CVPR'19, 31.2mm)、Iskakov et al.(ICCV'19, 20.8mm)、Remelli et al.(CVPR'20, 30.2mm)；2D检测器：CPN/SH/Detectron/2D-GT；仅用2个视角；模型大小20-47 MB；推理~33 fps。",
+  "resources": "PyTorch框架，单张NVIDIA RTX 2080 Ti GPU；Human3.6M批大小256，HumanEva-I批大小64；未明确提及代码开源。",
+  "paper_id": "W4287177665",
+  "paper_ids": [
+    "W4287177665"
+  ],
+  "paper_title": "Weakly-Supervised 3D Human Pose Estimation With Cross-View U-Shaped Graph Convolutional Network",
+  "year": 2022,
+  "citation_count": 50
+}

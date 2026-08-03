@@ -1,0 +1,46 @@
+[15:47:07] write_tech_report 顺序无关_delta-rule_线性注意力的时空姿态提升_Order-Free_Delta-Rule_Linear_At
+
+I'll start by exploring the project structure and reading the key materials.
+
+Let me read the finalized idea and the key repo cards first.
+
+Now let me read the previous report version and the four repo cards.
+
+Now let me read the four repo cards which contain the code-level facts I need.
+
+Now the flash-linear-attention repo card with the delta-rule implementation details.
+
+Now the MixSTE and based repo cards.
+
+Now let me find and read the four key papers to verify formulas.
+
+I have the verified delta-rule formula. Now let me read the BASED, DeltaNet, and GLA papers to verify the recall bound and other claims.
+
+Now the DeltaNet and GLA papers to verify the delta-rule and gating formulas.
+
+Now the GLA paper to verify the gating mechanism.
+
+I have all four papers verified. Now let me verify the pose-estimation card numbers I'll cite. Let me read the key cards and themes.
+
+Let me grep the PoseMamba paper for specific B-variant numbers and read the themes file.
+
+Let me read the themes file and a few more cards to ensure related-work accuracy.
+
+Let me read the MixSTE, ConvFormer, BSTMamba, and PoseFormer cards to verify related-work numbers.
+
+I have all materials verified. Let me set up a task list and write the report.
+
+Now I'll write the complete report with code-level detail and the four 待验证 cleared.
+
+Report written. Let me update todos and run the self-check pass.
+
+All 5 "待验证" occurrences are in meta-discussion (writing discipline + the self-check note explaining how the previous version's markers were cleared), not unsourced factual claims. Let me verify the section structure is complete.
+
+The report is complete and verified. Let me mark the final task done.
+
+报告已完成，输出至 `reports/顺序无关_delta-rule_线性注意力的时空姿态提升_Order-Free_Delta-Rule_Linear_At.md`（36,759 字符，符合 2.5–4 万目标）。
+
+**核心要求达成情况：**
+
+1. **代码级实现（侧重点）**
+   - 空间模块替换：引用 PoseMamba repo 卡硬编码位置——`csms6s.py:149-169` 的 `CrossScan_plus_poselimbs`、`:153` 的 `assert W==17`、`:156/:187` 的父关节 `indices`、`mambablocks.py:312

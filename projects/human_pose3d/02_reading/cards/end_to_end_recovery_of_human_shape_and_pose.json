@@ -1,0 +1,15 @@
+{
+  "problem": "从单张RGB图像端到端恢复完整3D人体网格（形状与姿态），而非仅输出稀疏3D关节位置。现有方法多为两阶段流程（先检测2D关键点再拟合3D模型），且缺乏大规模野外3D标注数据，单目2D到3D映射存在严重的深度与体型歧义。",
+  "method": "提出HMR框架：以ResNet-50提取图像特征，经迭代误差反馈（IEF）回归模块逐步修正SMPL参数（85维：23关节轴角旋转θ、10维PCA体型β、弱透视相机R/t/s），主损失为2D关键点重投影误差，从而仅需2D标注即可训练。核心机制是因式分解对抗先验：将判别器拆分为体型判别器、每个关节独立旋转判别器及全局姿态分布判别器（共K+2=25个），以无配对的大规模3D人体扫描数据训练，约束输出落在人体流形上，隐式学习关节角度限制与人体测量学约束。",
+  "core_assumption": "1) 2D重投影损失与来自无配对3D数据的对抗先验联合即可充分约束病态的单目2D→3D映射；2) SMPL的形状-姿态因子分解为对抗判别器提供了良好的归纳偏置，使低维判别器即可有效建模人体流形；3) 大规模野外2D关键点标注与实验室3D网格数据虽无配对关系，但可通过条件GAN方式有效融合。",
+  "limitation": "作者承认：无野外真实3D网格标注，只能退化为3D关节误差评估；MPJPE与视觉质量相关性差；增加2D数据能否显著提升3D精度仍是开放问题。进一步读出：测试依赖真值边界框；弱透视相机模型在近景/大透视场景下精度受限；单人假设；对抗先验的3D数据来自受控环境（Human3.6M、MPI-INF-3DHP），人体流形覆盖偏窄；未显式处理宽松衣物；无配对设定下性能下降明显（MPI-INF-3DHP上PCK从72.9降至59.6）；缺乏对遮挡/截断的定量评估。",
+  "eval_setup": "数据集：Human3.6M（P1/P2协议，5训练2测试主体，10fps下采样）、MPI-INF-3DHP（2929测试帧）、LSP（1000张分割测试）、MS COCO（定性）。训练2D数据：LSP 1k + LSP-ext 10k + MPII 20k + COCO 80k；3D数据：Human3.6M + MPI-INF-3DHP共150k帧。基线：SMPLify、Lassner et al.、VNect、Zhou et al.、Tome et al.、Rogez et al.、Pavlakos et al.、Martinez et al.、Sun et al.。指标：MPJPE、Procrustes对齐后重建误差、PCK@150mm、AUC、分割Acc/F1。规模：ResNet-50，224×224输入，batch 64，T=3次迭代，55 epochs。",
+  "resources": "代码开源：https://akanazawa.github.io/hmr/。训练硬件：单块Titan 1080ti GPU，约5天。框架：TensorFlow。预训练：ImageNet上的ResNet-50。3D人体模型：SMPL；MoSh用于从MoCap标记获取SMPL参数。",
+  "paper_id": "W2963995996",
+  "paper_ids": [
+    "W2963995996"
+  ],
+  "paper_title": "End-to-End Recovery of Human Shape and Pose",
+  "year": 2018,
+  "citation_count": 2097
+}

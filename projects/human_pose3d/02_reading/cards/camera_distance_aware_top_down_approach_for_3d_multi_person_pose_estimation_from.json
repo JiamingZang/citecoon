@@ -1,0 +1,15 @@
+{
+  "problem": "现有3D人体姿态估计方法大多只处理单人场景，将其扩展到多人场景面临核心困难：已有检测器仅提供2D边界框，而3D多人姿态估计需要知道每个人相对于相机的绝对距离，且裁剪后的单人图像难以直接估计绝对相机中心坐标。",
+  "method": "提出三模块级联的top-down框架：DetectNet（Mask R-CNN）检测人体框；RootNet分别预测人体根关节的2D像素坐标和绝对深度Z_R，其中深度通过新定义的距离度量k=sqrt(αx·αy·A_real/A_img)（基于针孔相机模型中实际面积与成像面积之比）来学习；PoseNet估计根相对3D姿态。最终将根相对深度加上绝对深度并通过反投影得到绝对相机中心坐标。三模块采用分离式（disjointed）训练而非联合训练，因两任务相关性不高，分离训练精度更高。",
+  "core_assumption": "距离度量k能有效近似相机到人体的绝对深度，前提是人体在图像中的面积A_img估计准确且相机内参已知；根关节定位与根相对姿态估计是低相关任务，可解耦学习而不损失精度；人体检测框的高AP足以覆盖实例，框精度对最终3D姿态影响有限。",
+  "limitation": "作者承认k在A_img估计不准时失效（如遮挡、截断导致面积错误，图4给出反例）；方法依赖已知相机内参；MuPoTS-3D场景仅含最多3人、20个场景，规模有限；未讨论严重遮挡、密集人群、不同相机参数下的鲁棒性；RootNet深度估计与PoseNet完全解耦可能丢失全局上下文；开放问题包括如何在无内参或多人严重遮挡场景下保持绝对深度精度。",
+  "eval_setup": "数据集：Human3.6M（360万帧/11人/15动作/4视角，Protocol 1&2）、MuCo-3DHP（40万合成帧训练）、MuPoTS-3D（20个户外真实场景/最多3人测试）；基线：Rogez LCR-Net、Mehta bottom-up、Martinez、Sun、Fang等；指标：MPJPE、PA-MPJPE、MRPE（新提出）、3DPCKrel、AUCrel、3DPCKabs、AP_root_25；骨干：ResNet-50/152、ResNeXt-101-32；推理速度约0.141s/帧（单TitanX Maxwell GPU）。",
+  "resources": "代码开源：github.com/mks0601/3DMPPE_ROOTNET_RELEASE 与 3DMPPE_POSENET_RELEASE；训练数据需Human3.6M、MPII、MuCo-3DHP、COCO；算力为单块TitanX Maxwell GPU。",
+  "paper_id": "W2964784655",
+  "paper_ids": [
+    "W2964784655"
+  ],
+  "paper_title": "Camera Distance-Aware Top-Down Approach for 3D Multi-Person Pose Estimation From a Single RGB Image",
+  "year": 2019,
+  "citation_count": 40
+}

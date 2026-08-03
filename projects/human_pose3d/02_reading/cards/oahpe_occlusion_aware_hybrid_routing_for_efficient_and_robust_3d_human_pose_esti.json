@@ -1,0 +1,15 @@
+{
+  "problem": "基于Transformer的视频3D人体姿态估计方法因自注意力的二次复杂度导致长序列推理时计算与显存开销巨大，难以轻量部署；同时混合遮挡视频中遮挡帧高不确定性与可见帧高时间冗余并存，现有方法无法兼顾效率与遮挡鲁棒性。",
+  "method": "提出遮挡感知双路径混合路由框架OAHPE：首先用基于MLP的遮挡检测器VisNet根据2D关键点坐标及置信度将帧分为遮挡段与可见段；遮挡段送入ORST-DLEP路径，以多尺度空洞卷积(MDC)聚合局部时空邻域信息，再以线性注意力Mamba(LAMA)模块以线性复杂度建模帧间与关节间全局依赖；可见段送入PDREP路径，在线剪枝选取k个代表帧降低时间冗余，并通过教师-学生蒸馏（输出一致性、速度一致性、特征MSE、注意力KL散度四项损失）恢复原始时间分辨率；最终两路输出按原始帧索引回填、对齐、融合得到完整3D姿态序列。",
+  "core_assumption": "遮挡检测器仅凭2D关键点坐标与检测置信度即可可靠区分遮挡帧与可见帧；可见帧段存在充分时间冗余，剪枝后通过蒸馏可无损恢复被丢弃帧的信息；线性注意力以全序列全局统计量替代逐对注意力矩阵仍足以捕获遮挡段所需的时空依赖。",
+  "limitation": "作者承认：剪枝的不可逆性可能导致时间表示信息熵下降与判别特征丢失，恢复模块不保证真正重建被丢弃帧信息；线性全局建模表达能力有限，跨场景泛化不足。进一步读出的局限：遮挡检测器完全依赖上游2D检测器的置信度，在严重/长期遮挡下2D检测本身不可靠时路由将失效；阈值τ和η为固定超参(均取0.5)，对不同场景/数据集的鲁棒性未讨论；方法为离线推理设计，无法直接用于实时流式场景；评测仅在室内为主的Human3.6M和MPI-INF-3DHP上进行，缺少真实严重遮挡或多人场景验证；遮挡段与可见段边界处的时序一致性如何保证未充分阐述。",
+  "eval_setup": "数据集：Human3.6M（S1/5/6/7/8训练，S9/11测试，CPN 2D检测输入）与MPI-INF-3DHP；指标：MPJPE、P-MPJPE（Human3.6M），AUC、PCK@150mm、MPJPE（MPI-INF-3DHP）；结果：Human3.6M MPJPE 43.5mm，MPI-INF-3DHP MPJPE 28.5mm；模型规模2.6M参数，训练显存12.5GB；序列长度T=81/243；基线包括MHFormer、MixSTE、H2OT、PoseMamba、SAMA等近年方法。",
+  "resources": "PyTorch实现；单卡NVIDIA RTX 4090 (48GB)；AdamW优化器，120 epochs，batch size 4，初始学习率2e-4，指数衰减0.98；2D输入使用CPN检测结果；代码/数据链接文中未给出。",
+  "paper_id": "W7168163523",
+  "paper_ids": [
+    "W7168163523"
+  ],
+  "paper_title": "OAHPE: occlusion-aware hybrid routing for efficient and robust 3D human pose estimation in mixed-occlusion videos",
+  "year": 2026,
+  "citation_count": 0
+}

@@ -1,0 +1,15 @@
+{
+  "problem": "针对单参考未见物体6D位姿估计，现有基于对应关系的方法大多将视觉基础模型（VFM）特征仅作为独立的视图内描述符，在几何解码前未充分建立跨视图语义关联，导致在分割掩膜噪声和大视角变化下容易产生错误对应。",
+  "method": "本文在密集VFM token层引入跨视图语义交互（CVSI），使查询与参考视图的token在投影与几何解码前相互交换语义上下文，形成跨视图语义先验；再将其与几何嵌入融合送入几何解码器进行点云匹配。训练时通过视图内结构保持（IVSP）损失维持token原有的视图内亲和结构以避免过度平滑，并通过参考锚定几何一致性（RAGC）损失在共享参考坐标系中约束解码点特征的空间一致性；最终由加权SVD恢复位姿。",
+  "core_assumption": "方法假设VFM密集token已编码可用于跨视图判别的外观、部件结构与上下文信息；且查询与参考视图间存在足以建立语义对应的可见重叠，跨视图交互后的特征仍须保留原VFM空间组织以兼容后续几何解码与刚性对应估计。",
+  "limitation": "作者指出单参考设定下可用输入证据有限，当两视图几乎无重叠或掩膜去除了判别性物体区域时仍难以建立可靠对应；未来工作需扩展到多查询观测与显式多视图几何推理。此外，方法仍依赖分割质量与参考视角选择，且训练仅在合成MegaPose数据上进行。",
+  "eval_setup": "在LM-O、TUD-L、YCB-V（UNOPose视图对协议+SAM掩膜）、Real275、Toyota-Light（Oryon协议）、LINEMOD以及自建的大视角（60°–90°相对旋转）+形态学膨胀掩膜噪声协议上评测；对比UNOPose、COG、SinRef-6D、CoordAR等方法；指标包括ARBOP（VSD/MSSD/MSPD均值）、ADD(-S)@0.1d、ADD/ADD-S AUC；模型在MegaPose合成数据上训练440K步，batch size 8。",
+  "resources": "PyTorch实现，DINOv3预训练ViT-Base骨干，MegaPose合成训练数据；在RTX 4090 GPU上训练440K步（batch size 8）。代码与测试数据公开性文中未说明。",
+  "paper_id": "W7165818136",
+  "paper_ids": [
+    "W7165818136"
+  ],
+  "paper_title": "Learning Cross-View Semantic Priors for Single-Reference Unseen Object Pose Estimation",
+  "year": 2026,
+  "citation_count": 0
+}

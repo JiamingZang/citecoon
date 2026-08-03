@@ -1,0 +1,15 @@
+{
+  "problem": "现有解耦式3D人体姿态估计方法因骨骼树结构的层级误差累积导致性能远低于SOTA扩散方法，而扩散方法直接对3D关节坐标加噪又难以学习显式人体姿态先验；同时，基于Transformer的方法缺乏对关节间细粒度层级关系的建模，导致高层级关节误差随层级递增。",
+  "method": "DDHPose将解耦策略引入扩散模型的前向过程，对骨长和骨方向分别加噪而非直接对3D坐标加噪，并设计解耦损失进行监督，将高维稠密问题分解为多个低维稀疏子问题以简化优化。反向过程提出HSTDenoiser，包含HRST（在空间注意力矩阵中将父关节对当前关节的注意力权重叠加到子关节上，强化父-子层级影响）和HRTT（通过交叉注意力捕捉当前关节与其子关节间的时序层级关联），两者交替堆叠7层。此外引入层级空间位置编码HSP，按运动学树深度将关节分为6个层级共享嵌入。",
+  "core_assumption": "将3D姿态分解为骨长与骨方向后在扩散过程中分别建模，能比直接对坐标加噪更有效地学习显式人体结构先验；关节的空间位置受其父关节支配，且关节与其父/子关节间因骨骼树结构存在强时序相关性，通过显式增强层级相关关节的注意力权重可缓解高层级误差累积。",
+  "limitation": "作者未明确讨论局限性。可读出：(1)依赖两阶段流程，2D检测器误差会传播至3D估计；(2)层级结构固定为Human3.6M的17关节运动学树，对不同骨骼拓扑（如MPI-INF-3DHP的28关节）的泛化未深入分析；(3)H=20、W=10的推理设置计算开销大，实时性受限；(4)相比D3DP仅提升0.4mm(1.3%)，边际收益有限；(5)仅在室内受控数据集上验证，缺乏野外场景评估；(6)HRST中注意力权重的叠加与归一化方式为手工设计，缺乏理论最优性保证。",
+  "eval_setup": "数据集：Human3.6M（S1-S9训练，S9/S11测试）、MPI-INF-3DHP（8人训练，7活动测试）。指标：MPJPE、P-MPJPE（mm），采用J-AGG聚合。基线：解耦类（DKA、Anatomy3D、Virtual Bones）、非解耦类（VideoPose3D、PoseFormer、P-STMO、MixSTE、PoseFormerV2、STCFormer）、概率类（MHFormer、GFPose、D3DP）。输入帧数N=243，假设数H∈{1,5,20}，迭代次数W∈{1,10}。最优MPJPE 39.0mm，P-MPJPE 31.2mm。",
+  "resources": "代码开源：https://github.com/Andyen512/DDHPose。训练硬件：NVIDIA Tesla A800；PyTorch实现，AdamW优化器，初始学习率1e-4，衰减因子0.993，batch size 4，训练400 epochs，扩散步数T=1000，8层时空Transformer。",
+  "paper_id": "W4393158891",
+  "paper_ids": [
+    "W4393158891"
+  ],
+  "paper_title": "Disentangled Diffusion-Based 3D Human Pose Estimation with Hierarchical Spatial and Temporal Denoiser",
+  "year": 2024,
+  "citation_count": 46
+}

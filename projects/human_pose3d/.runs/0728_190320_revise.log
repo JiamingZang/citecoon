@@ -1,0 +1,7 @@
+定向修订完成（success）：遮挡鲁棒的多人绝对3D位姿估计_几何先验增强的RootNet 
+26856 → 26916 字符。日志: 
+results/human_pose3d/reports/遮挡鲁棒的多人绝对3D位姿估计_几何先验增强的RootNet/
+logs/revise.log
+PDF 重导失败（Chrome 本次运行未写出新 PDF（渲染失败或超时时尚未落盘）），可用 
+export_report_pdf 重试。
+建议再跑一轮 review_report 确认问题已清零。

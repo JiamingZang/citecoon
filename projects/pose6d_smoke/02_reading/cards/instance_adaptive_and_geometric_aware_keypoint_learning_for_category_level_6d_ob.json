@@ -1,0 +1,15 @@
+{
+  "problem": "类别级6D物体位姿估计需要对未见实例估计旋转、平移和尺寸。现有密集对应方法未显式利用不同实例的局部与全局几何信息，导致对形状变化显著的未见实例泛化能力差。",
+  "method": "提出AG-Pose，包含两个核心模块：(1) 实例自适应关键点检测模块(IAKD)：用类别共享可学习查询经Transformer层注入物体特征，转化为实例自适应检测器，通过余弦相似度生成关键点热图并加权求和得到稀疏3D关键点；配合多样性损失Ldiv和物体感知倒角距离损失Locd约束关键点分布。(2) 几何感知特征聚合模块(GAFA)：通过关键点与K近邻的相对位置编码聚合局部几何信息，通过关键点间相对位置编码聚合全局几何信息，两阶段将几何信息融入关键点特征以建立鲁棒的关键点级对应。",
+  "core_assumption": "一组稀疏关键点足以表征不同实例的几何结构；将局部（关键点-邻域）和全局（关键点-关键点）几何信息显式编码到关键点特征中，比密集逐点对应更能泛化到未见实例；训练时借助GT位姿和实例模型过滤离群点的监督信号可在推理时自动学会排除离群点。",
+  "limitation": "作者承认：在REAL275最严格指标5°2cm和5°5cm上仍略低于Query6DoF（分别低0.2%和0.3%）。读出局限：(1) 依赖MaskRCNN提供分割掩码，分割错误会传播；(2) Locd训练阶段需要GT位姿与实例模型构建无离群点目标点云，训练监督对标注质量敏感；(3) 仅验证了6个类别、固定关键点数量96，对极端遮挡、类别内形状差异更大或关键点数量需动态调整的场景未探讨；(4) 需要RGB-D输入，纯RGB或深度缺失场景未涉及；(5) 关键点数量固定，未探索按实例复杂度自适应调整。",
+  "eval_setup": "数据集：CAMERA25（合成，300K图像/1085实例/6类，25K测试）+ REAL275（真实，7K图像/13场景，2750验证含每类3个未见实例）。基线：NOCS、DualPoseNet、GPV-Pose、Query6DoF、SPD、SGPA、SAR-Net、RBP-Pose、DPDN、IST-Net等。指标：3D IoU@50/75、n°m cm（5°2cm、5°5cm、10°2cm、10°5cm）。REAL275上5°2cm达54.7%，超DPDN 8.7%，超Query6DoF 5.7%。",
+  "resources": "代码：https://github.com/Leeiieeo/AG-Pose（声称将开源）。算力：单张RTX 3090Ti GPU，batch size 24。数据：使用公开CAMERA25与REAL275数据集，分割掩码复用SPD/DPDN提供的MaskRCNN结果。",
+  "paper_id": "W4402716422",
+  "paper_ids": [
+    "W4402716422"
+  ],
+  "paper_title": "Instance-Adaptive and Geometric-Aware Keypoint Learning for Category-Level 6D Object Pose Estimation",
+  "year": 2024,
+  "citation_count": 52
+}

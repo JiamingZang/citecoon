@@ -1,0 +1,15 @@
+{
+  "problem": "单目多人3D姿态估计（camera-centric坐标）面临人际遮挡与深度歧义两大挑战。现有bottom-up方法将2.5D姿态估计与绝对深度估计视为两个无关子任务，未利用二者间的几何互益关系，且top-down方法因额外检测阶段带来高计算冗余。",
+  "method": "提出MAR统一bottom-up框架：(1) 鲁棒结构化2.5D姿态估计，同时输出heatmap与关节偏移量，以偏移方案推断被遮挡/出画关节；(2) 几何感知深度推理——前向利用2.5D姿态与已知躯干长度通过封闭解求根节点深度，反向将深度梯度回传以增强2.5D姿态表征学习；(3) 自适应融合模块，联合视觉回归深度（Laplace分布+不确定性）与几何深度，缓解单目深度歧义。",
+  "core_assumption": "相机内参已知且人体躯干长度（root到neck的骨长Ω）为固定先验；2.5D姿态与根节点深度之间存在可利用的几何闭合约束；深度不确定性可用Laplace分布充分建模。",
+  "limitation": "作者承认单目深度估计本身具有固有歧义，需融合策略缓解。进一步读出：几何深度推理强依赖准确的2.5D姿态与固定躯干长度Ω，对体型差异大或root/neck关节严重遮挡的场景鲁棒性存疑；封闭解仅用root-neck一对关节，未利用更多骨骼约束；全文仅在MuPoTS-3D和Human3.6M上验证，缺乏大规模真实拥挤场景（如CrowdPose）及视频时序实验；未讨论多人重叠导致PAF关联失败时的退化行为。",
+  "eval_setup": "训练集MuCo-3DHP(400K帧合成)+COCO train2017；测试集MuPoTS-3D(真实户外)、Human3.6M Protocol 2；指标3DPCKrel/3DPCKabs(15cm阈值)、PCKroot、PCOD；骨干HRNet-w32，输入512×832；对比bottom-up(Zhen et al.等)与top-down(Moon et al.等)方法。",
+  "resources": "4×RTX 3090 GPU，batch size 32，训练50k迭代，Adam优化器(lr=5e-4)；HRNet-w32预训练于ImageNet；代码与数据开源情况文中未明确给出。",
+  "paper_id": "W4304091600",
+  "paper_ids": [
+    "W4304091600"
+  ],
+  "paper_title": "Mutual Adaptive Reasoning for Monocular 3D Multi-Person Pose Estimation",
+  "year": 2022,
+  "citation_count": 14
+}

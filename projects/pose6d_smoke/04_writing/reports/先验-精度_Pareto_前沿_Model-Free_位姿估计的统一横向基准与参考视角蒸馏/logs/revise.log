@@ -1,0 +1,22 @@
+[14:25:43] revise_report 先验-精度_Pareto_前沿_Model-Free_位姿估计的统一横向基准与参考视角蒸馏
+
+I'll read the review checklist and the report first, then verify claims against the source library.
+
+Now let me check the source library to verify the claims from the two idea updates.
+
+All review items (P1 + 4 P2) have already been fixed in the current report. Now I need to apply the 2026-07-23 idea updates. Let me verify the key claims and make the edits.
+
+Verified from source library:
+- arxiv:2507.14798: 518px max-edge resize confirmed, scale uncertainty (42m drift at 191 images
+
+Now applying the edits. Starting with §1.1 generalization boundary paragraph.
+
+First edit done. Now applying the remaining edits in parallel where possible.
+
+Now applying edits 2-7. Let me find the exact text locations first.
+
+Let me find the exact text for the remaining edit locations.
+
+Let me read the exact text around each edit location.
+
+⏱ 超过 1800s 上限，已终止

@@ -1,0 +1,15 @@
+{
+  "problem": "如何仅凭单目RGB视频（无需已知相机内参或IMU），在in-the-wild场景下实时完成稠密SLAM，同时输出全局一致的相机位姿与稠密三维几何。核心难点在于需同时求解时变位姿、未知/时变相机模型和场景几何这一高维逆问题。",
+  "method": "以MASt3R双视图三维重建先验为基础，自底向上构建实时单目稠密SLAM系统。关键机制包括：(1) 迭代投影pointmap匹配——将pointmap归一化为光线，通过最小化光线角度误差逐像素并行求解像素对应，替代暴力特征匹配，耗时仅2ms；(2) 基于光线误差（而非3D点误差）的跟踪，对深度预测误差更鲁棒；(3) 加权pointmap融合维护局部canonical点图；(4) 利用MASt3R编码特征构建检索数据库实现回环检测；(5) Sim(3)空间上的二阶全局优化保证大尺度一致性。全系统仅假设每帧存在唯一光心（generic central camera），不依赖固定或参数化相机模型。",
+  "core_assumption": "1) 每帧图像满足generic central camera模型，即所有光线通过唯一光心，从而可将pointmap转为光线映射；2) MASt3R的双视图pointmap和特征预测足够可靠，可作为位姿、相机模型和几何的统一先验；3) 归一化后的ray image是光滑的，使迭代投影匹配能在约10次迭代内收敛。",
+  "limitation": "作者承认：MASt3R输出仍含偏差并导致漂移（需回环缓解）；EuRoC上畸变过大，MASt3R尚未在此类相机模型上训练，须先去畸变；未标定系统在EuRoC上ATE明显增大。额外读出：(1) 系统强依赖MASt3R训练数据分布，对训练分布外的相机/场景泛化能力存疑；(2) generic central camera假设排除了rolling shutter、折反射等非中心相机；(3) 仅对benchmark室内及少量室外序列做了定性展示，缺乏大规模in-the-wild定量评估；(4) 以15 FPS运行仍需每2帧降采样一次来模拟实时，真正的实时性受限于MASt3R推理速度。",
+  "eval_setup": "数据集：TUM RGB-D、7-Scenes、ETH3D-SLAM (train)、EuRoC，均为单目RGB设置。基线：DROID-SLAM、NICER-SLAM、DPV-SLAM/++、DPVO、ORB-SLAM3、Spann3R。位姿指标：ATE RMSE (m)；几何指标：Accuracy、Completion、Chamfer Distance (m)，阈值0.5m。硬件：Intel i9-12900K + 单张RTX 4090；约15 FPS，每2帧降采样；MASt3R输出最大维度512。",
+  "resources": "算力：桌面级单GPU（RTX 4090）。需MASt3R预训练权重。代码与数据链接在给定文本中未提供。",
+  "paper_id": "arxiv:2412.12392",
+  "paper_ids": [
+    "arxiv:2412.12392"
+  ],
+  "paper_title": "MASt3R-SLAM: Real-Time Dense SLAM with 3D Reconstruction Priors",
+  "year": 2024,
+  "citation_count": 0
+}

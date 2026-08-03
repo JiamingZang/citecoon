@@ -1,0 +1,15 @@
+{
+  "problem": "从单张RGBD图像进行物体6D位姿估计。核心挑战在于RGB外观信息与深度几何信息是互补数据源，但现有方法将两者独立提取后再融合，两网络无法在特征学习过程中互相通信，限制了表征能力。",
+  "method": "提出FFB6D全流双向融合网络：用CNN(ResNet34+PSPNet)提取RGB外观特征、用点云网络(RandLA-Net)提取几何特征，在两个网络的每一编码层和解码层都加入pixel-to-point和point-to-pixel融合模块（基于XYZ坐标最近邻查找+max pooling+共享MLP），实现逐层双向信息交换。输出端设计SIFT-FPS关键点选择算法（先用SIFT检测纹理显著的2D关键点再提升到3D，再用FPS均匀采样），通过实例语义分割+关键点投票+最小二乘拟合恢复6D位姿。",
+  "core_assumption": "1) RGB与深度图像严格对齐，可通过相机内参将像素与3D点一一对应，从而在任意层建立跨模态稠密关联；2) 外观与几何信息在编码早期即开始互补共享比仅在末端融合更有效；3) 物体具有可用SIFT检测到的纹理显著区域，且拥有已知3D模型用于关键点定义和最小二乘拟合。",
+  "limitation": "作者承认：需要已知物体3D模型、依赖深度传感器（反光表面深度缺失）。读出的局限：1) 强依赖RGBD对齐，无法扩展到纯RGB或深度缺失场景；2) SIFT-FPS对无纹理/弱纹理物体（如LineMOD中部分物体）关键点选取退化；3) 逐层最近邻融合带来额外计算，实时性仍受限(75ms/frame)；4) 仅在已知类别的封闭集上评估，未探讨未知物体或开放集泛化；5) 融合模块中Kr2p/Kp2r等超参为经验设定，缺乏自适应机制。",
+  "eval_setup": "数据集：YCB-Video(21物体,92视频)、LineMOD(13物体)、Occlusion-LineMOD；指标：ADD-S/ADD(S) AUC(YCB)、ADD-0.1d(LineMOD)；基线：PoseCNN、PointFusion、DenseFusion、PVN3D、MoreFusion等；规模：33.8M参数，75ms/帧(LineMOD)，比PVN3D快2.5倍；含迭代精化与非精化两组对比及多组消融(融合阶段/方向/骨干/关键点算法)。",
+  "resources": "代码开源：https://github.com/ethnhe/FFB6D.git ；需ImageNet预训练ResNet34；训练需合成渲染图像及深度补全；GPU训练（具体卡型未明确）；推理需深度传感器提供对齐RGBD输入。",
+  "paper_id": "W3179923621",
+  "paper_ids": [
+    "W3179923621"
+  ],
+  "paper_title": "FFB6D: A Full Flow Bidirectional Fusion Network for 6D Pose Estimation",
+  "year": 2021,
+  "citation_count": 359
+}

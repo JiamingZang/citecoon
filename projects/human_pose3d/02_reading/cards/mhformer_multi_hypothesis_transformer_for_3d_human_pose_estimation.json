@@ -1,0 +1,15 @@
+{
+  "problem": "单目视频2D-to-3D人体姿态提升是一个病态逆问题，因深度模糊和自遮挡存在多个可行解。现有方法（包括GCN和Transformer）仅估计单一解，忽略多假设本质；而已有多假设方法只做一对多映射，未建立不同假设特征之间的关系。",
+  "method": "提出三阶段Multi-Hypothesis Transformer（MHFormer）：(1) MHG模块用级联Transformer编码器在空间域生成多层级特征作为多假设初始表示；(2) SHR模块通过多假设自注意力（MH-SA）独立建模各假设时序依赖，再用hypothesis-mixing MLP将多假设拼接合并后切分（convergence-divergence）实现自假设精炼；(3) CHI模块通过多假设交叉注意力（MH-CA，将不同假设交替作为Q/K/V）建模假设间交互，最后用hypothesis-mixing MLP聚合所有假设为单一表示回归3D姿态。全程端到端MSE损失训练。",
+  "core_assumption": "2D-to-3D提升是逆问题，先一对多再多的映射比直接单一映射更能丰富特征多样性、提升最终合成精度。MHG不同深度的多层级特征可自然视为不同假设的初始表示，无需显式多样性约束即可产生有意义的假设分化。",
+  "limitation": "作者承认：Transformer计算复杂度较大（多假设使参数和FLOPs成倍增加）。读出的局限：(1)假设多样性仅来自级联深度而非显式约束，假设是否真正覆盖不同可行解缺乏量化验证；(2)假设数固定为3，无法自适应不同遮挡/模糊程度；(3)最终仍输出确定性单一解，未提供不确定性估计；(4)依赖上游2D检测器精度，检测器误差传播未被建模；(5)仅在室内（Human3.6M）和有限室外（MPI-INF-3DHP）场景验证，缺乏真实野外场景泛化性考察；(6)多假设间交互设计（交替Q/K/V）的理论最优性未充分论证。",
+  "eval_setup": "数据集：Human3.6M（S1/5/6/7/8训练，S9/11测试，15动作，351帧输入）和MPI-INF-3DHP（9帧输入）。指标：MPJPE、P-MPJPE、PCK@150mm、AUC。基线：PoseFormer、ST-GCN、VPose、UGCN、Anatomy3D、MGCN、GraphSH及多假设方法（Wehrbein等）。规模：约18.92M参数，1.03G FLOPs，3个假设。",
+  "resources": "代码开源：https://github.com/Vegetebird/MHFormer。训练硬件：单张GeForce RTX 3090 GPU。框架：PyTorch，Amsgrad优化器。2D检测：Human3.6M用CPN，MPI-INF-3DHP用GT 2D姿态。",
+  "paper_id": "W4312249545",
+  "paper_ids": [
+    "W4312249545"
+  ],
+  "paper_title": "MHFormer: Multi-Hypothesis Transformer for 3D Human Pose Estimation",
+  "year": 2022,
+  "citation_count": 426
+}

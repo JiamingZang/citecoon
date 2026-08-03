@@ -1,0 +1,15 @@
+{
+  "problem": "单目视频2D到3D人体姿态提升任务中，现有方法在真值2D姿态上表现不佳；TCN/Transformer方法将姿态序列展平后使用共享全连接层估计所有关节，忽略了不同关节的独立结构特征；GCN方法虽保留骨骼结构但同样用池化特征估计各关节，未充分利用GCN表示的结构化信息。",
+  "method": "提出GLA-GCN，包含全局表示与局部估计两个模块：全局模块使用自适应GCN（含物理邻接矩阵A、可学习连接强度B、特征相似度C三部分）从2D姿态序列重建3D姿态序列作为中间监督；随后通过步幅卷积逐步将时间维度从243压缩至1，聚合时间邻域信息；最终提出独立连接层（含非共享与共享两种变体），用每个关节节点自身的96维特征F(96,1,1)经独立线性层预测其3D坐标，而非使用所有关节的池化表示。",
+  "core_assumption": "全局时空信息已被AGCN和步幅卷积充分聚合到每个关节节点特征中，因此局部关节特征足以独立推断其3D位置；真值2D姿态的性能上限提升可随未来更高质量估计2D姿态的获得而迁移到实际场景。",
+  "limitation": "作者承认：模型参数效率有待改善（独立连接层为每关节设独立权重）；非共享独立连接层可能过拟合关节特定分布。读出局限：核心结果依赖真值2D姿态，估计2D姿态下优势未充分验证；仅在单人场景下验证；未探索其他损失函数（骨骼、运动轨迹）的增益；对遮挡、快速运动等困难场景的鲁棒性未讨论；独立连接层假设关节间无需交互即可预测，对运动学耦合强的动作可能受限。",
+  "eval_setup": "数据集：Human3.6M（S1/5/6/7/8训练，S9/11测试，17关节，243帧输入）、HumanEva-I（S1/2/3的walk/jog，15关节）、MPI-INF-3DHP；基线：TCN类（VideoPose3D等）、Transformer类（[38,78]）、GCN类（SemGCN、UGCN）；指标：MPJPE（Protocol#1）与P-MPJPE（Protocol#2），单位mm；2D检测器：CPN（H3.6M）、MRCNN（HumanEva-I）及GT 2D；报告GT 2D下分别降低3%、17%、14%误差。",
+  "resources": "代码开源：https://github.com/bruceyo/GLA-GCN；模型通道数96，时间卷积核Γ=9，空间采样K=3；具体GPU/训练时长未在给定文本中明确。",
+  "paper_id": "W4390873166",
+  "paper_ids": [
+    "W4390873166"
+  ],
+  "paper_title": "GLA-GCN: Global-local Adaptive Graph Convolutional Network for 3D Human Pose Estimation from Monocular Video",
+  "year": 2023,
+  "citation_count": 151
+}

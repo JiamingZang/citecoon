@@ -1,0 +1,15 @@
+{
+  "paper_id": "arxiv:2403.11510",
+  "paper_title": "GenFlow: Generalizable Recurrent Flow for 6D Pose Refinement of Novel Objects",
+  "problem": "render-and-compare 迭代精化（MegaPose 式）逐帧从零优化、迭代多且慢；需要一个可泛化的、少迭代次数收敛的 test-time 精化器。",
+  "method": "可泛化递归 flow 精化器：级联多个 GenFlow 模块，每模块估计 2D 对应 flow + 置信度；置信度分解为 certainty（用训练深度学，抗遮挡）与 pose sensitivity 两因子；shape-constraint 注入 3D 形状信息；粗估计用 GMM-based 采样（M 个 GMM 分量生成 2M 次渲染假设，少于朴素 576 旋转采样）；精化跑 5 次外层更新×8 次内层更新。",
+  "core_assumption": "精化可以摊销成一次前向+少量内层迭代而非逐帧从零优化；置信度分解（遮挡确定性 × 位姿敏感度）能让 flow 对遮挡鲁棒；形状约束（3D 信息）不损害泛化。",
+  "limitation": "需在目标数据集上训练（非免训练）；单次外层更新 98.2ms 比 MegaPose 精化器慢（66.5ms）；依赖渲染-比较范式仍要逐迭代渲染。",
+  "eval_setup": "BOP 五数据集 LM-O/T-LESS/TUD-L/IC-BIN/YCB-V，Average Recall；消融：shape-constraint +3.5、cascade +0.6、confidence 分解 +0.3（均值 AR）；粗估计用 GMM 采样 M=104（144-208 次渲染）优于 576 naive 采样；RTX 3090。",
+  "resources": "arXiv 全文在 papers/ 已落盘。",
+  "year": 2024,
+  "citation_count": 51,
+  "paper_ids": [
+    "arxiv:2403.11510"
+  ]
+}

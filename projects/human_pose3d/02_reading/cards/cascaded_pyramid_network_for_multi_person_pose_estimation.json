@@ -1,0 +1,15 @@
+{
+  "problem": "多人姿态估计中，被遮挡、不可见及复杂背景下的\"困难\"关键点难以仅凭外观特征准确定位，且训练过程中未被显式关注，导致这些关键点的定位精度远低于眼睛、手等\"简单\"关键点。",
+  "method": "提出级联金字塔网络（CPN），包含两阶段：GlobalNet 基于特征金字塔结构（ResNet backbone 的 C2~C5 多尺度特征经 1×1 卷积+逐元素相加的上采样路径）提供充足上下文以定位简单关键点；RefineNet 将 GlobalNet 所有层级的金字塔特征经不同数量 bottleneck block 后拼接融合，并引入在线困难关键点挖掘损失（仅对 N 个标注关键点中 loss 最大的 M 个回传梯度），显式强化困难关键点学习。整体采用 top-down 流程：先用 FPN+ROIAlign 检测器生成人体框，再对每个裁剪区域用 CPN 估计关键点。",
+  "core_assumption": "1) 特征金字塔的多尺度上下文信息足以辅助推断被遮挡/不可见关键点的位置；2) top-down 流程中每个人体检测框内仅含一个主要人物；3) 困难关键点可通过训练 loss 大小在线识别并单独优化，且 M 的选取（M=8）能平衡困难与简单关键点的训练。",
+  "limitation": "作者承认：检测框 AP 从 44.3 提升到 49.3 时关键点 AP 不再增长，说明 top-down 流程受限于检测器上界；在 GlobalNet 上直接施加 hard mining 反而降 0.3 AP，说明该策略对浅层监督不适用。读出的局限：1) 仅在 COCO 17 个关键点上验证，未讨论更多关键点或 3D 姿态的泛化；2) 未与 bottom-up 方法在速度上系统对比，top-down 推理时间随人数线性增长；3) hard keypoint mining 的 M 为手动调参，缺乏自适应机制；4) 对极度拥挤场景中检测框重叠/漏检情况无专门处理；5) 未探讨视频时序信息或多帧融合的可能性。",
+  "eval_setup": "数据集：MS COCO trainval（57K 图/150K 人体实例）训练，minival（5K 图）验证，test-dev/test-challenge（各 20K 图）测试。基线：8-stage Stacked Hourglass、ResNet-50+dilation、Mask R-CNN、G-RMI、Associative Embedding、CMU-Pose 等。指标：OKS-based AP（含 AP@.5/.75/AR/APm/APl）。规模：输入 256×192 或 384×288；最终用 ResNet-Inception backbone + 集成模型，test-dev 73.0 AP，test-challenge 72.1 AP。",
+  "resources": "代码：https://github.com/allenchen9512/tf-cpn（TensorFlow）；检测框结果公开。算力：ResNet-50 模型在 8×NVIDIA Titan X Pascal 上训练约 1.5 天；ImageNet 预训练权重初始化；SGD，初始 lr 5e-4，每 10 epoch 减半，weight decay 1e-5，BatchNorm。",
+  "paper_id": "W2964221239",
+  "paper_ids": [
+    "W2964221239"
+  ],
+  "paper_title": "Cascaded Pyramid Network for Multi-person Pose Estimation",
+  "year": 2018,
+  "citation_count": 1839
+}

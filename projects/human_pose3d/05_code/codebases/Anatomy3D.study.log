@@ -1,0 +1,20 @@
+[14:58:36] study_codebase https://github.com/sunnychencool/Anatomy3D
+
+I'll clone the Anatomy3D repo and analyze it for bone length/direction decomposition and anatomical prior injection.
+
+Clone succeeded. Now exploring the repo structure and key code.
+
+Now reading the core source files for bone decomposition and anatomical priors.
+
+Now reading arguments, generators, skeleton, and run.py for the full picture.
+
+Let me check the remaining files for dataset setup and camera utilities.
+
+I now have all the information needed. Writing the repo card.
+
+完成。已将仓库克隆至 `./Anatomy3D/` 并生成 `./Anatomy3D.md` 卡片。
+
+核心发现：
+- **骨长/骨方向分解**在 `common/bone.py:26-50` 实现（L2范数 + 单位向量归一化），最终在 `common/model.py:484-488` 通过 `bonel * boned` 相乘重建 3D 姿态。
+- **解剖先验注入**有三条路径：骨长注意力机制（帧间加权平均，`model.py:420-430`）、可见性分数门控（`model.py:254`）、骨长数据增强（`generators.py:43-88`）。
+- **硬编码最严重的位置**是 `generators.py:56-87` 的 `randomaug()` 函数——16 根骨到关节的传播索引全部手写，换数据集必须重写。

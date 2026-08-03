@@ -1,0 +1,15 @@
+{
+  "problem": "提出开放词汇物体6D位姿估计新设定：仅通过文本提示指定目标物体，推理时无需CAD模型或视频序列，且目标物体出现在两个不同场景的两个RGBD视角中，需估计其相对6D位姿。",
+  "method": "提出Oryon方法：利用冻结的CLIP图像/文本编码器提取视觉特征图与文本特征，通过基于代价体（cosine相似度）的文本-视觉融合模块ϕTV将提示语义注入局部视觉特征，并用Swin Transformer引导特征增强空间一致性；经三层上采样解码器获得高分辨率特征图(192×192)，同时用于对比学习匹配（hardest negative mining）和分割头预测掩码；测试时用预测掩码过滤最近邻匹配点，反投影至3D后由PointDSC完成点云配准得到相对位姿。",
+  "core_assumption": "假设CLIP的全局语义对齐能力可迁移到局部特征图，使文本提示能有效引导局部视觉表征；假设用户提供的文本描述足以唯一区分场景中的目标物体；假设深度信息可获取以完成3D反投影与配准。",
+  "limitation": "作者承认：(1)依赖深度图，限制了无深度场景的适用性；(2)某些物体（如机械零件）难以用文本准确描述。读出：(3)预测掩码与Oracle掩码间AR差距达14.3(REAL275)，分割错误直接导致位姿失败；(4)仅在34个实例、6类物体上验证，开放词汇泛化能力未经大规模验证；(5)仅估计相对位姿而非绝对位姿；(6)训练集ShapeNet6D为合成数据，真实域迁移仍有明显性能损失；(7)对提示措辞高度敏感，将物体名替换为'object'后分割几乎完全失败(−63.5 mIoU)。",
+  "eval_setup": "训练集ShapeNet6D(合成,20K图像对)；测试集REAL275(2K对,6类×3实例)和Toyota-Light(2K对,光照挑战)，共34实例4K图像对；基线为SIFT+PointDSC和ObjectMatch；主指标AR(VSD/MSSD/MSPD均值)，另报ADD(S)-0.1d和mIoU；分割先验对比Oracle/OVSeg/自身预测掩码。",
+  "resources": "代码与数据集公开于 https://jcorsetti.github.io/oryon ；骨干网络CLIP ViT-L/14(冻结)+Swin Transformer(引导)；训练20 epochs，Adam lr=1e-4，cosine退火；使用JADE2 HPC(Tier 2)。",
+  "paper_id": "W4402753839",
+  "paper_ids": [
+    "W4402753839"
+  ],
+  "paper_title": "Open-vocabulary object 6D pose estimation",
+  "year": 2024,
+  "citation_count": 34
+}

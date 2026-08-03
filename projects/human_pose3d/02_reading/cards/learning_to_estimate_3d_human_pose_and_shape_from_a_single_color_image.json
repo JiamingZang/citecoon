@@ -1,0 +1,15 @@
+{
+  "problem": "从单张彩色图像估计全身3D人体姿态与形状。此前迭代优化方法虽为主流但速度慢、易陷入局部极小且依赖易出错的2D线索；ConvNet方案则受限于缺乏带3D形状真值的训练数据以及低分辨率3D预测。",
+  "method": "将SMPL参数化人体模型嵌入端到端ConvNet框架：先用Stacked Hourglass网络(Human2D)从图像预测2D关键点和轮廓；再分别用PosePrior(双线性单元，从2D关键点估计72维姿态参数θ)和ShapePrior(5层CNN+双线性单元，从轮廓估计10维形状参数β)；训练时通过可微SMPL生成6890顶点网格并施加逐顶点3D损失，同时利用可微渲染器OpenDR将网格投影回图像，以2D关键点和轮廓一致性损失实现无需3D真值的端到端微调。",
+  "core_assumption": "3D姿态可仅从2D关键点可靠恢复、体型可仅从轮廓可靠恢复，二者可解耦估计；SMPL低维参数空间(72+10)足以表达所需人体变化；大量可用2D标注(关键点和分割掩码)足以替代稀缺的图像级3D形状真值来训练整个流程。",
+  "limitation": "作者承认：UP-3D真值本身由SMPLify生成存在偏差，SURREAL合成图像不够真实导致2D检测噪声大；CMU MoCap无法覆盖体操/跑酷等极端姿态造成域偏移。读出的开放问题：完全依赖上游2D检测质量，遮挡、多人、宽松衣物下轮廓失真将直接传播；SMPL模型表达力有限(不含衣物、头发、面部细节)；未讨论体型-姿态解耦在极端视角或自遮挡下是否仍成立；缺乏对真实野外无约束图像的大规模定量验证。",
+  "eval_setup": "数据集：UP-3D(8515张，测试1389张，含Reduced 139张子集)、SURREAL(Human3.6M部分，每5帧取1帧)、Human3.6M(S9/S11，cam3，50→10fps)。基线：SMPLify[7]、Lassner et al.[22]、Tan et al.[43]。指标：平均逐顶点误差(mm)、重建误差(mm)、分割acc/f1。规模：推理50ms/帧(Titan X)，比SMPLify快三个数量级以上。",
+  "resources": "代码/项目页：https://www.seas.upenn.edu/~pavlakos/projects/humanshape；训练数据：MPII、LSP、LSP-extended(2D标注)、CMU MoCap(姿态)、CAESAR体型扫描(形状)、Lassner et al.提供的轮廓；算力：NVIDIA Titan X GPU，Human2D训练1.2M迭代(batch 4)，Priors训练100k迭代(batch 256)，端到端微调2k迭代。",
+  "paper_id": "W2798637590",
+  "paper_ids": [
+    "W2798637590"
+  ],
+  "paper_title": "Learning to Estimate 3D Human Pose and Shape from a Single Color Image",
+  "year": 2018,
+  "citation_count": 652
+}

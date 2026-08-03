@@ -1,0 +1,15 @@
+{
+  "problem": "WiFi-CSI 3D人体姿态估计面临三大瓶颈：跨环境/硬件泛化脆弱、标注依赖相机且规模有限、将CSI重塑为2D图像网格会混淆子载波/时间/链路的物理语义并引入设备特异性伪影。",
+  "method": "提出WiFi-JEPA自监督框架：在因子化CSI张量(C,T,L)上进行结构感知tokenization，保留子载波、时间、链路三轴独立性；采用JEPA式掩码潜空间预测（非重建原始CSI），并引入link masking——整条Tx-Rx链路被遮蔽后由剩余链路预测，显式利用多链路空间相关性；同时构建基于NVIDIA Sionna光线追踪的sim-object仿真管线，用随机几何体物理轨迹生成90K帧CSI用于预训练。",
+  "core_assumption": "SSL预训练所需的是WiFi信号在时间/频率/空间上的多样变化模式（轨迹多样性），而非散射体的几何保真度；多链路间空间相关性是恢复人体位置信息的关键，遮蔽整条链路可迫使模型学习跨链路姿态相关表征。",
+  "limitation": "作者承认：PA-MPJPE（相对关节构型）几乎未优于从零训练，说明方法主要改善全局定位而非精细姿态；跨环境误差虽减半仍远高于同环境；仅在单一数据集/固定硬件(5.64 GHz, Intel 5300)上评估，跨天线配置与频段泛化未知。进一步读出：多人场景仍退化明显(3P 110.7 mm)；sim-human出现负迁移说明仿真多样性设计敏感；仿真仅匹配SIMO配置，对MIMO/不同子载波数的迁移未验证；无代码/预训练权重公开声明。",
+  "eval_setup": "数据集：PiW3D（唯一公开多人WiFi-CSI 3D姿态基准），训练89,946帧/测试7,824帧，3个室内环境(办公室/教室/走廊，约4m×3.5m)，1Tx×3Rx×3天线×30子载波@5.64GHz，14关节，1-3人场景。基线：PiW3D、MetaFi++、DT-Pose等WiFi HPE方法及DANN域适应。指标：MPJPE(mm)、PA-MPJPE、PCK@20/50mm、分维度误差。规模：90K仿真帧+90K真实帧预训练，100 epochs。",
+  "resources": "仿真生成：1×RTX 4090约10 GPU-hours（90K帧）；场景生成CPU-only <1s/clip。真实数据复用PiW3D已有训练集作无标签预训练。代码/预训练权重未在文中明确公开。",
+  "paper_id": "W7168432887",
+  "paper_ids": [
+    "W7168432887"
+  ],
+  "paper_title": "WiFi-JEPA: Self-supervised Learning for WiFi-CSI 3D Human Pose Estimation",
+  "year": 2026,
+  "citation_count": 0
+}

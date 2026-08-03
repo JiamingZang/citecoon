@@ -1,0 +1,22 @@
+[18:43:21] review_report 遮挡鲁棒的多人绝对3D位姿估计_几何先验增强的RootNet
+
+I'll review the report adversarially against the project's source library. Let me start by reading the report and exploring available sources.
+
+Now let me read the key source files to verify claims. I'll launch parallel agents to check different dimensions.
+
+Good progress. Let me verify a few more specific claims that need checking.
+
+Let me check a few more specific claims.
+
+Now I have sufficient data to compile the review. Let me verify one final detail about the MRPE dataset attribution.
+
+I have enough data to compile the review. Let me write the review file.
+
+审校完成，已写入 `reports/遮挡鲁棒的多人绝对3D位姿估计_几何先验增强的RootNet/review.md`。
+
+**结果摘要：**
+- **P0: 0条** — 无编造数据
+- **P1: 1条** — MRPE 289/178 mm 被系统性错误归属于 MuPoTS-3D，实际来源（Root-GAST-Net卡）明确标注为 Human3.6M 上的结果
+- **P2: 2条** — 3DPCKabs"约44%"来源标注不精确（卡无此数字，论文有）；MuPoTS-3D场景描述"户外"与"室内外"自相矛盾
+
+**判定：需修订后发布。** 核心质量很高——29处 file:line 引

@@ -1,0 +1,30 @@
+[project]
+name = "citecoon"
+version = "0.2.0"
+description = "Citecoon 学术调研工具集 — MCP 纯工具面（检索/引文图谱/原文获取/带校验落盘/导出），分析判断由外层 agent 完成"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "stirrup[all]==0.1.11",  # pinned for reproducibility（工具类型系统 Tool/ToolResult）
+    "json-repair>=0.30",
+    "python-dotenv>=1.0",
+    # vendored engine (saagent.engine) runtime deps — previously provided by the
+    # separate SuperAcademicAISearch install; now declared here for self-containment.
+    "httpx>=0.27",
+    "networkx>=3.0",
+    "pydantic>=2.0",
+    "rich>=13.0",
+    "pymupdf>=1.24",
+    "markdown>=3.6",  # 报告 md → HTML → PDF（Chrome headless 打印）
+    "mcp>=2.0,<3",  # MCP stdio server；server.py 走 2.0 的 MCPServer + lowlevel add_request_handler 写法
+]
+
+[project.scripts]
+citecoon = "citecoon.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

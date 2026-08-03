@@ -1,0 +1,21 @@
+[14:54:06] study_codebase https://github.com/QitaoZhao/PoseFormerV2
+
+I'll clone the PoseFormerV2 repo and analyze its frequency-domain compression implementation.
+
+Cloning the repository now.
+
+Clone succeeded. Now exploring the codebase for DCT/frequency-domain compression implementation.
+
+Found DCT in key model files. Reading them now for the frequency-domain compression details.
+
+Now reading the arguments file and README for configuration and environment details.
+
+Now let me check the training script and the 3DHP options file for completeness.
+
+Let me check how the model is instantiated in the training script.
+
+I have all the information needed. Writing the card now.
+
+侦察完成。卡片已写入 `./PoseFormerV2.md`。
+
+核心发现：DCT 截断在 `common/model_poseformer.py:218`，对时间轴做 type-II DCT 后直接切片 `[:num_coeff_kept]` 保留低频系数（默认等于 `num_frame_kept`，典型值 3）；时频融合通过 `MixedBlock` 实现——拼接后的 token 序列前半走标准 MLP、后半走 FreqMlp（DCT→MLP→IDCT），最终两路分别 1x1 Conv 加权平均后拼接输出。所有关键代码位置、行号、原代码片段均已记录在卡片中。

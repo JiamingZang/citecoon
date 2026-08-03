@@ -1,0 +1,15 @@
+{
+  "problem": "现有单目3D人体姿态估计（2D-to-3D lifting）方法主要依赖关节位置坐标，忽略了骨骼方向与关节角度之间的内在关联，将二者视为独立约束而未建模其相关性，导致在遮挡或快速运动场景下产生不合理姿态。",
+  "method": "提出PoseGRAF框架：(1) 双流图卷积结构——Joint GCN建模关节局部空间依赖，Bone Direction GCN分别构建以相邻骨骼夹角为边权的有向加权图和以二值连通性为边的有向无权图，捕获骨骼方向与角度的几何关联；(2) Cross-Attention模块通过多头注意力建模关节与骨骼方向间的跨模态依赖，并用EMA跨层聚合注意力分数；(3) 基于注意力的动态融合模块以可学习阈值筛选关键关节，再通过BFS拓扑扩散将骨骼方向特征注入全局关节重建；(4) 改进Transformer编码器以残差方式生成最终3D回归输出。",
+  "core_assumption": "骨骼方向与关节角度蕴含的几何先验与关节位置特征互补，显式建模二者关联可有效缓解深度歧义；人体骨架拓扑固定已知且2D关键点检测（CPN）足够可靠，使得从2D骨骼方向向量计算的角度信息能有效指导3D回归。",
+  "limitation": "作者承认：尚未引入时序运动学约束，且缺乏轻量化部署方案。进一步读出的局限：(1) 方法为纯单帧，未利用视频时序信息，而部分对比方法（标*）已使用时序；(2) 动态融合中BFS遍历与top-μ筛选的计算开销及μ敏感性未充分分析；(3) 野外泛化仅为定性展示，缺少in-the-wild定量基准；(4) 骨骼图结构固定，无法自适应非标准体型或异常拓扑；(5) 对2D检测器误差的鲁棒性未做系统消融。",
+  "eval_setup": "数据集：Human3.6M（3.6M帧，S1/5/6/7/8训练，S9/S11测试）与MPI-INF-3DHP（1.3M帧，Human3.6M训练模型直接迁移）；基线：GraFormer、GraphMLP、DGFormer、SRNet、PoseGTAC、GraphSH、PHGANet等；指标：MPJPE/P-MPJPE（H3.6M），PCK@150mm/AUC（MPI-INF-3DHP）；规模：单卡RTX 3090，40 epochs，Adam lr=0.001。",
+  "resources": "代码开源：https://github.com/iCityLab/PoseGRAF ；硬件：单张NVIDIA RTX 3090 GPU；2D检测器：CPN（Cascaded Pyramid Network）；Transformer 6层、8头、d=512。",
+  "paper_id": "W4412612582",
+  "paper_ids": [
+    "W4412612582"
+  ],
+  "paper_title": "Posegraf: Geometric-Reinforced Adaptive Fusion for Monocular 3d Human Pose Estimation",
+  "year": 2025,
+  "citation_count": 0
+}

@@ -1,0 +1,15 @@
+{
+  "problem": "从2D关键点序列估计3D人体姿态时，现有方法要么未显式分离空间与时间建模（如TCN、GCN），要么缺乏自监督预训练来增强时空表征能力；Transformer方法（如PoseFormer）在帧聚合时忽略当前帧及其近邻的重要性。",
+  "method": "提出两阶段框架P-STMO：阶段一通过掩码姿态建模（MPM）任务进行自监督预训练，采用时空联合掩码策略（时间掩码率90%+空间掩码）让编码器学习2D时空依赖；阶段二将预训练编码器加载到STMO模型中微调，STMO由三个串联模块组成——SEM（轻量MLP建立帧内关节空间关系）、TEM（标准Transformer捕获非局部时间依赖，配合时间下采样策略TDS扩大感受野并降低冗余）、MOFA（基于跨步Transformer的多对一帧聚合器，逐层以步长3的1D卷积缩减时间维度，最终预测中间帧3D姿态）。",
+  "core_assumption": "通过自监督重建被掩码的2D姿态序列所习得的时空表征可有效迁移至3D姿态估计（单目运动信息有助于深度推断）；2D姿态序列高度冗余，需要极高掩码率（90%）才能构成有效学习信号；空间关节关系可用轻量MLP充分建模而无需自注意力。",
+  "limitation": "作者承认：TDS在243帧时仅带来0.2mm增益，时间感受野增大存在收益递减；空间掩码任务比时间掩码更困难，掩码数超过7后引入过多噪声反而损害编码器。读出的局限：方法依赖现成2D检测器（CPN），检测误差会传播；仅在Human3.6M（室内）和MPI-INF-3DHP（有限室外）上验证，缺乏对极端遮挡、快速运动、多人场景的讨论；预训练目标为2D重建，与3D深度推断之间的gap未被理论分析；未探讨更长序列（>243帧）或跨数据集预训练的潜力；MPM中Stage I loss与Stage II误差的负相关仅为经验观察，缺乏理论保证。",
+  "eval_setup": "数据集：Human3.6M（5人训练/2人测试，15种动作，MPJPE与P-MPJPE）、MPI-INF-3DHP（8人训练，PCK@150mm/AUC/MPJPE）。基线：VideoPose3D、PoseFormer、MHFormer、STE等2019-2022方法。输入帧数N=81或243，2D检测器为CPN（主实验）及GT 2D（下界实验）。最佳结果：Human3.6M MPJPE 42.8mm（CPN）/29.3mm（GT），P-MPJPE 34.4mm；MPI-INF-3DHP AUC 75.8、MPJPE 32.2mm。消融在P-STMO-S（N=81）上进行。",
+  "resources": "单张GeForce GTX 3080Ti GPU；PyTorch实现；Adam优化器，80 epochs，batch size 160；Stage I学习率1e-4，Stage II学习率7e-4，每epoch衰减3%；P-STMO约6.7M参数、868.5M FLOPs（Stage II推理）；代码/数据链接文中未明确给出。",
+  "paper_id": "W4312797994",
+  "paper_ids": [
+    "W4312797994"
+  ],
+  "paper_title": "P-STMO: Pre-trained Spatial Temporal Many-to-One Model for 3D Human Pose Estimation",
+  "year": 2022,
+  "citation_count": 179
+}

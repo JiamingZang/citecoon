@@ -1,0 +1,35 @@
+[20:00:38] review_report 标定视觉基础模型的泛化边界_面向未见物体位姿估计的自适应层选择
+
+I'll review the report adversarially, cross-checking all verifiable claims against the project's source library. Let me start by reading the report and exploring the source materials.
+
+Now let me read the key source files to verify claims. I'll check the repo card, relevant cards, and papers.
+
+Let me continue checking the specific claims in the papers and cards.
+
+Let me check more cards and paper references.
+
+Let me check more references cited in the report.
+
+Let me check the T-LESS card, Horyon card, OPT-Pose card, and the idea file.
+
+Let me check the T-LESS card and verify a few more claims.
+
+Let me verify a few more specific claims before writing the review.
+
+Now I have enough data to write the review. Let me verify one final claim about the compute time inconsistency.
+
+Now I have enough evidence to write the review. Let me compile my findings.
+
+The file already exists with a prior review. Let me verify some of the prior review's claims against what I actually found, then write a corrected version.
+
+The prior review has significant errors — it fabricated quotes from the report and misidentified correct citations as wrong. Let me write an accurate review.
+
+审校完成，review.md 已写入。
+
+**结果摘要**：P0=0 / P1=1 / P2=3，总体判定**需修订后发布**。
+
+唯一 P1：§2 C1 计算量估算中 "16×76≈20h" 的乘法将数据集维度重复计入（76 min 已含两数据集 38 物体），正确结果为 ~10 h（与 §3.4.2 和 §3.6.3 一致）。
+
+3 条 P2 均为出处归属或标注小问题（ViT-S 22M 参数量无来源库出处、MegaPose "5次迭代"出处应指向 papers/foundpose 而非 cards/megapose、"200万+"中"+"为自加）。
+
+核心文献引用（15篇论文）、代码行号

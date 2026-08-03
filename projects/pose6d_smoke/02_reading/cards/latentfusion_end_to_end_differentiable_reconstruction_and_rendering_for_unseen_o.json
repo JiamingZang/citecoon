@@ -1,0 +1,13 @@
+{
+  "paper_id": "arxiv:1912.00416",
+  "paper_title": "LatentFusion: End-to-End Differentiable Reconstruction and Rendering for Unseen Object Pose Estimation",
+  "problem": "如何在测试时无需重新训练，仅通过少量深度图像（RGB-D）就能估计从未在训练集中出现过的新物体的6D位姿——即构建一个端到端可微的通用位姿估计系统，无需CAD模型。",
+  "method": "LatentFusion 在推理时通过以下步骤重建新物体的隐式3D表示：(1) 用编码器将参考RGB-D图像映射到隐式3D潜在空间，构建latent 3D模型；(2) 用可微渲染器从任意视角渲染该latent模型生成合成图像；(3) 通过最小化渲染图像与查询图像之间的差异来优化位姿。整个系统端到端可微，潜在重建和位姿优化联合进行。模型在多个ShapeNet类别上训练，推理时泛化到新物体/新类别。",
+  "core_assumption": "经过多类别训练的编码器能够学到与物体类别无关的通用3D几何特征，从而在测试时对任意新物体构建有意义的隐式3D表示。可微渲染使得位姿可以通过梯度下降直接优化，无需显式3D模型。关键前提：需要测试时的深度图像（RGB-D）和物体分割掩码，推理时进行基于梯度的优化较慢。",
+  "limitation": "(1) 推理时需要深度图像和物体分割掩码，限制了应用场景（RGB-only情况不适用）；(2) 基于梯度优化的位姿估计推理速度慢，不适合实时应用；(3) 隐式3D表示的重建质量依赖参考图像数量和质量；(4) 优化过程容易陷入局部最优，对初始化较敏感；(5) 相比后续的render-and-compare方法（如MegaPose），精度和鲁棒性有限；(6) 仅在MOPED数据集等小规模测试集上评估。",
+  "eval_setup": "MOPED数据集（model-free设置，需depth+mask）。对比基线：PVNet（instance-specific）。指标：ADD-AUC（阈值0-10cm）。训练在ShapeNet多类别上进行。测试时每物体使用若干参考RGB-D图像帧构建latent模型。",
+  "resources": "需要RGB-D相机。推理时需较多计算资源用于梯度优化。代码未必完全公开。",
+  "paper_ids": [
+    "arxiv:1910.10009"
+  ]
+}

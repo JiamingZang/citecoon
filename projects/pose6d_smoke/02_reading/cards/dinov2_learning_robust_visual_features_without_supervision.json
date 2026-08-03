@@ -1,0 +1,15 @@
+{
+  "paper_id": "arxiv:2304.07193",
+  "paper_title": "DINOv2: Learning Robust Visual Features without Supervision",
+  "problem": "自监督视觉特征能否在不微调的情况下跨任务、跨分布开箱即用（像 NLP 基础模型那样）？此前自监督方法多在小数据集（IN1K）上验证，未策划大数据上质量骤降；弱监督（CLIP）特征虽强但依赖文本-图像对齐数据。",
+  "method": "DINOv2：组合 DINO（图像级自蒸馏，class token 交叉熵）+ iBOT（patch 级掩码预测，mask token 交叉熵）+ SwAV 式 Sinkhorn-Knopp 中心化 + KoLeo 正则化（均匀分布特征）+ Gram anchoring（稳定训练）。数据管线：用自监督 ViT-H 嵌入做 k-means 聚类 + 最近邻检索，从 1.2B 未策划图像中筛出 142M 策划集（LVD-142M）。ViT-g/14（1.1B 参数）训练后蒸馏出 S/B/L 小模型。",
+  "core_assumption": "自监督方法（DINO+iBOT 式判别式学习）在足够大且精心策划的数据上训练，能产出与弱监督（CLIP 式文本-图像对齐）特征竞争甚至超越的通用视觉特征——无需文本监督、无需微调即可在图像级和像素级任务上开箱即用。数据策划（自动检索+去重+再平衡）比数据量更关键。",
+  "limitation": "纯图像训练，无时序建模——SSv2 仅 38.3%（V-JEPA 72.2%，差 34 点）；依赖精心策划的 142M 图像数据集（自动管线但需大量计算做检索/聚类）；训练不稳定需多项工程技巧（Sinkhorn-Knopp 中心化、Gram anchoring、高分辨率退火）；像素级任务虽强但仍需任务特定解码器。",
+  "eval_setup": "LVD-142M 预训练 ViT-S/B/L/g；冻结特征线性探测：IN1K 84.5%（ViT-g，超 OpenCLIP-G）、iNat2018 81.6%、ADE20K 分割、NYUv2 深度、Oxford/Paris 实例检索（mAP 超 OpenCLIP +34%）；视频：K400 78.4%、SSv2 38.3%（线性，无视频训练）；12 个细粒度分类基准平均 92.1%。",
+  "resources": "代码与权重全开源 github.com/facebookresearch/dinov2；ViT-g 训练需 12×16 A100 约 3 天；数据管线需 20 节点×8 V100 约 2 天。",
+  "year": 2023,
+  "citation_count": 9477,
+  "paper_ids": [
+    "arxiv:2304.07193"
+  ]
+}

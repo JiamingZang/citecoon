@@ -1,0 +1,15 @@
+{
+  "problem": "随着网络深度增加，深层网络出现退化问题（degradation）：训练误差不降反升，且并非由过拟合或梯度消失引起，现有优化器无法找到与浅层网络同等甚至更优的解，导致极深网络难以训练。",
+  "method": "提出残差学习框架：将堆叠层的学习目标从直接拟合底层映射 H(x) 改为拟合残差函数 F(x):=H(x)−x，通过恒等快捷连接（shortcut connection）将输入 x 与残差输出相加得到 F(x)+x。快捷连接不引入额外参数和计算量，网络仍可用标准 SGD 反向传播端到端训练；当输入输出维度不匹配时用线性投影 Ws 对齐。在 ImageNet 上使用 18/34/50/101/152 层 ResNet，CIFAR-10 上探索至 1202 层。",
+  "core_assumption": "核心假设是：当最优映射接近恒等映射时，将残差推向零比用多层非线性层直接拟合恒等映射更容易优化；即恒等快捷连接为问题提供了良好的预条件（preconditioning）。同时隐含假设多层非线性网络能渐近逼近残差函数（作者注明这仍是开放问题）。",
+  "limitation": "作者承认：1202 层网络在 CIFAR-10 上因过拟合（19.4M 参数对小数据集过大）反而不如 110 层，且未结合 dropout/maxout 等强正则化；深层 plain 网络优化困难的根本原因仅为猜想（指数级低收敛速率），留待未来研究；单层残差块无优势；非线性层能否渐近逼近任意残差函数在理论上仍是开放问题。此外，方法有效性主要在视觉任务验证，对非视觉领域的泛化未做实验；恒等快捷连接是否在所有场景最优、是否需要可学习门控也未深入探讨。",
+  "eval_setup": "数据集：ImageNet 2012（1000类，1.28M训练/50k验证/100k测试）、CIFAR-10（45k/5k划分）、PASCAL VOC 2007/2012、MS COCO。基线：同构 plain 网络、VGG-16/19、Highway Networks、FitNet、NIN、DSN、Maxout。指标：top-1/top-5 错误率（ImageNet）、分类错误率（CIFAR-10）、mAP@.5 与 mAP@[.5,.95]（检测）。规模：最深 152 层（ImageNet）/1202 层（CIFAR-10），FLOPs 1.8B–11.3B；ILSVRC 2015 分类冠军（集成 top-5 错误 3.57%），COCO 检测相对提升 28%。",
+  "resources": "CIFAR-10 实验使用 2 块 GPU、mini-batch 128、训练 64k 迭代；框架为 Caffe；ImageNet 训练细节在附录中（正文未完整给出 GPU 数量与训练时长）；代码/预训练模型未在正文中明确给出公开链接。",
+  "paper_id": "W2194775991",
+  "paper_ids": [
+    "W2194775991"
+  ],
+  "paper_title": "Deep Residual Learning for Image Recognition",
+  "year": 2016,
+  "citation_count": 234183
+}

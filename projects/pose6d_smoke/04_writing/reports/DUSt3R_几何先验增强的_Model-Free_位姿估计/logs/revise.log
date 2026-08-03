@@ -1,0 +1,56 @@
+[20:23:14] revise_report DUSt3R_几何先验增强的_Model-Free_位姿估计
+
+我先通读审校清单、报告正文和 idea 来源，再逐条核实。
+
+审校清单的 5 条 P2 看起来已在先前修订中处理。现在核实 2026-07-28 idea 更新内容。
+
+Now let me read the idea file directly to get exact text for the updates.
+
+Now let me read the v2 idea file for its 2026-07-28 updates.
+
+fetch failed
+
+✗ 第 1 次: Command failed with exit code 1 (exit code: 1)
+Error output: Check stderr output for details
+
+↻ 疑似基建抖动，5s 后自动重试一次
+
+I'll read the review checklist and the report first, then verify against source materials.
+
+All 5 P2 items from the review appear already fixed in the current report. Now I need to verify and apply the additional 2026-07-28 idea updates. Let me check the source library.
+
+Let me verify the source materials for the idea updates.
+
+Good. Now let me read the 3DGS card to verify the specific risks (观测不足伪影、细长高斯、popping、内存).
+
+Let me verify the SinRef-6D card's eval data for the Nr-AR numbers.
+
+Now I have all verification complete. Let me summarize findings and start editing:
+
+**Review P2 items**: All 5 already fixed in the current report.
+
+**Idea updates verified**:
+- "91ms/对与191图即崩溃" — confirmed in `_themes.json` 母题 7 tension
+- "语义层级与亚像素几何精度张力无人系统量化" — confirmed in `_themes.json` 母题 3 (i
+
+Now I'll apply the edits. Starting with the header count and §1.1 updates.
+
+Now editing §4.3 风险链 2 and §4.6.3 不利因素.
+
+Now adding the new "单参考迭代路线" item after Pos3R (item 9).
+
+Now I need to add a "补充风险 C" in §4.3 to parallel the §4.6.3 addition. Let me read the relevant section.
+
+Final consistency check — reading the modified sections.
+
+Let me check for any remaining "16 篇" references and verify the §4.6.3 section.
+
+All edits are consistent. Let me do one final check on the §4.3 补充风险 C section.
+
+修订完成。汇报如下：
+
+**已改（7 条）：**
+
+1. **头部元数据**："16 篇精读卡片"→"19 篇精读卡片"（新增 W4385318467、W7155098975、W7165818136）。
+2. **§1.1 隐含假设风险提示**：增补母题 3 tension 精确化——"语义足够但亚像素精度不足无人系统量化"，强化内点率诊断需同时关注重投影误差分布。
+3. **§1.1 前馈路线正面定位**：(a) 增补母题 4 tension "无后续工作将精修蒸馏为前馈网络"的精确措辞；(b) 增补母题 7 可扩展性瓶颈"91 ms/对与 191 图即崩溃"作为 ≤10 图假设的正面旁证。

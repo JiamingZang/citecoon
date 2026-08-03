@@ -1,0 +1,15 @@
+{
+  "problem": "单目视频3D人体姿态估计中，现有方法在目标人物尺度（过大/过小）或运动速度（过快/过慢）与训练数据不一致时性能显著下降；且多数方法未针对严重遮挡进行显式设计与训练，导致遮挡场景下表现不佳。",
+  "method": "提出时空多尺度网络：空间上用HRNet提取多尺度热力图并通过嵌入网络编码为潜在表示（而非仅取峰值）；时间上用多步长TCN（stride 1,2,3,5,7）拼接以适配不同运动速度。设计时空判别器，将空间KCS扩展为时间KCS（TKCS），同时检验单帧姿态合理性与帧间运动合理性。训练时显式随机遮蔽关键点/帧/区域以模拟从轻微到严重的多种遮挡，并结合2D数据集进行半监督学习。",
+  "core_assumption": "训练时对热力图进行随机遮蔽（帧级、点级、区域级）能有效模拟真实世界中各种遮挡分布，使网络学到从上下文恢复被遮挡关键点的能力；单帧合理的姿态序列不一定构成合理运动轨迹，需时间维度约束；正交投影足以将3D预测映射回2D用于半监督损失。",
+  "limitation": "作者承认：在Human3.6M上已趋饱和，低误差动作提升有限；人体动力学预测非专门设计，仅达到与专用方法相当的水平。读出局限：随机遮蔽与真实遮挡（结构化、与场景/交互相关）分布可能不匹配；依赖top-down检测与跟踪，检测失败则整体崩溃；正交投影假设在近距离/大视角下不成立；未讨论多人交互遮挡与快速相机运动；遮挡增强策略缺乏理论指导（遮蔽比例、模式均为经验设定）；时间KCS仅用固定间隔i=1，未建模更长程运动语义。",
+  "eval_setup": "数据集：Human3.6M（S1,5,6,7,8训练/S9,11测试）、HumanEva-I、MPI-INF-3DHP（仅评估不训练）、3DPW（仅测试）、Penn Action（2D半监督训练）。基线：Pavllo 2019、Cheng 2019、Wandt 2019、Hossain 2018等。指标：MPJPE、P-MPJPE（mm）、3D PCK@150mm、MAE（动力学）。规模：Human3.6M上MPJPE 40.1mm、P-MPJPE 30.7mm；3DPW P-MPJPE 71.8mm；MPI-INF-3DHP PCK 84.1%。",
+  "resources": "代码/数据未明确公开；训练使用Human3.6M+Penn Action；算力需求未明确说明（涉及HRNet+多步长TCN+判别器，推测需GPU训练）。",
+  "paper_id": "W2998027150",
+  "paper_ids": [
+    "W2998027150"
+  ],
+  "paper_title": "3D Human Pose Estimation Using Spatio-Temporal Networks with Explicit Occlusion Training",
+  "year": 2020,
+  "citation_count": 149
+}

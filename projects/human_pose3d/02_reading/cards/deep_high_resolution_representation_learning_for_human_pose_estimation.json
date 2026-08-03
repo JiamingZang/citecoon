@@ -1,0 +1,15 @@
+{
+  "problem": "人体姿态估计（关键点检测）中，主流方法采用先降分辨率再恢复分辨率的串行框架（如Hourglass、SimpleBaseline），导致恢复的高分辨率表征空间精度不足、语义信息不够丰富，影响heatmap预测的准确性与空间精确性。",
+  "method": "提出HRNet（High-Resolution Net）：以高分辨率子网络作为第一阶段，逐步并行添加由高到低分辨率的子网络形成多阶段结构；在各并行子网络之间引入交换单元（exchange unit），进行重复多尺度融合（共8次），使每个分辨率的表征反复接收其他分辨率的信息；最终直接从高分辨率表征回归关键点heatmap，无需额外的低到高分辨率恢复过程。下采样用步幅3×3卷积，上采样用最近邻插值+1×1卷积对齐通道。",
+  "core_assumption": "在整个网络中持续保持高分辨率表征（而非从低分辨率恢复）能使heatmap空间上更精确；通过重复多尺度融合，低分辨率子网络的丰富语义信息能有效增强高分辨率表征的语义质量，使高分辨率特征既精确又富含语义。",
+  "limitation": "作者承认：(1)上采样仅用最近邻+1×1卷积，属于较轻量的聚合方式，未来需探索更充分的多分辨率聚合；(2)MPII数据集上HRNet-W48与W32结果相同（92.3），性能趋于饱和。读者补充：(3)仅验证了单人姿态估计，多人场景依赖外部检测器的top-down流程，未端到端解决；(4)并行多分辨率结构带来额外显存与计算开销，实时性未充分讨论；(5)未使用中间heatmap监督，是否结合后能进一步提升未深入验证；(6)对遮挡、极端视角等困难样本的鲁棒性缺乏专门分析。",
+  "eval_setup": "数据集：COCO keypoint（train2017 57K图/150K实例，val2017 5K图，test-dev2017 20K图，17关键点）、MPII Human Pose（25K图/40K人，16关键点）、PoseTrack2017（550视频/66374帧）。基线：Hourglass、CPN、SimpleBaseline（ResNet-50/101/152）、OpenPose、PersonLab等。指标：COCO用AP/AP50/AP75/APM/APL/AR（基于OKS）；MPII用PCKh@0.5；PoseTrack用mAP和MOTA。模型规模：HRNet-W32（28.5M参数/7.1 GFLOPs@256×192）、HRNet-W48（63.6M/14.6 GFLOPs）。输入分辨率256×192或384×288。",
+  "resources": "代码与模型已开源：https://github.com/leoxiaobin/deep-high-resolution-net.pytorch（PyTorch）。训练使用Adam优化器，210 epochs，学习率1e-3/1e-4/1e-5分段衰减；可选ImageNet预训练。具体GPU型号与训练时长未在文中给出。",
+  "paper_id": "W2916798096",
+  "paper_ids": [
+    "W2916798096"
+  ],
+  "paper_title": "Deep High-Resolution Representation Learning for Human Pose Estimation",
+  "year": 2019,
+  "citation_count": 5622
+}

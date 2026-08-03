@@ -1,0 +1,14 @@
+{
+  "paper_id": "W4320013905",
+  "paper_title": "Gen6D: Generalizable Model-Free 6-DoF Object Pose Estimation from RGB Images",
+  "problem": "如何在不依赖3D CAD模型的情况下，仅通过少量已知位姿的参考图像就能估计未见物体的6D位姿——即实现可泛化、model-free、仅需RGB输入的位姿估计。",
+  "method": "Gen6D 采用三阶段流水线：(1) 基于相关性的实例检测器在查询图像中定位物体并估计初始平移；(2) 视角选择器通过逐像素比较查询图像与所有参考图像的特征相似度，结合全局归一化和Transformer跨视角通信，选出最近视角并估计面内旋转作为初始旋转；(3) 基于3D特征体积的位姿精炼器——将邻近参考图像的特征反投影到3D体积中构建特征体，再用3D CNN匹配查询特征与体积特征，迭代预测相似变换残差来更新位姿。",
+  "core_assumption": "假设参考图像的2D特征可以反投影到3D空间并聚合为有意义的3D特征体积，且该体积能够提供足够的几何信息来推断3D位姿残差。核心前提：视角采样足够密且特征匹配足够准确时，model-free 的3D体积精炼可替代基于CAD模型的渲染-比较精炼。",
+  "limitation": "(1) 深度估计不准确是主要瓶颈——物体通常距相机很远，1-2像素的尺度差异就导致深度方向巨大偏移，没有针对物体的训练无法感知这种微妙尺度变化；(2) 参考图像需要已知位姿且视角覆盖足够全面，稀疏参考图像下视角选择器容易混淆相邻视角；(3) 检测器依赖多尺度相关性，对遮挡和杂 cluttered 背景鲁棒性有限；(4) 3D特征体积分辨率受限于32^3，精细几何细节丢失；(5) 面内旋转估计离散化为Na个角度，精度受限。",
+  "eval_setup": "评估数据集：自建GenMOP（多环境/光照视频序列）、MOPED、LINEMOD。基线：PVNet（instance-specific）、ObjDesc、RLLG、LatentFusion（需depth+mask）。指标：ADD-0.1d、ADD-AUC、Prj-5。使用~200张参考图像。在LINEMOD上用GT-BBox可达93.16%平均ADD。",
+  "resources": "代码开源（https://liuyuan-pal.github.io/Gen6D/）。需VGG-11特征提取器。训练使用合成数据。推理仅需RGB图像+参考图像集。",
+  "paper_ids": [
+    "W4224598146",
+    "W4320013905"
+  ]
+}

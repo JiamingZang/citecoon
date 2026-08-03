@@ -1,0 +1,15 @@
+{
+  "problem": "Softmax注意力Transformer的推理时间和显存随序列长度呈二次增长，而现有线性注意力/RNN替代方案（如DeltaNet）的状态更新表达力不足：衰减只能全局模糊地遗忘旧信息，无法按特定键精确移除；标量学习率限制了逐通道选择性替换状态的能力。",
+  "method": "RWKV-7将delta规则推广为广义形式：(1) 将上下文学习率从标量扩展为向量，实现逐通道选择性状态替换；(2) 解耦移除键κ与替换键k̃，使删除和写入操作独立；(3) 引入向量值状态门控（衰减w）与替换率增强因子α，使转移矩阵成为缩放Householder矩阵的近似，特征值稳定在[-1,1]内，兼具动态状态演化与遗忘门功能；(4) 整体嵌入改进的RWKV-6框架（token-shift、bonus、ReLU²前馈、值残差学习），并保持训练可并行化。",
+  "core_assumption": "广义delta规则的转移矩阵（diag(w)-κ̂ᵀ(a⊙κ̂)）在特征值[-1,1]约束下既保证数值稳定又提供足够表达力；逐通道向量门控与解耦键设计能让固定大小的压缩状态充分编码长程上下文信息，从而在常数显存下逼近甚至超越Transformer的语言建模能力。",
+  "limitation": "作者承认：模型仅在最多2.9B参数、远少于顶级模型的token量（3.1T vs 15-18T）上训练，0.1B/0.4B World模型由旧检查点续训而非从头训练。我读出的局限：理论正则语言识别证明依赖理想化精度与固定层数假设，实际有限精度训练能否实现存疑；论文未展示超过3B规模的扩展性验证；解耦键与多向量门控增加了超参敏感度（ξ范围[-5.3,9.4]），对更大规模或更长序列的稳定性缺乏实证；固定大小状态在极长上下文（如100K+ token）检索任务中的表现未充分评估。",
+  "eval_setup": "数据集：RWKV World v3（3.1T token多语言语料）及Pile（332B token）；模型规模：0.19B-2.9B（World）/0.17B-1.47B（Pile），训练1.6-5.6T token；基线：同规模Transformer及RWKV-5/6；指标：多语言下游任务达3B SoTA，英语下游匹配3B SoTA；另有状态追踪与正则语言识别的理论/棋盘建模实验。",
+  "resources": "代码：https://github.com/RWKV/RWKV-LM（Apache 2.0）；模型权重与数据成分列表：https://huggingface.co/RWKV；训练语料：3.1T token RWKV World v3（公开可获取来源）；具体GPU型号与训练时长未在正文给出。",
+  "paper_id": "arxiv:2503.14456",
+  "paper_ids": [
+    "arxiv:2503.14456"
+  ],
+  "paper_title": "RWKV-7 \"Goose\" with Expressive Dynamic State Evolution",
+  "year": 2025,
+  "citation_count": 0
+}

@@ -1,0 +1,15 @@
+{
+  "problem": "现有端到端3D人体姿态估计系统的误差来源不明确：究竟源于2D视觉理解的不足，还是源于将2D姿态映射到3D空间的失败。本文旨在解耦这两个问题，专注于从2D关节位置预测3D姿态（2D-to-3D lifting）。",
+  "method": "设计一个简单的前馈神经网络，输入为2D关节坐标数组，输出为相机坐标系下的3D关节位置。网络基本模块为全连接层(1024)+BatchNorm+ReLU+Dropout(0.5)，两个模块以残差连接包裹，外层再重复两次。关键设计包括：在相机坐标系下估计3D关节、使用残差连接和批归一化，整体架构类似多层感知机，极其轻量（前向传播约3ms/batch64）。",
+  "core_assumption": "2D关节坐标中已包含足够信息以恢复3D姿态，2D-to-3D提升问题可与视觉理解解耦；一个简单的高容量前馈网络即可有效学习该映射，无需复杂的体积回归或不变特征表示。",
+  "limitation": "作者承认：严重自遮挡动作（拍照、打电话、坐下）误差显著增大；透视缩短导致腿部对齐相机时失败；网络无法获取视觉证据，对分布外姿态（如倒立的人）只能预测平均姿态；2D检测器错误会直接传播。进一步读出：仅处理单人场景，无法估计多人深度；未利用时序信息；缺乏运动学/物理一致性约束；最佳结果依赖GT或高质量2D检测，实际wild场景鲁棒性存疑；仅在Human3.6M受控环境数据上训练，跨域泛化未验证。",
+  "eval_setup": "数据集：Human3.6M（最大公开3D姿态基准，11个受试者、15个动作）+MPII测试集（定性）。基线：端到端系统、Pavlakos等体积回归、Moreno-Noguer距离矩阵方法。指标：MPJPE（平均每关节位置误差，mm）。规模：使用GT 2D时较SOTA降低约30%误差；使用Stacked Hourglass检测器输出时略优于当时所有端到端SOTA。",
+  "resources": "代码开源：https://github.com/una-dinosauria/3d-pose-baseline。推理极快（batch64约3ms，可达300fps）。训练使用NVIDIA捐赠GPU，网络参数量小、易于复现。2D检测器依赖Stacked Hourglass。",
+  "paper_id": "W2612706635",
+  "paper_ids": [
+    "W2612706635"
+  ],
+  "paper_title": "A Simple Yet Effective Baseline for 3d Human Pose Estimation",
+  "year": 2017,
+  "citation_count": 1518
+}

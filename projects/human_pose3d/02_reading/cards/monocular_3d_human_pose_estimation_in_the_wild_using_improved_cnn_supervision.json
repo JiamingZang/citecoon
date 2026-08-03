@@ -1,0 +1,15 @@
+{
+  "problem": "单目RGB图像3D人体姿态估计中，现有方法因公开3D姿态数据规模有限、外观多样性不足，导致在野外（in-the-wild）场景下泛化能力极差，远不及2D姿态估计的精度水平。",
+  "method": "提出三阶段流水线：2DPoseNet检测边界框→3DPoseNet回归以骨盆为中心的3D姿态→利用弱透视投影闭式解恢复全局3D位置。核心机制包括：(1) 从2D姿态网络向3D网络迁移特征，通过差异化学习率（迁移层缩小1000倍）保留已学表征；(2) 多模态姿态融合，分别以根节点、一阶父关节、二阶父关节为参考预测3D位置，再用全连接层自适应融合；(3) 训练时多层级纠正跳连接作为正则化，推理时移除；(4) 新数据集MPI-INF-3DHP（无标记动捕+绿幕分割+前景/背景外观增强）补充多样性。",
+  "core_assumption": "2D姿态估计在大规模野外数据上学到的中高层特征可有效迁移至3D姿态回归任务；全局位置恢复依赖弱透视投影假设和已知相机内参；多模态融合假设不同运动学参考系对不同关节/姿态各有最优，网络可隐式学习选择。",
+  "limitation": "作者承认：训练集偏向胸部高度视角，极端视角仍具挑战；逐帧估计存在时间抖动；速度约250ms/帧尚未实时。进一步读出：方法假设单人场景且依赖边界框检测质量；全局定位需已知相机标定，限制实际部署；弱透视假设在近距离或大透视畸变下失效；数据集仅8名演员、室内绿幕采集，与真正野外分布仍有域差距；未讨论多人遮挡、极端截断等开放问题。",
+  "eval_setup": "训练集Human3.6m(S1,5,6,7,8)+MPI-INF-3DHP(>1.3M帧/14相机/8演员)；测试集Human3.6m(S9,11每64帧)、HumanEva(S1 Box/Walk)、MPI-INF-3DHP测试集(室内绿幕/室内无绿幕/室外)；指标MPJPE(mm)、3DPCK@150mm、AUC；基线含Deep Kinematic Pose、SMPLify、LCR-Net、Volumetric Coarse-Fine、Domain Adaptation等；17/14关节评估。",
+  "resources": "MPI-INF-3DHP数据集公开(gvv.mpi-inf.mpg.de/3dhp-dataset)；网络基于ResNet-101；数据采集需14相机绿幕工作室+商用无标记动捕系统；推理<250ms/帧(单GPU)；2DPoseNet在MPII+LSP上预训练。",
+  "paper_id": "W2797184202",
+  "paper_ids": [
+    "W2797184202"
+  ],
+  "paper_title": "Monocular 3D Human Pose Estimation in the Wild Using Improved CNN Supervision",
+  "year": 2017,
+  "citation_count": 1341
+}

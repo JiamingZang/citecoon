@@ -1,0 +1,15 @@
+{
+  "problem": "跨视角动作识别中最难的无监督设定：训练时完全没有测试视角的数据或标签，仅凭某一训练视角的标注视频识别另一视角下的动作。相机视角变化导致人体运动的2D投影剧烈改变，现有方法性能大幅下降。",
+  "method": "提出υ-trajectories：对mocap数据用圆柱体近似肢体表面采样点，做正交投影生成与视频稠密轨迹可直接比较的纯运动描述子。在此基础上推导Non-linear Circulant Temporal Encoding (nCTE)，将CTE的线性内积替换为加性非线性核（近似χ2核）的频域循环卷积匹配，高效实现视频与mocap库在时间和姿态上的对齐。匹配成功后，取对应mocap序列的18个视角投影作为增强训练样本，以不同SVM松弛惩罚区分原始与增强数据，从而零标注代价地引入视角不变性。",
+  "core_assumption": "纯运动轨迹特征（无需外观）足以在视频与mocap之间建立可靠匹配；大规模无标注mocap库（CMU）能覆盖足够多的动作类型以支撑知识迁移；正交投影能合理近似真实相机成像。",
+  "limitation": "作者承认：mocap与视频轨迹分布存在差异，需域自适应；方法依赖足够大且动作覆盖充分的mocap库；不处理相机运动、场景中其他物体遮挡及多人场景。读出：匹配失败案例显示相似局部运动（如手部动作）会被错误对齐到完全不同动作；仅在IXMAS单一数据集上验证，规模小（11类×10人）；增强数据质量受限于匹配精度，对mocap库中不存在的动作类别改进有限；未讨论实时性及扩展到大规模野外视频的可行性。",
+  "eval_setup": "IXMAS数据集（11类动作，10人各做3次，5个同步机位），无监督跨视角模式（20个训练-测试视角对）；基线为稠密轨迹BoW+χ2 SVM及Hankelets [Li 2012]；指标为分类准确率；总体：Ours 67.4% vs Baseline 62.1% vs Hankelets 56.4%；mocap库为CMU（~162小时投影数据，30GB存储）。",
+  "resources": "CMU mocap数据库（公开）；υ-trajectories生成代码开源(github.com/jltmtz/mocap-dense-trajectories)；稠密轨迹用Wang等公开实现；匹配在3.2GHz单核约30秒完成；数据库存储约30GB；无GPU需求。",
+  "paper_id": "W2057232399",
+  "paper_ids": [
+    "W2057232399"
+  ],
+  "paper_title": "3D Pose from Motion for Cross-View Action Recognition via Non-linear Circulant Temporal Encoding",
+  "year": 2014,
+  "citation_count": 125
+}

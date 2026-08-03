@@ -1,0 +1,15 @@
+{
+  "problem": "头戴式设备提供的自我中心视角存在严重自遮挡和深度模糊，现有单目方法在复杂姿态（如蹲伏、坐）下失效，而现有立体方法未充分利用场景信息和时序上下文，导致3D人体姿态估计精度不足。",
+  "method": "提出基于Transformer的框架：1）2D模块从立体鱼眼视频估计关节热图并提取中间特征；2）利用SAM分割人体后，通过SfM（Metashape）对均匀采样窗口重建3D背景场景，渲染深度图作为额外线索；3）设计深度填充掩码处理SfM失败导致的无效深度；4）3D模块采用Transformer解码器，结合视频依赖的查询增强策略，将立体视频时序特征注入关节查询，在关节级别建模运动时序关系。",
+  "core_assumption": "假设去除人体后的背景区域可通过SfM从自我中心立体帧中可靠重建，且场景深度能有效消解姿态深度模糊；假设立体基线（12cm）已知以获取真实尺度；假设关节级别的时序特征增强足以捕获运动的时间关联性。",
+  "limitation": "作者承认：当人体大面积占据视野时SfM无法重建场景或估计相机位姿，导致深度缺失，仅以填充掩码缓解而非根本解决。读出局限：仅估计15个关节，未涉及手部精细姿态；依赖商业软件Metashape和预训练SAM，流程复杂且推理延迟未讨论；真实数据集UnrealEgo-RW规模仍有限（260k图像、16人）；未探讨极端光照、无纹理场景或多人场景的泛化；SfM需要4秒窗口，限制实时性；深度信息无监督但质量不可控时误差传播问题未深入分析。",
+  "eval_setup": "数据集：UnrealEgo（合成）、UnrealEgo2（2.5M图像/15207段动作/合成）、UnrealEgo-RW（260k图像/591段/16人/真实）；基线：Akada et al.、Zhao et al.、Kang et al.及自设时序Baseline；指标：MPJPE、PA-MPJPE、3D PCK、AUC；提升幅度：UnrealEgo >15%、UnrealEgo2 ≥40%、UnrealEgo-RW ≥10%（MPJPE）；时序窗口T=5帧，SfM窗口4秒。",
+  "resources": "代码、UnrealEgo2/UnrealEgo-RW数据集及训练模型已在项目主页公开；硬件需自建立体采集设备（两台RIBCAGE RX0 II相机+FUJINON鱼眼镜头，基线12cm）；SfM依赖Metashape（商业软件）；分割依赖SAM ViT-H；具体GPU/算力需求文中未明确给出。",
+  "paper_id": "W4402726927",
+  "paper_ids": [
+    "W4402726927"
+  ],
+  "paper_title": "3D Human Pose Perception from Egocentric Stereo Videos",
+  "year": 2024,
+  "citation_count": 35
+}

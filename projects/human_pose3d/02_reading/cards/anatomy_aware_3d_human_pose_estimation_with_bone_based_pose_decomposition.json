@@ -1,0 +1,15 @@
+{
+  "problem": "视频中基于2D关键点的3D人体姿态估计面临深度模糊问题，现有时序网络仅利用相邻局部帧（即使最大窗口243帧也仅覆盖约1/12视频长度），当当前帧及邻近帧均为复杂姿态时无法提供可靠信息，导致估计失败。",
+  "method": "将3D关节位置预测显式分解为骨骼方向预测与骨骼长度预测两个子任务。骨骼长度预测利用全视频随机采样帧（l=50）通过全连接残差网络估计，充分利用骨骼长度时序一致性；骨骼方向预测采用带长跳跃连接的全卷积传播架构实现层次化预测（由易到难，躯干骨引导肢体骨）。两子网络通过关节偏移损失（joint shift loss）联合训练以保持一致性，并引入2D关键点可见性分数配合隐式注意力机制缓解遮挡导致的深度模糊。",
+  "core_assumption": "同一人在一段视频中骨骼长度保持恒定（可由Human3.6M和MPI-INF-3DHP验证），因此骨骼长度可跨全视频帧聚合估计；骨骼方向与骨骼长度的组合在数学上等价于原始3D关节坐标预测任务。",
+  "limitation": "作者承认：骨骼方向与骨骼长度由两个独立网络预测，二者间知识交互仅通过joint shift loss实现，未在网络层面深度融合，仍有提升空间。读出局限：骨骼长度恒长假设在人体缩放、透视畸变剧烈或跨镜头场景下可能失效；训练集仅含5个演员（5种骨骼长度配置），骨骼长度网络易过拟合，需依赖数据增强和自注意力重加权缓解；方法仍强依赖上游2D检测器质量；对极端遮挡或多人场景的鲁棒性未充分讨论。",
+  "eval_setup": "Human3.6M（17关节，S1/5/6/7/8训练，S9/11测试，Protocol 1 MPJPE、Protocol 2 P-MPJPE、MPJVE）和MPI-INF-3DHP（14关节，8演员训练，独立测试集，PCK@150mm、AUC、MPJPE）。基线包括VideoPose3D(Pavllo CVPR'19)、Martinez ICCV'17、Sun ICCV'17、Xu CVPR'20等。81帧与243帧两种设置，另有因果版本。最优结果：H3.6M Protocol 1平均44.1mm，Protocol 2平均35.0mm，MPJVE 2.5mm。",
+  "resources": "2D关键点：H3.6M使用CPN预预测关键点，MPI-INF-3DHP使用AlphaPose；可见性分数来自AlphaPose。Adam优化器，batch size 1024，子网络数2，通道数1024。具体GPU型号与训练时长未给出，代码开源情况未提及。",
+  "paper_id": "W3126541466",
+  "paper_ids": [
+    "W3126541466"
+  ],
+  "paper_title": "Anatomy-Aware 3D Human Pose Estimation With Bone-Based Pose Decomposition",
+  "year": 2021,
+  "citation_count": 329
+}

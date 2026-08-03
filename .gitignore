@@ -1,0 +1,21 @@
+# 环境
+.venv/
+data/venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# 密钥与本地状态
+.env
+*.sqlite
+
+# 构建产物
+build/
+dist/
+*.egg-info/
+
+# 便携包本地数据（项目产物不推）
+portable/data/config/
+portable/data/projects/
+portable/.env
+portable/data/venv/

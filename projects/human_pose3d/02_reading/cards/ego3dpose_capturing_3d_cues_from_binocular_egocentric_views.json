@@ -1,0 +1,15 @@
+{
+  "problem": "双目自我中心（egocentric binocular）3D人体姿态重建因视角畸变、严重自遮挡和有限视场导致精度远低于第三人称方法。现有方法过度依赖2D图像特征隐式学习3D信息，对训练集中常见全身动作分布产生偏置，甚至在关节可见时也估计不准。立体对应（stereo correspondence）和透视效应（perspective effect）这两个关键3D线索被忽视。",
+  "method": "提出端到端双路径网络Ego3DPose：(1) Stereo Matcher网络以每根肢体（limb）为单位，仅输入该肢体的双目Perspective Embedding Heatmap（4通道），独立估计其3D朝向向量，权重在所有肢体内共享，从而脱离全身姿态分布的偏置；(2) Perspective Embedding Heatmap用三角函数（sin/cos of limb-view angle）将肢体与相机视平面的3D夹角嵌入双通道heatmap，向量模长编码置信度、比值编码角度，保留heatmap的不确定性语义；(3) 最终将14根肢体的3D朝向与heatmap encoder提取的20维pose feature拼接，经全连接decoder输出15个关节的相机坐标系3D位置。",
+  "core_assumption": "假设双目自我中心输入中的立体对应和透视效应蕴含足够显式的3D信息，可在不依赖全身上下文的情况下逐肢体恢复3D朝向。假设limb-view angle的sin/cos嵌入能被CNN有效学习且与置信度解耦。假设训练数据的相机标定与部署时一致，立体匹配误差不会级联放大。",
+  "limitation": "作者承认：方法并非专为自我中心/双目设计，尚未验证在更广泛3D姿态场景的泛化性。我读出的局限：(1) 主评估在合成UnrealEgo上完成，真实EgoCap数据遮挡少、姿态变化窄，real-to-sim gap未充分验证；(2) 未讨论不同相机基线、标定误差、鱼眼畸变模型差异对立体匹配的敏感性；(3) 无时序建模，未利用帧间连续性；(4) 仅估计15个大关节，不涉及手指/面部精细姿态；(5) 逐肢体独立估计忽略了肢体间运动学约束，可能产生骨骼长度不一致；(6) 未开源自身代码与预训练权重（仅使用基线开源代码复现对比）。",
+  "eval_setup": "数据集：UnrealEgo（Unreal Engine合成，17角色，多运动类别含Crawling/Sitting等）+ EgoCap（真实，80/20划分）。基线：UnrealEgo、EgoGlass（重新实现body part branch+伪分割）。指标：MPJPE、PA-MPJPE。规模：输入2×256×256 RGB，15关节。结果：UnrealEgo上MPJPE 60.82mm，较UnrealEgo/EgoGlass分别降23.1%/27.0%；EgoCap上较EgoGlass降11.2% MPJPE、12.6% PA-MPJPE。",
+  "resources": "代码：未明确开源Ego3DPose自身代码；基线使用UnrealEgo开源权重与代码。数据：UnrealEgo数据集公开可用；EgoCap测试集公开。算力：未明确报告GPU型号与训练时长。",
+  "paper_id": "W4386993482",
+  "paper_ids": [
+    "W4386993482"
+  ],
+  "paper_title": "Ego3DPose: Capturing 3D Cues from Binocular Egocentric Views",
+  "year": 2023,
+  "citation_count": 30
+}

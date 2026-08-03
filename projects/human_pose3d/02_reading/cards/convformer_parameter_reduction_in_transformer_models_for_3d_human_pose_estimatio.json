@@ -1,0 +1,15 @@
+{
+  "problem": "全Transformer架构在单目3D人体姿态估计中参数量和计算复杂度持续增长，全连接线性投影生成Q/K/V导致过度连接与冗余。本文旨在大幅减少参数量的同时保持或达到SOTA精度。",
+  "method": "提出ConvFormer，包含空间与时间两个ConvFormer模块。核心机制为动态多头卷积自注意力(DMHCSA)：用1D卷积替代线性投影生成Q/K/V以引入稀疏性，并通过多个不同核大小{κi}提取多尺度局部上下文，再以可学习权重η动态加权聚合。时间ConvFormer引入'时间关节轮廓(temporal joints profile)'概念，在注意力计算之前即通过时间维卷积将局部关节邻域的完整时间演化信息融合进查询中，而非逐帧查询后再沿时间轴做注意力。最终采用多对一预测方案，经线性投影降维后以单输出通道时间卷积输出中心帧3D姿态。",
+  "core_assumption": "卷积的局部感受野足以替代全连接投影来建模关节间/帧间相关性，即姿态的时空依赖具有局部性可被有限核大小捕获；在注意力之前融合时间信息（时间关节轮廓）比注意力之后融合更有效；多尺度核的动态加权平均能充分覆盖所需上下文范围。",
+  "limitation": "作者承认：243帧模型在CPN输入Protocol I上以0.2mm之差未达SOTA；定性结果展示遮挡下存在失败案例。读出局限：(1)仍依赖上游2D姿态检测器(CPN)质量，检测误差会传播；(2)核大小固定为(7,7,7)且嵌入维度仅32，对更复杂场景/更长序列的可扩展性未验证；(3)仅在室内受控数据集(H36M/HumanEva)和有限野外数据(MPI-INF-3DHP)上评估，缺乏真正in-the-wild定量基准；(4)时间关节轮廓假设局部时间邻域足够，对突发动作或极长依赖的适应性未讨论；(5)与图卷积/图注意力网络仅做定性比较，缺乏统一公平对比。",
+  "eval_setup": "数据集：Human3.6M(~2.3M帧,训练S1/5/6/7/8,测试S9/11,15动作)、HumanEva(3受试者,3动作,<50k帧)、MPI-INF-3DHP(~1.3M帧)。指标：MPJPE、P-MPJPE(Protocol II)、MPJVE(Protocol III)、PCK@150mm、AUC。基线：Pavllo et al.(VideoPose3D)、Zheng et al.(3DTransformer)、Li et al.(T=351前SOTA)、Chen et al.、Wang et al.等。序列长度T=9/27/81/143/243。参数量2.56M(T=9)~10.24M(T=243)，较前SOTA减少65.5%~83.4%。",
+  "resources": "PyTorch实现，2×NVIDIA RTX 3090 GPU训练，batch size 1024，60 epochs，初始lr 1e-3，权重衰减0.95/epoch，stochastic depth 0.2，dropout 0.2。代码开源：https://github.com/AJDA1992/ConvFormer",
+  "paper_id": "W4382892987",
+  "paper_ids": [
+    "W4382892987"
+  ],
+  "paper_title": "ConvFormer: parameter reduction in transformer models for 3D human pose estimation by leveraging dynamic multi-headed convolutional attention",
+  "year": 2023,
+  "citation_count": 23
+}

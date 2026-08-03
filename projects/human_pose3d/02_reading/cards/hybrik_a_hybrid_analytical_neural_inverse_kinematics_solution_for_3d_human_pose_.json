@@ -1,0 +1,15 @@
+{
+  "problem": "基于参数化模型（如SMPL）的3D人体姿态与形状估计方法因参数空间抽象、图像-模型对齐困难而性能平庸；而3D关键点估计方法虽能实现像素级定位精度，却缺乏对人体骨骼长度分布的显式建模，可能预测出不切实际的身体结构（如左右不对称、肢体比例异常）。本文旨在弥合3D关键点估计与身体网格估计之间的鸿沟。",
+  "method": "提出混合解析-神经逆运动学解法HybrIK：将每个关节的相对旋转通过twist-and-swing分解拆分为swing（面内旋转）和twist（纵向旋转）两部分。Swing旋转由3D关节位置通过Rodrigues公式解析求解（闭式解），twist旋转（仅1自由度）由神经网络从视觉线索中预测。整个过程沿运动学树递归执行，所有操作可微分，支持端到端联合训练3D关节与身体网格。此外提出Adaptive HybrIK以处理预测骨骼长度与模板不一致的问题。",
+  "core_assumption": "1) 神经网络预测的3D关节足够准确，使得解析求解的swing旋转可靠；2) 由于人体物理限制，twist角度变化范围小，网络易于学习该1-DoF映射；3) SMPL参数化模型的形状先验足以约束并修正不切实际的身体结构。",
+  "limitation": "作者承认：Naive HybrIK隐含假设预测骨骼长度等于模板骨骼长度（∥pk−ppa(k)∥=∥tk−tpa(k)∥），实际中常不成立，需Adaptive HybrIK修正。读出的局限：方法强依赖3D关节估计精度，遮挡或极端姿态下swing解析解可能失效；twist角度仍需视觉线索，纹理缺失或遮挡场景下预测困难；方法绑定SMPL拓扑与运动学树结构，迁移到其他参数化模型（如MANO、SMIL）需重新设计；单帧方法缺乏时序一致性建模；论文未充分讨论多人场景中根关节SVD初始化的鲁棒性。",
+  "eval_setup": "数据集：3DPW、Human3.6M、MPI-INF-3DHP；基线：SPIN、VIBE等当时SOTA方法；指标：MPJPE、PA-MPJPE、PVE、AUC；规模：3DPW上MPJPE提升13.2mm、PVE提升21.9mm，Human3.6M上PA-MPJPE提升6.6mm，MPI-INF-3DHP上AUC提升10.8；SMPL模型K=23关节、6980顶点。",
+  "resources": "代码开源：https://github.com/Jeff-sjtu/HybrIK；依赖SMPL参数化人体模型；网络结构为CNN+反卷积层生成3D heatmap+全连接层回归shape参数β与twist角Φ；具体算力需求文中未详述。",
+  "paper_id": "W3167491448",
+  "paper_ids": [
+    "W3167491448"
+  ],
+  "paper_title": "HybrIK: A Hybrid Analytical-Neural Inverse Kinematics Solution for 3D Human Pose and Shape Estimation",
+  "year": 2021,
+  "citation_count": 517
+}

@@ -1,0 +1,104 @@
+== mks0601/3DMPPE_ROOTNET_RELEASE
+repo 卡已产出: results/human_pose3d/codebases/3DMPPE_ROOTNET_RELEASE.md（9246 
+字符，探索状态 success）。
+write_tech_report / plan_experiment 会自动引用它。卡片内容：
+
+# 3DMPPE_ROOTNET_RELEASE 工程侦察卡片
+
+## 架构总览（模块划分，一段话+目录树摘要）
+
+RootNet 是 ICCV 2019 论文 "Camera Distance-aware Top-down Approach for 3D 
+Multi-person Pose Estimation" 的官方 PyTorch 实现，仅包含根节点（Pelvis）3D 
+定位部分。整体为 top-down 两阶段中的第一阶段：先用外部检测器得到人体 bbox，再由 
+RootNet 回归根关节的 (x, y, depth)。网络结构为 ResNet-50 backbone → 3 层 deconv 
+生成 64×64 heatmap 做 xy 软定位 → 对 backbone 最终特征做 global avg pool 后 1×1 
+conv 输出标量 gamma → depth = gamma × k_value（相机距离感知系数）。训练支持 
+3D+2D 数据集混合，2D 数据集通过 have_depth=0 屏蔽深度损失。
+
+```
+3DMPPE_ROOTNET_RELEASE/
+├── main/
+│   ├── config.py        # 全局配置（数据集、输入尺寸、训练超参）
+│   ├── model.py         # RootNet + ResPoseNet（网络定义+损失）
+│   ├── train.py         # 训练入口
+│   └── test.py          # 测试入口
+├── common/
+│   ├── base.py          # Trainer/Tester 基类
+│   ├── nets/resnet.py   # ResNet backbone
+│   └── utils/
+│       ├── pose_utils.py  # cam2pixel / pixel2cam / world2cam / process_bbox
+│       └── vis.py
+├── data/
+│   ├── dataset.py       # DatasetLoader（k_value 计算、patch 裁剪、增强）
+│   ├── multiple_datasets.py
+│   ├── Human36M/        # H36M 数据加载+评估
+│   ├── MuCo/            # MuCo-3DHP 数据加载
+│   ├── MuPoTS/          # MuPoTS 评估
+│   ├── MSCOCO/          # COCO 2D 数据
+│   ├── MPII/            # MPII 2D 数据
+│   └── PW3D/            # 3DPW 数据
+└── demo/demo.py         # 单图推理 demo
+```
+
+## 关键事实（与关注点直接相关的代码事实）
+
+### 事实 1：k_value（相机距离感知系数）的计算公式
+
+**文件**: `data/dataset.py:73`（训练）和 `data/dataset.py:81`（测试）
+
+```python
+k_value = 
+np.array([math.sqrt(cfg.bbox_real[0]*cfg.bbox_real[1]*f[0]*f[1]/(area))]).astype
+(np.float32)
+```
+
+其中：
+- `area` = `bbox[2]*bbox[3]`，即人体 bbox 
+在原图中的像素面积（`data/Human36M/Human36M.py:122`：`area = bbox[2]*bbox[3]`）
+- `f` = `[fx, 
+fy]`，相机焦距（像素单位），来自数据集标注（`data/Human36M/Human36M.py:105`：`f 
+= np.array(cam_param['f'], dtype=np.float32)`）
+- `cfg.bbox_real` = `(2000, 2000)`（`main/config.py:38`），代表真实世界中人体 
+bbox 的物理尺寸（H36M 用毫米，PW3D 用米则为 `(2,2)`）
+
+**物理含义**：k = sqrt(S_real × f_x × f_y / A_pixel)。由针孔模型 A_pixel ≈ f_x ×
+f_y × S_real / Z² 可推导 k ≈ Z（相机到人体的距离），因此 depth = gamma × k 
+等价于网络学习一个无量纲比例因子 gamma 再乘以距离先验。
+
+### 事实 2：深度输出头的网络结构
+
+**文件**: `main/model.py:67-72`
+
+```python
+# z
+img_feat = torch.mean(x.view(x.size(0), x.size(1), x.size(2)*x.size(3)), dim=2) 
+# global average pooling
+img_feat = torch.unsqueeze(img_feat,2); img_feat = torch.unsqueeze(img_feat,3);
+gamma = self.depth_layer(img_feat)
+gamma = gamma.view(-1,1)
+depth = gamma * k_value.view(-1,1)
+```
+
+- `self.depth_layer` 定义于 `main/model.py:22-28`：
+```python
+self.depth_layer = nn.Conv2d(
+    in_channels=self.inplanes,   # 2048
+    out_channels=1, 
+    kernel_size=1, stride=1, padding=0
+)
+```
+- 结构极简：GAP(2048×8×8) → 2048×1×1 → Conv1x1 → 标量 gamma → 乘 k_value 
+得绝对深度
+
+### 事实 3：xy 定位头（soft heatmap）
+
+**文件**: `main/model.py:51-65`
+
+```python
+xy = self.deconv_layers(x)          # 2048×8×8 → 256×64×64
+xy = self.xy_layer(xy)              # 256×64×64 → 1×64×64
+xy = xy.view(-1,1,cfg.output_shape[0]*cfg.output_shape[1])
+xy = F.softmax(xy,2)                # spatial softmax
+xy = xy.view(-1,1,cfg.output_shape[0],cfg.output_shape[1])
+hm_x = xy.sum(dim=(2))
+...（截断，完整内容在文件里）

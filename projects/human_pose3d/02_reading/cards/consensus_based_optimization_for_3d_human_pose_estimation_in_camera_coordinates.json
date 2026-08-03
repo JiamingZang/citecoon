@@ -1,0 +1,15 @@
+{
+  "problem": "现有3D人体姿态估计方法大多预测相对于根关节的相对姿态，无法有效利用大量2D标注数据，也难以在多视角场景中跨视图投影融合。本文提出在相机坐标系下进行绝对3D姿态估计，以解决2D/3D数据联合训练和多视角泛化的问题。",
+  "method": "将问题转化为视锥空间姿态估计：网络预测图像平面像素坐标(u,v)与绝对深度(mm)，并将深度解耦为全局绝对深度和关节相对深度两部分。采用ResNet-U架构，以裁剪的人体框为输入，结合边界框位置/尺寸的全局信息与卷积特征的局部线索预测绝对深度，再通过逆相机投影得到相机坐标系下的3D姿态。多视角融合采用基于共识的优化算法，仅需单目训练即可从未标定多视角图像中估计相机参数并合并预测。",
+  "core_assumption": "方法隐式依赖训练时的相机内参，假设推理时相机内参与训练时相近（或可通过尺度因子校正）；采用针孔相机模型；假设人体检测框可用；多视角共识优化假设多个视角观测同一人且预测在尺度因子内一致。",
+  "limitation": "作者承认方法间接绑定训练相机内参，对内参差异大的场景（如KTH数据集）预测存在尺度偏移，需额外用躯干尺寸重标定；共识优化在尺度未知时仅能恢复up-to-scale结果。未讨论的开放问题包括：对遮挡极端情况下单目绝对深度估计的鲁棒性边界、多人场景中检测框误差对绝对深度的影响、以及共识优化在视角数量极少（如仅2视角）或视角分布退化时的收敛性。",
+  "eval_setup": "数据集：Human3.6M官方测试集（S2/S3/S4，约100万帧）及Protocol 2（S9/S11）、MPI-INF-3DHP测试集（6视频/约25K帧）、KTH多视角足球数据集（零样本）、PennAction（定性）。基线：Iskakov et al.、Tome et al.、Pavlakos et al.、Kadkhodaie et al.、Trumble et al.、PVH-TSP等多视角方法。指标：MPJPE、MRPE（绝对根关节误差）、PCK@150mm、AUC、PCP。规模：单目MPJPE约44.7mm（测试集），多视角39mm（较SOTA降低32%）；绝对位置误差单目80mm、多视角51mm。",
+  "resources": "代码开源：https://github.com/dluvizon/3d-pose-consensus；训练硬件：单块GTX 1080 Ti GPU，训练时间不到两天；批大小24；优化器RMSprop+Adam，初始学习率0.001。",
+  "paper_id": "W2990671151",
+  "paper_ids": [
+    "W2990671151"
+  ],
+  "paper_title": "Consensus-Based Optimization for 3D Human Pose Estimation in Camera Coordinates",
+  "year": 2022,
+  "citation_count": 36
+}

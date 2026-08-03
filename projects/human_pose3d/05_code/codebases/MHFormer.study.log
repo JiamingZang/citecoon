@@ -1,0 +1,10 @@
+[11:15:24] study_codebase https://github.com/Vegetebird/MHFormer
+
+已完成 MHFormer 仓库侦察，卡片写入：
+
+**`/Users/zjm/Desktop/zootopia/SuperAcademicAISearch/results/human_pose3d/codebases/MHFormer.md`**
+
+核心结论：
+- 三假设流在 `model/module/trans_hypothesis.py:207` 拼接，但真正坍缩为单一 3D 输出的是 `model/mhformer.py:51-54` 的 `regression` 1×1 Conv1d。
+- 若要保留 K 个假设，需把 `Transformer_hypothesis` 改为返回三流、`regression` 改为 3 个独立头，输出形状可设为 `(B, K=3, F, J, 3)`。
+- CPN 2D 输入由 `common/load_data_hm36.py:60` 读取，管线为

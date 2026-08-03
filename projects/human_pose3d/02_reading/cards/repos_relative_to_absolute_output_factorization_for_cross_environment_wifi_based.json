@@ -1,0 +1,15 @@
+{
+  "paper_id": "W7167749100",
+  "paper_title": "RePos: Relative-to-Absolute Output Factorization for Cross-Environment WiFi-Based 3D Human Pose Estimation",
+  "problem": "WiFi CSI 绝对位姿回归把身体结构与训练房间的位置线索纠缠（coordinate overfitting），单环境内无害但跨环境部署严重退化；现有域适应方法只动输入/特征侧，不解决输出侧纠缠。",
+  "method": "输出侧因式分解 Jabs = Jrel + r：Stage 1 结构分支把 CSI 编码为身体部位分组潜 token（BP-LQ，150 token、3×压缩），经骨架图注意力（SGA）精修后解码 root-relative 姿态，全程不接受绝对位置监督；Stage 2（ASPN）仅从 CSI 幅度经可微空间分解头（beamforming+IFFT 生成空间热图）回归根位置，XY/Z 双头；两分支独立训练后相加。",
+  "core_assumption": "身体结构（root-relative 姿态）是环境不变量、根位置是环境依赖量，二者可在输出侧彻底解耦且分别泛化；根定位只需 CSI 幅度（无需标定相位）即可做粗定位；结构分支与定位分支不级联（ASPN 读原始信号而非 Stage-1 输出）因此无两阶段误差累积。",
+  "limitation": "WiFi 模态（CSI），非视觉；绝对精度仍粗（跨环境 ~290mm 量级）；ASPN 被作者自己界定为'部分环境依赖的粗定位器而非物理相位估计器'，学习相位与真值方位角相关仅 r=0.17；MM-Fi 几何受限（方位角 std~12°）削弱方向性检验；微调后环境变'已见'，解耦优势消失（排名反转）——解耦只对未见环境有效，这一边界对视觉跨域同样有警示意义。",
+  "eval_setup": "MM-Fi（40 人/27 动作/4 环境，1×3 MIMO 114 子载波，17 关节）Setting-3 跨环境（E01-03 训/E04 测）：MPJPE 254.4-296.1mm，零样本超全部已发表基线 14-25%（291.3 vs 339.4）；单环境 Person-in-WiFi-3D 直接变体 RePos-D 86.9mm（超 DT-Pose 3.4%）。消融：去 BP-LQ 根误差 261→327.7mm；去 Stage-2 根误差+23.1%；Stage-1 注入 80mm 高斯噪声绝对 MPJPE 仅+25.3mm（优雅退化）。LOEO 与无泄漏 few-shot 均一致。",
+  "resources": "arXiv:2607.02986，庆应大学，投稿 IEEE；代码未在文中给出。",
+  "year": 2026,
+  "citation_count": 0,
+  "paper_ids": [
+    "W7167749100"
+  ]
+}

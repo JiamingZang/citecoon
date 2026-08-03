@@ -1,0 +1,15 @@
+{
+  "paper_id": "arxiv:2606.04048",
+  "paper_title": "Unlocking Feature Learning in Gated Delta Networks at Scale",
+  "problem": "µP（Maximal Update Parametrization）让超参（尤其学习率）从小模型零样本迁移到大模型，但此前只覆盖 Transformer 与对角 SSM（Mamba）；Gated Delta Network 的循环状态是满矩阵且带数据依赖标量门控（αt、βt 经两组独立权重产生），Vankadara et al. 2024 的对角 SSM 分析不适用，其规模化参数化是开放问题。",
+  "method": "把坐标尺寸（coordinate size）估计沿 GDN 前向传播严格推进：q/k 经 L2 归一化后为 Θ(1/√d)，rank-1 写入使隐状态 St 稳态为 Θ(1/√d)，读出 ot 为 Θ(1/√d)——建议在 RMSNorm 前插 √d 乘子（或把 q 的 L2Norm 换成 RMSNorm）恢复 Θ(1)。关键发现：门控权重矩阵需 Θ(1/√d) 学习率缩放、标量门控参数需 Θ(√d) 缩放，均偏离标准 µP；标量门控 alog、b 可用宽度无关的常数初始化方差。",
+  "core_assumption": "循环状态的谱收缩因子严格小于 1（αt、βt 远离 0 和 1），使写入更新的几何和收敛、St 稳态方差等于 Ut 方差；SiLU 引入的非高斯性只造成近似偏差，初始化附近近似质量足够。",
+  "limitation": "只在 LLM 预训练上验证，未涉及视觉/姿态下游任务；推导忽略 SiLU 激活（近似而非严格）；假设 αt、βt 远离边界；短卷积核尺寸、头维度比例（qk=d/8, v=d/4）为经验设定未分析；未讨论与混合架构（attention+GDN）的 µP 组合。",
+  "eval_setup": "GDN 语言模型预训练（nanoGPT 框架复现官方实现），8 层 6 头，宽度 d∈{256,512,1024,1536}（AdamW）/{256,512,768,1024}（SGD），FineWeb-Edu 100B 训 20k 步（~9.83B tokens），单卡 H100；指标为跨宽度 shifted validation loss 的最优学习率是否一致（零样本迁移）；基线为 SP 与原版 µP（均失败）。",
+  "resources": "代码开源 github.com/lauyikfung/gated_delta_net_mup；另有 Trainium 版实现；全部实验单卡 H100 80GB。",
+  "year": 2026,
+  "citation_count": 0,
+  "paper_ids": [
+    "arxiv:2606.04048"
+  ]
+}

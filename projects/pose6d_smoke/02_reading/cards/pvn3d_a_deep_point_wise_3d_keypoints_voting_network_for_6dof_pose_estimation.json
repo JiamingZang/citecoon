@@ -1,0 +1,15 @@
+{
+  "problem": "从单张RGBD图像进行6DoF物体位姿估计。已有方法要么直接回归位姿参数（旋转空间非线性导致网络难以学习），要么基于2D关键点（投影丢失几何约束、3D中不同的关键点投影到2D后可能重叠难以区分），需要一种能充分利用刚体几何约束且易于网络优化的方法。",
+  "method": "提出PVN3D，一个两阶段深度3D Hough投票网络：第一阶段用PSPNet(ResNet34)+PointNet+++DenseFusion融合RGB外观与点云几何特征，通过三个共享MLP头分别预测逐点到3D关键点的平移偏移(MK)、逐点语义标签(MS)和逐点到物体中心的偏移(MC)，用MeanShift聚类区分同语义不同实例并投票得到关键点；关键点用FPS在物体mesh表面选取（含中心点）而非3D包围盒角点；第二阶段用最小二乘拟合由检测到的关键点与模型对应点求解R,t。三任务联合训练，损失为L1偏移损失+Focal Loss+L1中心损失。",
+  "core_assumption": "1) 深度信息可用且质量足够（依赖RGBD传感器及深度补全）；2) 物体的3D模型已知，关键点可从mesh上离线选取；3) 逐点3D偏移的搜索空间远小于旋转空间的非线性，网络更易学习收敛；4) 聚类算法能正确将同实例的点聚集以投票出关键点。",
+  "limitation": "作者承认：LineMOD需逐物体单独训练模型；PVN3D+ICP需额外标签传播和聚类步骤；大/超大夹钳等外观相似物体仍具挑战性。读出局限：1) 强依赖准确深度，深度噪声/缺失会直接影响3D偏移预测；2) 需要已知3D CAD模型，无法泛化到未知物体；3) 推理仅5 FPS，实时性有限；4) 关键点数M为超参，FPS 8优于12说明对选取策略敏感；5) 严重遮挡(>70%不可见)时性能仍会下降；6) 未讨论对深度传感器类型/基线的鲁棒性及跨域泛化。",
+  "eval_setup": "数据集：YCB-Video(21物体,80视频训练/2949关键帧测试,含合成数据+深度补全)、LineMOD(13物体)、Occlusion LineMOD；基线：PoseCNN、PoseCNN+ICP、DenseFusion(per-pixel/iterative)、PVNet、CDPN、Implicit ICP、SSD-6D ICP、PointFusion、DeepIM等；指标：ADD-S AUC、ADD(S) AUC；规模：每帧采样12288点，YCB-Video ADD(S) 91.8%(无迭代精炼)/92.3%(+ICP)，LineMOD ADD(S) 99.4%。",
+  "resources": "代码：https://github.com/ethnhe/PVN3D.git；训练：Adam优化器，batch size 24，循环学习率1e-5~1e-3，ResNet34 ImageNet预训练；推理：网络前向0.17s+位姿估计0.02s/物体，整体5 FPS(LineMOD)；算力需求未明确给出GPU型号。",
+  "paper_id": "W3034986117",
+  "paper_ids": [
+    "W3034986117"
+  ],
+  "paper_title": "PVN3D: A Deep Point-Wise 3D Keypoints Voting Network for 6DoF Pose Estimation",
+  "year": 2020,
+  "citation_count": 592
+}

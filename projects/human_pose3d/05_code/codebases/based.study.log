@@ -1,0 +1,26 @@
+[14:49:06] study_codebase https://github.com/HazyResearch/based
+
+I'll check if the repo exists, clone if needed, then explore the codebase for the research focus areas.
+
+Cloning the repository now.
+
+Clone succeeded. Now exploring the codebase structure and key implementation areas.
+
+Now reading the core implementation files for the research focus areas.
+
+Now reading the GPT model assembly and config files.
+
+Let me find the reference config files and the training model configs.
+
+Now reading the convolution mixer and the evaluate launch script.
+
+I have all the information needed. Writing the card now.
+
+侦察完成。卡片已写入 `./based.md`，覆盖了：
+
+- **架构总览**：三种 mixer（BaseConv / LinearAttention+TaylorExp / SlidingAttention）按层交替堆叠，通过 yaml 列表控制分配
+- **关键事实**：8 条带文件路径:行号和原代码片段的核心发现
+- **硬编码参数**：11 项，含位置和可配置化方式
+- **环境与复现**：依赖、权重加载、最小运行/训练命令
+- **改造接口点**：针对三个研究关注点的最小侵入修改位置
+- **风险与未知**：7 项未查证内容（空 submodule、zoology 独立仓库等）

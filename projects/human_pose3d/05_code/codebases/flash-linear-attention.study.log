@@ -1,0 +1,31 @@
+[14:45:42] study_codebase https://github.com/fla-org/flash-linear-attention
+
+I'll clone the flash-linear-attention repo and analyze its GLA/Gated DeltaNet chunk-wise implementations.
+
+Cloning the repository now.
+
+Clone successful. Now exploring the repo structure and key modules.
+
+Now let me explore the core `fla` package structure and the key modules for GLA and Gated DeltaNet.
+
+Now let me read the core kernel implementations for GLA and Gated DeltaNet.
+
+Now reading the Gated DeltaNet chunk kernel and layer files.
+
+Now reading the layer implementations and the WY fast kernel for delta rule.
+
+Now reading the WY representation kernel (delta rule core) and the gate kernel.
+
+Let me check the naive reference implementation and the README for setup info.
+
+Let me check the installation instructions and the common chunk_o module for causal masking in GDN.
+
+Let me check the causal mask in chunk_o and the solve_tril utility.
+
+I have all the key information. Now writing the repo card.
+
+卡片已写入 `./flash-linear-attention.md`。核心发现：
+
+- **GLA chunk-wise**：`fla/ops/gla/chunk.py` 实现，门控衰减通过 `exp2(g_cumsum)` 作用于 q/k，因果 mask 在 :363 硬编码为下三角
+- **GDN chunk-wise**：`fla/ops/gated_delta_rule/chunk.py` 实现，delta rule 通过 WY 表示（`solve_tril` 下三角求解）并行化，门控为 `-exp(A_log)*softplus(g+dt_bias)` 后 cumsum
+- **双向/非自回归**：本仓库所有 kernel 均硬编码因果 mask，双向场景需使用独立仓库 `fla-org/flash-bidirectional-linear-attention`；GLA 去 m

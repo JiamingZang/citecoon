@@ -1,0 +1,9 @@
+[11:16:55] study_codebase https://github.com/gongjia0208/Diffpose
+
+I’ll clone the repo if missing, then inspect the DiffPose code for the required sampling/GMM/H36M details and write the recon card.
+
+已完成 DiffPose 工程侦察，结果写入：
+
+`/Users/zjm/Desktop/zootopia/SuperAcademicAISearch/results/human_pose3d/codebases/Diffpose.md`
+
+卡片包含架构总览、带文件路径与行号的关键代码片段、硬编码参数、复现说明、最小侵入改造点以及风险未知项，未修改仓库代码。

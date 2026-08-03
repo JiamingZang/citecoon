@@ -1,0 +1,73 @@
+[19:30:57] revise_report 惊讶度门控测试时记忆_时序平滑与消歧的分离建模
+
+I'll read the review checklist and the report first, then verify each item against the source library.
+
+Now I need to verify the additional revision requirements against the source library. Let me search for RWKV-7, test-time regression, and the two new arxiv papers.
+
+Good, all sources verified. Let me now read the idea file for exact content to incorporate.
+
+All sources verified. The 4 P2 review items are already fixed in the current report. Now I'll implement the 6 additional requirements from the 2026-07-23 update. Let me set up tracking and begin edits.
+
+Starting edits. First, §2.1.1 — adding the RWKV-7 vector gating upgrade paragraph.
+
+Now updating §2.1.2 to add RWKV-7 vector gating as the main scheme and relabel scalar dual-gate.
+
+Now updating the "记忆召回" section to reflect the new main scheme.
+
+Updating the 双路径前向 section.
+
+Updating the main scheme pseudocode header and content to reflect RWKV-7 vector gating.
+
+Now updating the YAML config to add the three-level gate_type.
+
+Adding Test-time regression unified framework to §1.2.7.
+
+③ is already covered by the §2.1.1 addition. Now updating §3.2 A14 to three-level gate comparison with weight_scheme.
+
+Now adding ξ parameter sensitivity risk to §4.3.
+
+Adding the two new papers to the appendix.
+
+Now updating §4.2 external dependencies to include RWKV-7 reference.
+
+Now updating §5 conclusion to reflect the RWKV-7 upgrade.
+
+Now updating ablation count references (A0–A14 → A0–A15, 15组 → 16组).
+
+Let me check for any remaining references to the old "dual_alpha_beta" naming.
+
+Good. Let me also check for any remaining "主方案" references that still point to the old scalar dual-gate.
+
+Let me check the performance table at line 647 that still references the old naming.
+
+Let me check line 114 and line 352 for any remaining inconsistencies.
+
+Let me check for any remaining "双门控" references that might need context updates.
+
+Let me check the "最坏情况退化下界分析" section for consistency.
+
+The 最坏情况退化 section needs a minor update to cover the vector gating failure mode.
+
+Let me check §4.6 for any needed updates.
+
+Let me update the "消融基线：单一阈值" paragraph to reflect the three-level hierarchy.
+
+Let me add RWKV-7 to the §1.2.7 cross-domain references since it's now the main scheme's basis.
+
+Let me check the §2 intro paragraph.
+
+Let me update the report header date to reflect the 2026-07-23 revision.
+
+Let me fix a minor accuracy issue in the §1.2.7 RWKV-7 description.
+
+Let me do a final spot-check on the overall report structure.
+
+Section structure is unchanged. All edits are complete.
+
+修订完成。汇报如下：
+
+**已改（审校清单 P2×4 条）：** 经核实，4 条 P2 在当前报告版本中均已修正（"卡片问题栏"、MotionBERT Table 5 表述、AugLift 间接引述、fla-org URL），无需再动。
+
+**已改（2026-07-23 局部更新×6 条）：**
+
+1. **①技术路线 RWKV-7 升级**：§2.1.1 新增"从标量双门控到向量门控+解耦键"段；§2.1.2 新增 RWKV-7 向量门控递推公式 $S_t = \text{diag}(\boldsymbol{\alpha}_t) S_{t-1}(I - \boldsymbol{\beta}_

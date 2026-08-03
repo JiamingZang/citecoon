@@ -1,0 +1,15 @@
+{
+  "paper_id": "s2:03f52835b5a7ef384ab0e2d41946ff9adbed41e4",
+  "paper_title": "FreePose: Zero-Shot 6D Object Pose Estimation Using Pretrained Foundation Models",
+  "problem": "新物体频繁出现的动态环境中，重训式位姿估计不可行——需要免训练零样本方案。",
+  "method": "离线 onboarding：渲染多视角模板，用预训练视觉/几何基础模型分别抽特征，视觉特征反投影到对应 3D 点实现外观-几何精确对齐，再与几何特征融合成统一表示。在线：SAM2+物体匹配从 RGB-D 分割目标实例，同法抽特征反投影融合，3D-3D 最近邻建立鲁棒对应，TEASER 鲁棒配准求位姿。全程免训练。",
+  "core_assumption": "视觉特征反投影到 3D 点后与几何特征融合即可形成跨合成-真实域鲁棒的统一表示（免训练前提）；SAM2 分割+物体匹配足以定位实例；3D-3D 最近邻+TEASER 鲁棒配准能替代 2D-3D PnP 路线。",
+  "limitation": "仅摘要信息，具体基础模型名/指标数字/失败模式待验证；依赖 RGB-D（深度传感器）；TEASER 对无深度区域的退化未讨论；抓取成功率 65% 提示真实部署仍有明显失败率。",
+  "eval_setup": "BOP5 核心数据集（LM-O/T-LESS/TUD-L/IC-BIN/YCB-V 推测，摘要只说 BOP5 core），达到与 SOTA 可比；真实 UR3 机械臂抓取实验，成功率 65.0%。",
+  "resources": "IEEE TCSVT 2026（纯期刊，无 arXiv 全文，卡片基于摘要，细节待验证）；真实 UR3 部署代码未见。",
+  "year": 2026,
+  "citation_count": 1,
+  "paper_ids": [
+    "s2:03f52835b5a7ef384ab0e2d41946ff9adbed41e4"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "problem": "解决基于单张RGB图像的未见物体6D位姿估计问题。给定目标物体的3D网格模型，且物体上线预算有限（无法渲染大规模数据集或训练神经网络），需要快速为每个新物体构建可在线推理的表示。",
+  "method": "FoundPose是一个无需任务或物体特定训练的流程。离线阶段，物体在均匀采样的朝向下渲染为RGB-D模板，提取中间层（第18层）DINOv2 ViT-L/14的patch描述子，并通过深度图将其注册到3D模型空间；同时用k-means聚类构建视觉词袋以加速模板检索。在线阶段，先用CNOS分割掩码对查询图做透视裁剪，通过词袋检索得到最相似的若干模板；然后在裁剪图与每个模板之间做最近邻patch匹配，建立2D-3D对应关系，再用EPnP+RANSAC生成位姿假设；最后对最优假设进行基于DINOv2特征度量的优化，补偿粗粒度patch采样带来的偏差。",
+  "core_assumption": "方法假设已知目标物体的3D网格模型、相机内参以及测试时由CNOS等提供的目标实例分割掩码与类别；假设DINOv2中间层patch描述子具有跨合成-真实域的泛化能力，且包含足够的语义与2D位置信息以在对称/无纹理物体上建立几何一致的对应。",
+  "limitation": "作者承认最佳性能需结合在200万+合成图像上训练的MegaPose render-and-compare精修器，这削弱了“完全无需训练”的纯粹性；推理依赖外部分割网络提供掩码，且模板渲染采用固定光照与黑色背景。开放问题包括：如何进一步减少对精炼器的依赖、在更复杂遮挡/光照变化下的鲁棒性，以及是否能在不使用RGB-D模板的情况下完成3D注册。",
+  "eval_setup": "在BOP Challenge 2019-2023的7个核心数据集（LM-O、T-LESS、ITODD、HB、YCB-V、IC-BIN、TUD-L，共108个物体）上评估；指标为VSD/MSSD/MSPD及其平均AR；与GenFlow、MegaPose、GigaPose、ZS6D、OSOP对比；默认每物体用CNOS提供的n个掩码，部分变体用5n个掩码。",
+  "resources": "",
+  "paper_id": "W4403842181",
+  "paper_ids": [
+    "W4403842181"
+  ],
+  "paper_title": "FoundPose: Unseen Object Pose Estimation with Foundation Features",
+  "year": 2024,
+  "citation_count": 128
+}

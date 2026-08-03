@@ -1,0 +1,36 @@
+[17:48:42] write_tech_report 标定视觉基础模型的泛化边界_面向未见物体位姿估计的自适应层选择
+
+I'll start by reading the review checklist and the idea file, then explore the available materials.
+
+Now let me read the review checklist and the idea file.
+
+Now let me read the existing report and key source materials.
+
+Now let me read the key cards and papers needed for corrections.
+
+Let me read a few more key sources for accuracy.
+
+Let me check the FoundPose paper for template count and image size details.
+
+Let me check a few more details from the FoundPose paper and the T-LESS card.
+
+Let me check a few more cards referenced in the report.
+
+I now have all the source material needed. Let me write the corrected report addressing all P0/P1/P2 issues from the review.
+
+Now I'll write the full corrected report.
+
+Now let me do the self-check pass. I noticed an arithmetic inconsistency in the storage table.
+
+Now let me verify the final report for consistency by reading key sections.
+
+Let me verify all P0/P1/P2 fixes are properly applied.
+
+All P0/P1/P2 issues verified as fixed. Let me update the todo list.
+
+报告已完成修订，输出至 `reports/标定视觉基础模型的泛化边界_面向未见物体位姿估计的自适应层选择.md`（约35,800字符）。
+
+**审校清单全部修复**：
+- **P0**：LM-O物体数更正为8，删除了不属于LM-O的cam/driller
+- **P1×6**：首段layer归属区分论文(ViT-L/14第18层)与repo(ViT-S/14第9层)；Cross-View骨干改为DINOv3；BOP阈值改为τ=20mm/θ=0.3；综述引语归属区分母题与原文；模板参数改为800/420×420；延迟数字全部标注"工程估算，未经实测"
+- **P2×6**：层集合统一为{0,2,

@@ -1,0 +1,15 @@
+{
+  "paper_id": "arxiv:2603.25135",
+  "paper_title": "EgoXtreme: A Dataset for Robust Object Pose Estimation in Egocentric Views under Extreme Conditions",
+  "problem": "现有 6D 位姿基准（LM/T-LESS/YCB-V/HOT3D 等）均为受控环境，不含真实智能眼镜场景的运动模糊/动态照明/烟雾遮挡，实验室-现实鸿沟无评测载体。",
+  "method": "数据集论文：首个大规模极端条件第一人称 6D 位姿基准。三大发现：①SOTA 零样本方法（FoundPose/GigaPose/PicoPose）在极端光照/烟雾/运动模糊下泛化崩塌——FoundPose 稀疏特征匹配在裁剪+模糊下经常凑不够 PnP-RANSAC 最少对应数，直接无输出；②去模糊/去雾/低光增强等图像修复预处理不涨点甚至掉点（组合使用更差）；③时序跟踪（上帧位姿做先验：Direct/Fusion/置信度 Hybrid 三种策略）在快运动场景显著改善精度与稳定性。",
+  "core_assumption": "现有泛化方法的失败维度（类别/遮挡/杂乱）与极端条件的失败维度（运动模糊/动态光/烟雾）正交——大规模预训练解决不了后者；感知质量提升（修复）不等于位姿精度提升；快运动场景时序信息是刚需。",
+  "limitation": "作者承认：OptiTrack 限定室内采集（无真正户外）、缺 3D 手部姿态标注。读出：仅 RGB-only 评测（智能眼镜无深度）；跟踪策略仍是简单时序传递（Direct/Fusion/Hybrid），未用学习式时序模型。",
+  "eval_setup": "1.3M 帧/775.5 分钟，Aria 眼镜 1408×1408 鱼眼 RGB（含去畸变版）+OptiTrack 亚毫米 mocap GT（Umeyama 对齐+Kalman 滤波）；15 人 13 物体 8 光照+烟雾，三场景（工业维护/运动/应急救援）；基线：FoundPose+MegaPose 精化、GigaPose+MegaPose、PicoPose 一体化（GT bbox 解耦检测）；指标 ADD(-S) recall+MSSD/MSPD。关键数字：PicoPose 应急极端光-31.6%p@0.3d；GigaPose 加烟-9.91%p；图像修复全部无效甚至更差（去雾在应急场景 4.74@0.1d 灾难）；Direct temporal 跟踪在运动场景大幅领先逐帧（Bat 极端 0.1d: 0.0 vs 14.13）。",
+  "resources": "数据与代码：taegyoun88.github.io/EgoXtreme；原文已落 papers/。对论文一/二的启示：①稀疏匹配路线在极端条件下需稠密兜底；②时序建模是快运动场景刚需（支撑人体论文流式叙事）。",
+  "year": 2026,
+  "citation_count": 3,
+  "paper_ids": [
+    "arxiv:2603.25135"
+  ]
+}

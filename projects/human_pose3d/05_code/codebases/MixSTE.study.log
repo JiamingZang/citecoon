@@ -1,0 +1,17 @@
+[14:43:22] study_codebase https://github.com/JinluZhang1126/MixSTE
+
+我来克隆 MixSTE 仓库并精读其 seq2seq 时空交替架构实现。
+
+仓库不存在，开始浅克隆。
+
+克隆成功。开始精读代码结构和模型实现。
+
+现在精读核心模型文件和训练配置。
+
+Now let me read the training script and remaining key files.
+
+Let me quickly check the alternative attention modules referenced in the README.
+
+All key files read. Now writing the repo card.
+
+卡片已写入 `./MixSTE.md`。核心发现：MixSTE2 通过 `rearrange` 在 `(B*F, J, C)` 和 `(B*J, F, C)` 之间切换实现时空交替注意力；`Block` 类的 `attention` 参数是替换注意力的最小侵入注入点（已有 `MixSTERELA` 示例）；损失为 weighted MPJPE + 时间一致性（速度误差 + 帧差平方），训练用 AdamW + 指数 lr decay。

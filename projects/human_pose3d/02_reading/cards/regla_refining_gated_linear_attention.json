@@ -1,0 +1,15 @@
+{
+  "problem": "Softmax注意力具有二次时空复杂度，限制了上下文窗口扩展与部署效率；现有线性注意力（尤其是门控线性注意力GLA）在建模质量上仍显著落后于softmax注意力，需要系统性地改进其核心组件以缩小性能差距。",
+  "method": "ReGLA针对门控线性注意力的三个关键组件进行改进：(1) 提出归一化指数特征映射（safe exp）并引入方差缩减缩放因子，解决已有特征映射的数值不稳定问题；(2) 重新论证归一化层对训练稳定性的作用并将其纳入架构；(3) 分析门控机制的饱和现象（gate激活值被困在极端区域），设计refining module使门控在训练后能学习到多样化的激活分布，避免遗忘门坍缩。整体架构保持与GLA相同的外积门控形式，可复用Flash Linear Attention的分块并行实现。",
+  "core_assumption": "门控线性注意力的性能瓶颈主要由特征映射的数值稳定性、训练过程中缺乏归一化导致的梯度不稳、以及sigmoid门控的饱和效应三者共同决定；解决这三个问题即可在不改变线性复杂度前提下显著逼近softmax注意力的建模能力。",
+  "limitation": "作者明确承认仅在Pythia-160m（160M参数）规模上实验，未进行大规模验证，结论的可扩展性未知。此外仅评估自回归语言建模与少量常识推理任务，缺乏长上下文理解、多模态、代码生成等任务的验证。门控饱和分析依赖极端初始化实验，实际预训练中是否普遍出现该现象未充分论证。Post-linearization在PIQA和HellaSwag上仍明显落后于原始Pythia，说明线性化后语义知识恢复仍不完全。混合架构（50%替换）虽超过纯softmax，但纯ReGLA与原始模型差距仍大，开放问题在于更大模型和更长训练下该差距能否收敛。",
+  "eval_setup": "模型：Pythia-160m（12层）；训练数据：SlimPajama（从头训练与持续预训练50k steps, batch 8, seq len 2048）、WikiText-103（持续预训练）；基线：ReLU、Hedgehog、Scalar Gate、Fast Decay（GLA）、原始softmax attention；评测：语言建模困惑度 + 6项常识推理（BoolQ/PIQA/HellaSwag/Winogrande/TruthfulQA×2）0-shot与5-shot，使用lm-evaluation-harness；效率：6层架构在V100上测推理速度与峰值显存，生成长度2^6~2^13。",
+  "resources": "GPU：Nvidia V100 32GB；框架：基于Flash Linear Attention（sustcsonglin/flash-linear-attention）实现；预训练权重：HuggingFace EleutherAI/pythia-160m；评测工具：lm-evaluation-harness；训练数据：SlimPajama、WikiText-103。更大规模训练所需算力未给出。",
+  "paper_id": "arxiv:2502.01578",
+  "paper_ids": [
+    "arxiv:2502.01578"
+  ],
+  "paper_title": "ReGLA: Refining Gated Linear Attention",
+  "year": 2025,
+  "citation_count": 0
+}

@@ -1,0 +1,15 @@
+{
+  "problem": "从单张RGB图像同时估计人体2D关节位置和3D姿态。2D检测受外观变化、遮挡等歧义困扰，而单目2D到3D提升是病态问题（满足同一2D投影的3D姿态有无穷多），需要注入3D几何先验。",
+  "method": "提出多阶段CNN架构，将预训练的概率3D姿态模型（PPCA/混合PPCA）作为可微分层嵌入网络。每阶段：(1)卷积姿态机预测2D belief maps；(2)3D姿态层将2D坐标提升到3D并约束到物理合理姿态空间；(3)将3D姿态投影回2D生成projected belief maps；(4)以可学习权重融合CNN预测与投影belief maps，传入下一阶段迭代精化。全流程端到端训练，CNN部分仅需2D标注，3D模型独立由mocap数据训练，二者数据源完全解耦。",
+  "core_assumption": "人体3D姿态空间可由在mocap数据上训练的概率PCA（或其混合模型）充分表征；将合理3D姿态投影回2D能有效引导CNN找到更准确的2D关节位置；2D与3D任务的联合优化可使双方互利。",
+  "limitation": "作者承认：即使很小的2D估计误差也可能导致截然不同的3D姿态（失败案例）；3D姿态模型受限于mocap数据的多样性，需通过消除旋转、肢体长度、左右对称等混淆因素来补偿数据不足。读出局限：(1)仅处理单帧，未利用时序信息，而对比方法Zhou et al.和Tekin et al.使用视频；(2)PPCA线性子空间对极端/罕见姿态的表达能力有限，分布外姿态无法保证合理；(3)融合权重为全局学习的标量，未针对关节或置信度自适应；(4)依赖固定骨骼拓扑和17关节定义，泛化到不同骨架标注需重新设计；(5)未讨论对遮挡严重或多人场景的鲁棒性。",
+  "eval_setup": "Human3.6M（360万3D姿态，11受试者，4视角，17关节）。Protocol#1：S1/5/6/7/8训练，S9/11测试，10FPS，3D欧氏误差(mm)，17关节均值；Protocol#2：6人训练S11测试，每64帧，Procrustes对齐误差，14关节；Protocol#3：同#1划分，仅正面相机，不降采样，Procrustes误差，14关节。基线：LinKDE、Li et al.、Tekin et al.(多篇)、Zhou et al.、Sanzari et al.、Bogo et al.、Yasin et al.、Rogez et al.。2D误差以像素计。另在MPII和Leeds上做定性展示。最优结果：Protocol#1平均88.39mm，Protocol#2为70.7mm，Protocol#3为79.6mm。",
+  "resources": "基于Caffe框架实现，扩展Convolutional Pose Machines公开代码，新层以Python layer实现，SGD+momentum训练。3D姿态模型需mocap数据（Human3.6M提供）。具体GPU型号与训练时长未在正文中给出。",
+  "paper_id": "W2583585015",
+  "paper_ids": [
+    "W2583585015"
+  ],
+  "paper_title": "Lifting from the Deep: Convolutional 3D Pose Estimation from a Single Image",
+  "year": 2017,
+  "citation_count": 542
+}

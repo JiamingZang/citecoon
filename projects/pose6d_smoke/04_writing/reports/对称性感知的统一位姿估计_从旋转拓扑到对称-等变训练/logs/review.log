@@ -1,0 +1,21 @@
+[20:00:38] review_report 对称性感知的统一位姿估计_从旋转拓扑到对称-等变训练
+
+I'll review the report adversarially against the project's source library. Let me start by reading the report and exploring the available sources.
+
+Now I need to read the key source files to verify the report's claims. Let me read the critical cards and repo card in parallel.
+
+Let me check a few more specific claims - OnePose++ card, Horyon card, and the FoundPose paper for specific numbers.
+
+Let me check the GS-Pose paper for the symmetric object limitation claim and verify a few more details.
+
+I now have enough information to compile the adversarial review. Let me write the review file.
+
+Now I have the existing review file. I'll write my independent adversarial review based on my thorough verification of the current report version.
+
+审校完成，已写入 `reports/对称性感知的统一位姿估计_从旋转拓扑到对称-等变训练/review.md`。
+
+**结果摘要：**
+
+- **P0（编造）：0 条** — 核心数字（OnePose++ 48%/95.7%、BOP >30%、MegaPose 520视角/66.5ms、FoundPose 全部配置参数与代码文件:行号引用、资源估算算术）逐项核对均与来源一致。
+- **P1：1 条** — GS-Pose "承认对对称物体的处理是局限"为错误归因（卡片 limitation 字段 5 条均不涉及对称，problem 字段将对称列为研究目标而非局限）。
+- **P2：3 条** 

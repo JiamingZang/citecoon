@@ -1,0 +1,23 @@
+[14:51:49] study_codebase https://github.com/Walter0807/MotionBERT
+
+I'll clone the MotionBERT repo and then analyze its architecture for your research focus points.
+
+Cloning the repository now.
+
+Clone succeeded. Now exploring the codebase structure and key files.
+
+Now reading the core DSTformer model and related files in detail.
+
+Now reading the weight loading utility and downstream model wrappers.
+
+Let me check the finetuning weight loading path and the docs.
+
+Let me check the finetuning weight loading in train_action.py and the config for pose3d finetuning.
+
+I have all the information needed. Writing the card now.
+
+卡片已写入 `./MotionBERT.md`。核心发现：
+
+- **时空注意力**: DSTformer 用双流 Block（`blocks_st` 先空间后时间 / `blocks_ts` 先时间后空间）并行处理，每层通过可学习门控 `ts_attn` 融合（`DSTformer.py:340-351`）。时间注意力对每个关节独立做跨帧 self-attention。
+- **权重加载**: `load_pretrained_weights`（`learning.py:39-67`）按 key 匹配、自动跳过不兼容层，新增模块参数不会破坏预训练加载。
+- **记忆模块最佳插入点**: `forward` 循环内 `blk_st`/`blk_ts` 输出后、门控融合前（`DSTformer.py:340-351`），侵入最小且权重完全兼容。

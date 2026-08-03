@@ -1,0 +1,15 @@
+{
+  "problem": "从单目RGB图像估计训练中未见物体的6D位姿，核心难点在于缺乏目标物体的先验知识，现有方法泛化能力不足。",
+  "method": "RefPose采用两阶段流程：(1)粗位姿估计——利用基于光流特征的分类网络从预渲染模板集中选top-k模板，通过光流warp模板几何并用medoid投票建立2D-3D对应，再PnP/RANSAC求初始位姿P0；(2)位姿精化——由P0渲染参考图及其几何对应，设计correlation volume-guided attention机制（以光流相关体softmax作注意力权重）在U-Net中融合参考几何信息，估计查询几何后通过迭代render-and-compare（5次）求相对位姿ΔP并更新。几何表示采用位置编码（5频带）提升精度。",
+  "core_assumption": "方法依赖目标物体的3D模型用于渲染模板和参考图；假设光流网络能在模板/参考图与查询图间建立可靠像素级对应；假设初始粗位姿足够接近真值，使渲染的参考图与查询视角充分对齐，从而让correlation volume有效编码像素相似性。",
+  "limitation": "作者承认在LM-O、T-LESS、ITODD上略逊于部分SOTA；仅使用GSO（1000类）训练、未加入ShapeNet 5万类数据（受算力/显存限制），泛化上限受限；模板数128为折中，姿态空间覆盖仍有限；medoid投票在模板过多时鲁棒性下降；精化依赖迭代渲染，对初始位姿误差较大时可能收敛不佳；论文未讨论对称物体、严重遮挡、纹理缺失等极端场景；代码是否开源未提及。",
+  "eval_setup": "训练集GSO合成数据(~1M图/1000类)；评测BOP基准7数据集(YCB-V, LM-O, T-LESS, TUD-L, IC-BIN, ITODD, HB)；指标VSD/MSSD/MSPD→Average Recall(AR)；基线MegaPose、GenFlow、GigaPose、FoundPose、OSOP、ZS6D；检测/分割统一用CNOS；最终AR 61.4（全流水线），运行3.9s/图；消融涉及模板数N(64/128/256)、选取数k(1/2/4/8)、各组件。",
+  "resources": "单卡RTX-3090训练与推理；AdamW, batch 8, lr 1e-4, 400k步, cosine annealing(10k周期)；光流网络RAFT-large(预训练FlyingChairs+FlyingThings3D后在GSO微调)；代码/数据链接文中未给出。",
+  "paper_id": "W4413144617",
+  "paper_ids": [
+    "W4413144617"
+  ],
+  "paper_title": "RefPose: Leveraging Reference Geometric Correspondences for Accurate 6D Pose Estimation of Unseen Objects",
+  "year": 2025,
+  "citation_count": 5
+}

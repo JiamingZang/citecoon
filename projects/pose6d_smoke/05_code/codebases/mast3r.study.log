@@ -1,0 +1,42 @@
+[17:20:08] study_codebase https://github.com/naver/mast3r
+
+Clone succeeded. The `dust3r` dir is an empty submodule. Let me create the skeleton card immediately, then explore.
+
+Now let me explore the structure. Note `dust3r` is an empty submodule — important dependency.
+
+dust3r submodule is empty — MASt3R depends on it heavily. Let me examine core files and search for matching/rendering interfaces.
+
+Let me examine the matching interface and descriptor head.
+
+Core matching found: `extract_correspondences_nonsym` returns `(xy1, xy2, conf)`. Now the demo usage and descriptor head.
+
+Now let me check the descriptor head, search for any 3DGS/gaussian rendering, and read README matching usage.
+
+Confirmed: no 3DGS/gaussian rendering in this repo. Let me read the descriptor head and README matching section.
+
+Now the README matching example and setup. Let me search README and check sparse_ga matching invocation.
+
+Let me read the README matching example and install sections.
+
+Now the install section, requirements, and how sparse_ga invokes matching with confidence.
+
+Now requirements and how sparse_ga uses matching/confidence.
+
+Let me read the sparse_ga signature and matching functions.
+
+Let me read forward_mast3r — the actual feature extraction entry.
+
+I have comprehensive facts. Let me verify the demo command then write the full card.
+
+Now writing the complete card.
+
+侦察完成，卡片已写入 `mast3r.md`。核心结论：
+
+**关注点(1) 稠密匹配接口 — 已完整查证**
+- 模型前向 `mast3r/model.py:199-213` 输出 `pts3d / conf / desc / desc_conf / pts3d_in_other_view`
+- 描述子头 `catmlp_dpt_head.py:27-41`（24 维、L2 归一化、双置信度）
+- 带置信度对应出口 `fast_nn.py:191 extract_correspondences_nonsym` → `(xy1, xy2, conf)`
+- 官方端到端样例 `README.md:246-314`
+
+**关注点(2)(3) 3DGS 渲染/训练 — 本仓库不存在**
+全仓 `grep gaussian|splat|render` 零命中。MASt3R 只做匹配+点云/位姿初值

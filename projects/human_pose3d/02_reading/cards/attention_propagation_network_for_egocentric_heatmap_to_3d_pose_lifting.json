@@ -1,0 +1,15 @@
+{
+  "problem": "立体自我中心视角下，严重自遮挡和视野外肢体使3D姿态估计极具挑战；已有方法虽用关节热图作为概率化2D表示，但从热图到3D姿态的提升转换仍不准确，存在特征嵌入信息丢失和对遮挡关节的数据依赖估计两大问题。",
+  "method": "EgoTAP由Grid ViT Heatmap Encoder和Propagation Network两部分组成。Grid ViT将所有关节热图拼成单张网格图，切分为patch后经3层ViT Transformer编码器以自注意力实现远距离patch间通信，保留热图与特征嵌入的对应关系，再压缩为每关节128维特征。Propagation Network基于骨骼树层级（以头部为根），使用受LSTM启发的Propagation Unit（PU），将父关节隐状态、肢体热图关系特征与子关节自身特征加权融合，从近相机的高可见度父关节向远端遮挡关节逐层传播信息；最终将传播特征与Grid ViT关节特征拼接后线性投影输出3D坐标。",
+  "core_assumption": "自我中心视角中靠近相机的关节（如头部）可见度更高、估计更准确，其信息可有效辅助远端遮挡关节的估计；骨骼树结构提供了自然且有效的单向传播路径；立体热图本身已编码足够的3D信息以支撑直接估计，传播仅起补充作用。",
+  "eval_setup": "数据集：UnrealEgo（合成，450k帧，16关节）与EgoCap（真实，35k训练/1k测试，17关节）；基线：EgoGlass、UnrealEgo、Ego3DPose；指标：MPJPE、PA-MPJPE；结果：MPJPE降低23.9%，PA-MPJPE降低17.7%；消融验证Grid ViT优于CNN/Channel ViT编码器，PU优于LSTM/RF变体。",
+  "limitation": "作者承认：效果依赖身体部位可见度，爬行等全身遮挡活动改进仅8.8%；部分样本因肢体遮挡传播效果接近零。进一步局限：方法绑定立体相机硬件，未利用时序信息；热图估计器冻结，性能上界受热图质量制约；骨骼树根固定为头部，对非典型姿态（如倒立）可能不适用；UnrealEgo为合成数据，EgoCap规模极小（1k测试），真实场景泛化性验证不足；未讨论与单目或外部相机方法的公平对比。",
+  "resources": "代码：GitHub公开；硬件：NVIDIA RTX A6000 GPU + AMD EPYC 7313 16核CPU；热图估计器：ResNet-18 U-Net，Adam优化器，lr=1e-3，10 epochs，batch size 16；训练框架：PyTorch + HuggingFace Transformers ViT-Model。",
+  "paper_id": "W4402754008",
+  "paper_ids": [
+    "W4402754008"
+  ],
+  "paper_title": "Attention-Propagation Network for Egocentric Heatmap to 3D Pose Lifting",
+  "year": 2024,
+  "citation_count": 16
+}

@@ -1,0 +1,15 @@
+{
+  "problem": "单目3D人体姿态估计中，将2D姿态序列提升至3D表示面临深度信息缺失的病态问题。Transformer方法存在二次计算复杂度且双向建模能力不足；Mamba/SSM虽具线性复杂度但缺乏对局部骨骼交互的显式建模，导致精细几何结构捕捉不足。",
+  "method": "提出BSTMamba，一种双向时空状态空间模型架构：(1) 沿空间（关节维度）和时间（帧维度）分别进行双向选择性扫描，前向与后向特征求和融合；(2) 以非因果1D卷积替代因果卷积并引入对称无SSM分支（Conv1D+SiLU）增强局部感知，通过动态门控机制自适应融合局部特征与SSM输出；(3) DisruptEnhance模块在训练时以概率驱动方式对关节序列进行全局（保留核心关节、打乱其余）和局部（按5个身体区域独立置换）随机扰动，再经轻量残差MLP补偿并用随机掩码融合增强与原始特征，推理时无额外开销。",
+  "core_assumption": "假设双向SSM的线性扫描足以建模关节间长程时空依赖，且1D局部卷积+门控可充分补偿SSM对局部骨骼拓扑感知的不足。假设随机打乱关节顺序配合残差补偿能促使模型学习结构不变性而非记忆固定拓扑，从而提升泛化。",
+  "limitation": "作者承认全局建模可能记忆特定运动节律、局部建模易过拟合固定骨骼结构。进一步读出：局部区域划分硬编码为Human3.6M的5组关节，迁移至其他骨架标注需重新定义；DisruptEnhance仅训练时生效，其泛化收益为间接且难以在推理时验证；与HGMamba-XS等轻量模型相比参数量(9.85M)和MACs(13.57G@T=81)仍偏高；缺乏对遮挡严重、多人交互等真实场景的定量评估；未讨论SSM扫描顺序对空间维度建模的理论合理性（关节并非天然有序序列）。",
+  "eval_setup": "数据集：Human3.6M（Protocol#1 MPJPE / Protocol#2 P-MPJPE，17关节，T=9/27/81）和MPI-INF-3DHP（PCK/AUC/MPJPE，T=9/27）。输入：CPN检测2D姿态与GT 2D姿态。基线：MixSTE、MHFormer、STCFormer、HDFormer、GLA-GCN、HGMamba-XS、MotionAGFormer-XS等。最优结果：H36M CPN输入T=81 MPJPE 41.7mm，GT输入T=81 MPJPE 22.5mm；3DHP T=27 PCK 98.2%/AUC 79.8%/MPJPE 26.6mm。",
+  "resources": "PyTorch实现，单卡NVIDIA GTX 4090训练，batch size 128，Adam优化器，初始lr=0.001每epoch衰减0.96，训练20 epochs。未提供代码仓库链接。",
+  "paper_id": "W4413980847",
+  "paper_ids": [
+    "W4413980847"
+  ],
+  "paper_title": "A Spatiotemporal Bidirectional Mamba Network with Global–Local Skeletal Enhancement for 3D Human Pose Estimation",
+  "year": 2025,
+  "citation_count": 0
+}

@@ -1,0 +1,15 @@
+{
+  "problem": "回归式人体姿态估计方法性能落后于检测式方法，核心原因在于已有回归方法仅独立最小化各关节位置误差，未充分利用姿态内部的关节连接结构信息（如骨骼长度约束、关节角度约束等）。",
+  "method": "提出结构感知的组合式姿态回归：(1) 用骨骼向量（bone）替代关节坐标作为网络输出的姿态重参数化表示，因骨骼更原始、更稳定、更易学习；(2) 利用关节连接拓扑定义组合损失函数（compositional loss），编码骨骼间的长程交互与几何约束（骨长、关节角度等）；(3) 仅改变输出表示与损失函数，不改网络结构，可无缝嵌入任意回归框架，且2D/3D数据可在统一框架中混合训练。",
+  "core_assumption": "骨骼向量比关节绝对坐标更适合作为回归目标，因为骨骼更原始且方差更小；人体骨架的固定连接拓扑提供了有效的先验结构，通过显式几何约束（骨长恒定、关节角度合法）即可显著提升姿态一致性，无需复杂的运动学模型或图推理。",
+  "limitation": "作者承认与SOTA的对比因训练数据、网络架构和实现差异而不完全公平；Human3.6M数据集受控环境下主体、背景和姿态多样性有限，模型向野外图像的泛化未被充分验证。此外，方法依赖固定骨架拓扑，未显式处理遮挡、多人场景及拓扑变化；组合损失中各约束项的权重设计缺乏理论指导；2D+3D混合训练虽有效但机理分析不足；对严重自遮挡或极端姿态下骨骼表示是否仍优于关节表示未深入讨论。",
+  "eval_setup": "3D: Human3.6M，Protocol 1（S1,5,6,7,8,9训练/S11测试）与Protocol 2（S1,5,6,7,8训练/S9,S11测试）；2D: MPII（25k训练/7k测试）。指标：Joint Error(MPJPE)、PA Joint Error、Bone Error、Bone Std、Illegal Angle、PCKh。结果：Human3.6M上59.1mm（相对SOTA提升约12%），MPII上PCKh@0.5达86.4%，为最优回归方法并与检测式SOTA持平。消融含Baseline/Ours(joint)/Ours(bone)/Ours(both)/Ours(all)五组对比。",
+  "resources": "数据：Human3.6M（动捕3D）、MPII（野外2D）；演示视频：https://www.youtube.com/watch?v=c-hgHqVK90M ；未公开代码仓库与具体算力配置。",
+  "paper_id": "W2604375920",
+  "paper_ids": [
+    "W2604375920"
+  ],
+  "paper_title": "Compositional Human Pose Regression",
+  "year": 2017,
+  "citation_count": 590
+}

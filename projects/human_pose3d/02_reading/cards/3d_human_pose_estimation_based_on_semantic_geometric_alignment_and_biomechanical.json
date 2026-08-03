@@ -1,0 +1,15 @@
+{
+  "problem": "UWB MIMO雷达点云因人体各部位RCS差异导致空间密度严重不均匀，现有方法采用均匀采样与全局特征聚合会丢失远端肢体关键特征、破坏点云空间拓扑，产生语义-几何失配；同时缺乏生物力学约束使估计姿态缺乏解剖合理性。",
+  "method": "提出端到端SGA-Net框架，包含三个核心设计：(1)密度感知空间(DAS)编码器，通过三步密度感知策略优先采样稀疏区域并以改进PointNet++ MSG提取多尺度特征；(2)交叉注意力桥(CAB)模块，利用可学习关节查询通过多头交叉注意力将无序几何特征主动对齐为有序关节语义特征；(3)数据驱动生物力学损失函数，融合历史误差记忆的加权MPJPE、基于训练集统计的骨长约束、二阶加速度惩罚及动态预热策略。时序建模采用MotionAGFormer图Transformer捕捉长程运动依赖。",
+  "core_assumption": "假设点云稀疏区域的密度感知重采样能有效表征远端肢体（即密度与语义部位存在稳定对应）；假设可学习关节查询能在无序点云特征中建立稳定的几何-语义映射；假设训练集统计的骨长分布与运动学约束可泛化至测试受试者。",
+  "limitation": "作者承认：方法面向边缘部署但仍需7.18G FLOPs。读出的局限：(1)仅在自采小规模数据集（8名志愿者、5类动作）上验证，无公开基准对比，泛化性未知；(2)骨长约束依赖训练集统计，跨体型/跨人群泛化未讨论；(3)未涉及多人场景、遮挡鲁棒性量化分析及跨环境迁移；(4)训练依赖动捕系统提供ground truth，部署扩展成本高；(5)仅估计16关节，远端精细关节（手指等）未覆盖；(6)无真实实时推理延迟报告，'边缘部署'仅为参数量论证。",
+  "eval_setup": "自采数据集：12发8收UWB MIMO雷达(FMCW, 1GHz带宽, 2.5-3.5GHz)+3D动捕系统，8名志愿者、5类日常动作、16关节GT，4:1训练/测试划分；输入T=20帧序列(帧间隔s=3, 滑窗W=10)；指标MPJPE；基线：mm-Pose(60.44mm)、UWB-Pose(49.66mm)；时序backbone消融：LSTM/bi-LSTM/GRU/bi-GRU/Transformer/x-LSTM；SGA-Net达29.95mm，2.93M参数，7.18G FLOPs。",
+  "resources": "单卡NVIDIA RTX 4090训练与推理；PyTorch, Ubuntu 22.04；batch=8, Adam lr=5e-5, ReduceLROnPlateau, 100 epochs；硬件需12Tx-8Rx UWB MIMO雷达原型+3D动捕系统采集数据；代码/数据集未公开。",
+  "paper_id": "W7169661113",
+  "paper_ids": [
+    "W7169661113"
+  ],
+  "paper_title": "3D Human Pose Estimation Based on Semantic-Geometric Alignment and Biomechanical Priors Using UWB MIMO Radar",
+  "year": 2026,
+  "citation_count": 0
+}

@@ -1,0 +1,6 @@
+== 遮挡鲁棒
+审校完成（success）：P0=0 P1=1 P2=2，判定【需修订后发布】。清单: 
+results/human_pose3d/reports/遮挡鲁棒的多人绝对3D位姿估计_几何先验增强的RootNet/
+review.md
+问题局部时用 revise_report（或 saagent 
+revise）按清单定向修；结构性缺陷/大面积编造才重跑 write_tech_report。

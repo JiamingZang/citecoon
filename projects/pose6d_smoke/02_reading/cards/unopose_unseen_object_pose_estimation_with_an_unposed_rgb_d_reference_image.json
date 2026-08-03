@@ -1,0 +1,15 @@
+{
+  "problem": "现有未见物体6DoF位姿估计方法依赖CAD模型或多张参考视图，导致物体注册成本高昂、难以适应开放世界场景。本文旨在仅利用单张无位姿RGB-D参考图像估计未见物体的6DoF相对位姿，此时相对变换可在整个SE(3)空间内任意变化，且遮挡、传感器噪声和极端几何会导致视点重叠极低。",
+  "method": "UNOPose采用由粗到精的点云配准范式：首先构建SE(3)不变的全局参考坐标系(GRF)，通过平移至物体中心、缩放至单位半径、并估计规范旋转来标准化物体表示以消除位姿和尺寸差异；精细阶段引入局部参考坐标系(LRF)编码细粒度几何信息。针对部分到部分匹配中的低重叠问题，设计重叠预测器为每个对应点预测其处于重叠区域的概率，据此重新加权对应关系。分割模块(UNOSeg)利用SAM生成掩码候选并用DINOv2特征余弦相似度筛选最佳掩码。",
+  "core_assumption": "假设单张无位姿RGB-D参考图像包含足够的几何与外观信息以建立可靠的稠密对应；假设基于物体几何统计量构建的SE(3)不变参考坐标系能有效归一化任意位姿与尺度变化；假设视觉基础模型(SAM、DINOv2)对未见物体具有足够的分割与特征泛化能力。",
+  "limitation": "作者承认：基于对应的方法依赖预测鲁棒且稠密的对应关系，在极端双视图几何(重叠极低)下受限。实验显示旋转距离超过50°后性能显著下降(80°-90°区间ARBOP仅54.8%)。此外：(1)分割质量对最终位姿影响明显，GT分割比UNOSeg高约3%；(2)方法仅估计相对位姿，绝对位姿仍需参考物体位姿已知；(3)对动态物体(TUD-L)性能明显低于静态场景；(4)未来工作提出从单张参考重建物体三维形状再估位姿，暗示当前方法缺乏对物体完整几何的建模能力。",
+  "eval_setup": "数据集：基于BOP Challenge构建的基准，涵盖YCB-V、LM-O、TUD-L三个数据集。指标：VSD、MSSD、MSPD、ARBOP(综合)。基线：传统方法(PPF+ICP、FPFH、TOLDI)、学习方法(SAM-6D、FreeZe、UTOPIC、GeoTransformer)、CAD模型方法(ZTE-PPF、Koenig-PPF)。规模：单RTX 3090 GPU，每图3.70s(分割2.68s+位姿1.02s)。主要结果：ARBOP 70.9%，超越所有单参考方法，接近CAD模型方法(Koenig-PPF 75.1%)。",
+  "resources": "代码与数据集：github.com/shanice-l/UNOPose。算力：单张RTX 3090 GPU。依赖预训练模型SAM和DINOv2。训练数据基于BOP Challenge数据集。",
+  "paper_id": "W4413146937",
+  "paper_ids": [
+    "W4413146937"
+  ],
+  "paper_title": "UNOPose: Unseen Object Pose Estimation with an Unposed RGB-D Reference Image",
+  "year": 2025,
+  "citation_count": 16
+}

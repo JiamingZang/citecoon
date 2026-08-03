@@ -1,0 +1,30 @@
+[17:56:13] study_codebase https://github.com/facebookresearch/foundpose
+
+我将开始这个工程侦察任务。先检查目标目录是否存在。
+
+目录不存在，开始浅克隆 foundpose 仓库。
+
+克隆成功。现在并行启动多个探索任务来精读代码。
+
+发现关键文件：`utils/dinov2_utils.py` 和 `utils/feature_util.py`。并行读取这些文件和 README。
+
+已获得核心文件。现在并行探索配置文件、脚本调用和目录结构。
+
+发现关键配置：两个 json 都用 `layer=9`。现在读取配置文件和脚本的关键部分。
+
+现在验证 external/dinov2 是否存在（浅克隆可能没有子模块）和检查 logbin 参数处理。
+
+子模块为空（浅克隆未拉取）。现在查看特征提取在表示生成和推理中的完整使用链路。
+
+现在查看 infer.py 中特征提取的使用链路，以及 gen_repre.py 中 generate_raw_repre 的定义。
+
+已收集足够信息。现在写入 foundpose.md 卡片。
+
+卡片已写入 `./foundpose.md`。核心发现摘要：
+
+**层选择是可配置的，但默认硬编码为 9**：
+- `utils/dinov2_utils.py:56` — `self.layer: int = 9`（硬编码默认）
+- `configs/infer/lmo.json:12` 与 `configs/gen_repre/lmo.json:7` — 显式 `layer=9`（ViT-S/14-reg 的第 10 层，0-indexed）
+- 层号通过 `model_name` 字符串解析（`utils/dinov2_utils.py:60-78`），改 JSON 即可换层，**无需改 Python 代码**
+
+**支持自适应层选择需改代码**：底层 `_extract_features` 已支持 `List[int]` 多层 hook，但 `forward` / `extract

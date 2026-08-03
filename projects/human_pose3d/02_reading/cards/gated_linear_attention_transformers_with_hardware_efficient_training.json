@@ -1,0 +1,15 @@
+{
+  "problem": "线性注意力Transformer虽支持并行训练和线性时间推理，但在语言建模质量上显著逊于softmax注意力，且现有实现缺乏I/O感知，实际速度反而慢于高度优化的FlashAttention-2；此外已有线性注意力变体（如RetNet）仅使用全局、数据无关的衰减因子，未能利用数据依赖门控这一在1D RNN中被证明至关重要的机制。",
+  "method": "提出FlashLinearAttention：一种I/O感知的硬件高效线性注意力算法，通过分块并行形式在内存搬运与并行度之间权衡，即使在1K短序列上也快于FlashAttention-2。在此基础上引入数据依赖门控GLA：隐状态更新为St=Diag(αt)St-1+kt⊤vt，其中αt通过低秩线性层+sigmoid参数化（Gt=αt⊤1），兼顾表达力与矩阵乘法形式以利用tensor core。训练采用两级分块策略：子块间用半精度matmul计算，子块内在log空间全精度计算以保证数值稳定；并给出dαt的闭式公式避免在HBM中物化L×d×d隐状态。",
+  "core_assumption": "对角形式的数据依赖门控（Gt=αt⊤1）是标量门控与全秩/低秩门控之间的有效折中，既提供足够表达力又保持matmul形式以使用tensor core；I/O瓶颈（而非FLOPs）是线性注意力实际慢于softmax注意力的主要原因；仅依赖当前输入的门控（而非同时依赖隐状态）即可实现并行训练且不显著损失性能。",
+  "limitation": "作者承认新架构对语言模型偏见/有害输出的影响尚未探索。我读出的局限：(1)实验仅在中等规模（340M/1.3B参数，15B/100B token）验证，能否在更大规模保持竞争力未知；(2)对角门控表达力有限，作者初步实验显示全低秩参数化（αt⊤βt）仅有边际提升，门控设计空间未充分探索；(3)长度泛化仅验证到20K，更长序列表现未知；(4)在recall密集型任务上虽优于其他线性循环模型，但与softmax注意力的差距未被充分量化；(5)算法高度依赖特定GPU硬件特性（SRAM容量、tensor core），跨硬件可移植性未讨论。",
+  "eval_setup": "语言建模任务；模型规模340M（15B token）和1.3B（100B token）；基线为Transformer++（LLaMA架构）、RetNet、Mamba；指标包括困惑度、训练吞吐量（Kt/s）、GPU显存占用；长度泛化实验训练长度2K、测试至20K+；吞吐量与显存在H100上对比，序列长度2048/4096/8192/16384，batch size相应调整。",
+  "resources": "代码开源于 https://github.com/sustcsonglin/flash-linear-attention ；训练硬件涉及H100 GPU；训练数据规模15B-100B token（具体数据集名称在给定文本中未明确列出）。",
+  "paper_id": "arxiv:2312.06635",
+  "paper_ids": [
+    "arxiv:2312.06635"
+  ],
+  "paper_title": "Gated Linear Attention Transformers with Hardware-Efficient Training",
+  "year": 2023,
+  "citation_count": 0
+}

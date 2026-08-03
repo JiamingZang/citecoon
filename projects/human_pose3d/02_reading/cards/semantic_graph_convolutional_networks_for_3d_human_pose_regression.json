@@ -1,0 +1,15 @@
+{
+  "problem": "现有GCN用于回归任务时存在两大局限：卷积核对所有节点共享同一变换矩阵，无法区分不同边的语义关系；感受野固定为一阶邻居，网络加深时信息交换效率严重受限。本文以2D到3D人体姿态回归为切入点解决上述问题。",
+  "method": "提出SemGCN架构：核心模块SemGConv为每条边学习逐通道的可训练权重矩阵Md，经Softmax归一化后与邻接掩码A逐元素相乘，再与共享变换矩阵W组合，从而以输入无关的方式编码图结构中隐含的局部语义先验；同时交替堆叠non-local层捕获全局节点关系。整体可端到端训练，并可融合图像特征（ResNet50+integral loss）进一步提升性能，采用多阶段训练策略（先训2D检测、再训图网络、最后联合微调）。",
+  "core_assumption": "所有图样本共享相同拓扑结构（如人体骨架），使得从图结构中学习边权先验成为可能；2D与3D姿态可自然表示为结构化图，关节间空间关系对理解动作至关重要；在相机坐标系下预测可消除不同相机间差异。",
+  "limitation": "作者承认：未利用时序信息（视频），留作未来工作；对与训练集差异极大的极端姿态仍会失败；端到端从头训练效果不佳，需依赖多阶段训练。读者补充：方法仅适用于同构拓扑图，无法推广到蛋白互作、量子化学等异构图场景；边权为输入无关的静态先验，无法根据具体输入动态调整（与GAT/aGCN的自注意力互补但缺乏自适应）；未讨论在遮挡严重或2D检测噪声大时的鲁棒性边界；泛化到其他回归任务仅停留在声明层面，无实验验证。",
+  "eval_setup": "数据集：Human3.6M（360万帧，15种动作，10fps下采样），MPII用于2D检测器预训练及定性评估；协议：Protocol #1（S1/5/6/7/8训练，S9/11测试）为主，Protocol #2亦报告；指标：MPJPE(mm)；基线：aGCN、GAT、ST-GCN、FC(Martinez)、PG(Fang)及多种SOTA；规模：SemGCN仅0.43M参数，比FC少约90%，前向推理约1.8ms（Titan Xp）。",
+  "resources": "代码开源：https://github.com/garyzhao/SemGCN；骨干网络ResNet50需ImageNet预训练权重；训练使用单块Titan Xp GPU，Adam优化器，batch size 64，初始lr 0.001，200 epochs；无数据增强。",
+  "paper_id": "W2964318832",
+  "paper_ids": [
+    "W2964318832"
+  ],
+  "paper_title": "Semantic Graph Convolutional Networks for 3D Human Pose Regression",
+  "year": 2019,
+  "citation_count": 621
+}

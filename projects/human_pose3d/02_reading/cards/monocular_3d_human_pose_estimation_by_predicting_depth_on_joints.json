@@ -1,0 +1,15 @@
+{
+  "problem": "从单张RGB图像估计全身3D人体姿态，核心挑战在于将2D姿态提升到3D空间时存在固有歧义——在深度未知的情况下，无穷多3D姿态可投影到同一2D姿态。",
+  "method": "提出两级树结构LSTM层次网络预测各关节深度值：第一级包含skeleton-LSTM（输入全局2D骨架特征，经多层感知机编码）和patch-LSTM（输入关节周围局部图像块，经小型CNN编码），两者均按人体运动学树结构传播信息；第二级将两个网络的隐状态逐元素max pooling后送入最终LSTM预测对数深度。训练分三阶段：skeleton-LSTM在2D-3D姿态对上预训练（可通过任意视角投影生成无穷样本），patch-LSTM结合MoCap深度回归与in-the-wild 2D姿态回归进行多任务预训练以缓解过拟合，最后端到端联合微调。损失函数同时包含绝对深度误差和树边上父子相对深度误差。",
+  "core_assumption": "全局深度信息（尺度、粗略深度）可从2D骨架与3D姿态的统计相关性中推断；局部身体部位外观与深度存在可学习的对应关系；人体运动学树结构能有效在关节间传播上下文信息，优于平坦或顺序链结构。",
+  "limitation": "作者承认：尚未利用视频时序信息，未考虑人物-物体关系，计划未来扩展到视频域和3D场景重建。我读出的局限：(1)完全依赖现成2D姿态估计器，2D检测误差会传导（尽管实验显示3D误差增长较慢）；(2)单目无法恢复全局尺度，评估需允许尺度变换；(3)训练数据来自受限室内环境，外观变化有限，虽用多任务缓解但泛化仍受限（HHOI上PullUp误差达124.8mm）；(4)多人场景中两人相对深度无法正确估计，需启发式回归；(5)树结构LSTM为自顶向下单向传播，缺乏子节点对父节点的反馈；(6)未讨论遮挡严重时patch-LSTM的鲁棒性。",
+  "eval_setup": "数据集：Human3.6M（360万3D姿态，11人15动作4相机，训练~180万2D/3D对，测试3612帧）+ HHOI（Kinect v2，5类交互，8人）+ MPII-LSP-extended（8万张2D姿态图用于多任务）。基线：Yasin[39]、Gall[13]、Rogez[23]、Tekin[30]、Zhou[41]、Nearest。指标：MPJPE(mm)，13关节。协议P1：S1/5/6/7/8/9训练、S11测试、允许刚体变换，最优79.5mm；P2：S1/5/6/7/8训练、S7/9测试、仅根节点对齐，最优97.5mm。HHOI：10fps下采样，允许刚体+尺度变换。",
+  "resources": "实现：Keras；算力：单块NVIDIA Titan X (Pascal) GPU；优化器RMSprop，学习率0.00001，batch size 128(skeleton)/64(其他)；数据：Human3.6M + HHOI + MPII-LSP-extended（公开数据集）。",
+  "paper_id": "W2781181706",
+  "paper_ids": [
+    "W2781181706"
+  ],
+  "paper_title": "Monocular 3D Human Pose Estimation by Predicting Depth on Joints",
+  "year": 2017,
+  "citation_count": 136
+}

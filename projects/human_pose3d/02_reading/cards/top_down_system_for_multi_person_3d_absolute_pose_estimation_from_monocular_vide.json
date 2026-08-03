@@ -1,0 +1,15 @@
+{
+  "problem": "单目RGB视频下多人3D绝对姿态估计（即恢复每个人相对于相机的真实三维坐标）仍具挑战性：多视角方案成本高且不适用于实时场景，已有单目方法通常资源与内存消耗大，难以在工业实时约束下同时保证精度与速度。",
+  "method": "提出自顶向下框架Root-GAST-Net，依次集成YOLOv3人体检测、HRNet-W32二维关键点估计、改进的GAST-NetABS（在MPII-3DHP与MuCo-Temp上重训练，输入27帧2D关键点输出3D根相对姿态）以及RootNet根深度估计四个模块。核心改进为GAR策略：用重训练后的GAST-NetABS输出绝对关键点再反算根相对关键点，同时保留RootNet预测的绝对根深度，二者组合得到最终相机坐标系下的绝对3D姿态；所有非GAST-Net模块经TensorRT FP32优化以达实时。",
+  "core_assumption": "3D绝对姿态可被解耦为根相对姿态与绝对根深度两个独立子问题，各模块独立训练后串联即可达到甚至超越端到端方法的精度；27帧时序窗口足以捕获有效的时空信息用于2D到3D提升；在多人合成数据（MuCo-Temp）上训练可充分泛化到真实多人场景。",
+  "limitation": "作者承认：相对姿态PCK仍低于部分方法，根深度精度在GA变体中不如GR；自顶向下流程对检测与跟踪误差敏感，人际遮挡和近距离交互仍是弱点。进一步读出：四模块串联无端到端联合优化，误差逐级累积；跟踪采用匈牙利算法，频繁遮挡或ID切换场景未充分讨论；仅在两个数据集上验证，缺少对拥挤场景、快速运动、新目标进出等失败案例的分析；未与同期Transformer类方法对比；15 fps基于GTX 1080，在更复杂真实部署中可扩展性存疑。",
+  "eval_setup": "训练集：MPII-3DHP + MuCo-Temp；测试集：MuPoTS-3D（20段室内外多人视频）与Human3.6M（被试9、11）。基线：PoseNet、HDNet、SMAP、HMOR、GnTCN、TDBU_Net、DAS。指标：3D-PCKabs、AP_root_25、PCK、AUCrel、MPJPE、MRPE。关键结果：MuPoTS-3D上3D-PCKabs 56.8%（超TDBU_Net 8.8 pp）、AP_root_25 58.9%（超12.6 pp）、MPJPE 101.9 mm；Human3.6M上MRPE 178 mm vs RootNet 289 mm；速度15 fps（GTX 1080）。",
+  "resources": "硬件：Nvidia GTX 1080 + Intel i5-9500；训练使用Mésocentre Clermont Auvergne超算，耗时约一周；实现语言C++，HRNet部分用PyTorch，推理用TensorRT FP32优化；数据集均为公开（Human3.6M、MuPoTS-3D、MPII-3DHP、MuCo-Temp）；代码是否开源文中未明确说明。",
+  "paper_id": "W4281615113",
+  "paper_ids": [
+    "W4281615113"
+  ],
+  "paper_title": "Top-Down System for Multi-Person 3D Absolute Pose Estimation from Monocular Videos",
+  "year": 2022,
+  "citation_count": 16
+}

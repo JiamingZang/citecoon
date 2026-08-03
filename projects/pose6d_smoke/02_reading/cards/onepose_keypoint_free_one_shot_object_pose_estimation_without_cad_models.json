@@ -1,0 +1,15 @@
+{
+  "problem": "现有 one-shot 无 CAD 模型的物体位姿估计方法（如 OnePose）依赖可重复关键点检测，在低纹理物体上因无法重建完整点云而容易失败。本文旨在去除对关键点检测的依赖，使 one-shot 位姿估计同时适用于富纹理和低纹理物体。",
+  "method": "提出两阶段 keypoint-free 管线：(1) 利用 LoFTR 粗匹配的可重复性为 COLMAP 构建半稠密特征轨迹，再通过固定参考节点、在源节点局部窗口内做亚像素精匹配来精化特征轨迹，并仅优化参考节点深度以最小化重投影误差，得到精确半稠密点云；(2) 测试时设计稀疏到稠密的 2D-3D 匹配网络，先在粗分辨率上用 self-attention 和 cross-attention 建模长程依赖并建立粗对应，再裁剪局部细特征做细匹配，最终通过 PnP 求解位姿。",
+  "core_assumption": "LoFTR 粗级对应虽然精度有限但具有足够的跨视图可重复性，可作为 SfM 特征轨迹的初始输入；基于 Transformer 的局部特征具有足够泛化能力，无需针对每个物体训练即可在新物体上建立可靠的 2D-3D 对应。",
+  "limitation": "作者承认：依赖局部特征匹配，在极低分辨率图像及极端尺度和视角变化下性能下降；仍需额外的目标检测器提供粗略 ROI，未与检测器紧耦合。本文读出：(1) 2D-3D 匹配中 3D 点特征由关联 2D 特征简单平均得到，未建模特征不确定性或遮挡；(2) 对对称物体（LINEMOD 中标注 * 的 eggbox、glue）ADD(S) 指标下仍有明显差距（如 glue 48.0 vs PVNet 95.7），对称性歧义未显式处理；(3) 推理速度（~88 ms）与 OnePose（~66 ms）相比略慢，实时 AR 场景仍有压力；(4) OnePose-LowTexture 仅 40 个物体、80 段视频，规模有限，泛化性验证不充分。",
+  "eval_setup": "数据集：OnePose（150 物体，~450 视频序列）、LINEMOD（13 物体）、新采集 OnePose-LowTexture（40 低纹理物体，80 段视频，其中 8 个有扫描 CAD 模型）。基线：One-shot 类（OnePose、HLoc+SuperGlue、HLoc+LoFTR、Gen6D）；Instance-level 类（PVNet、CDPN）。指标：cm-degree 位姿成功率（1cm-1°/3cm-3°/5cm-5°）、ADD(S)-0.1d、Proj2D（5px 阈值）。参考图像约 200 张/物体重建点云。",
+  "resources": "代码与数据集已公开：https://zju3dv.github.io/onepose_plus_plus/。依赖 LoFTR 预训练权重、COLMAP、YOLOv5 检测器提供粗边界框。硬件需求未明确说明，推理在单 GPU 上约 88 ms/帧。",
+  "paper_id": "W4317552994",
+  "paper_ids": [
+    "W4317552994"
+  ],
+  "paper_title": "OnePose++: Keypoint-Free One-Shot Object Pose Estimation without CAD Models",
+  "year": 2023,
+  "citation_count": 172
+}

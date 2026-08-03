@@ -1,0 +1,15 @@
+{
+  "problem": "单目2D-to-3D姿态提升模型因输入仅为稀疏2D关键点而缺乏深度/遮挡/视角几何线索，严重过拟合训练分布，跨数据集泛化能力差（H3.6M上40-50mm MPJPE在3DPW上退化至>100mm）。时序方法过拟合运动动态，稠密图像特征则易学习背景伪相关。",
+  "method": "AugLift将提升输入从2D坐标重参数化为6D几何描述子，包含两个模块：(1) UADD——对每个关键点依据检测置信度c自适应调节采样半径（低置信度/遮挡时扩大邻域），从现成单目深度估计器提取局部深度中位数、最小值、最大值，形成(c, d, dmin, dmax)元组，其中dmin作为关节深度几何下界解决前后歧义；(2) 尺度归一化——检测设置用边界框重缩放，GT+DG设置用深度比例dscale2d补偿训练/测试距离偏移。集成仅需将输入层从2K扩至6K通道，与任意提升架构和DG技术可组合。与PoseAug结合时设计了实时深度生成管线（解析BA/BL→SMPL映射+可微光栅化+Depth Anything V2提取深度）。",
+  "core_assumption": "现成单目深度估计器提供的噪声深度下界（最近可见表面）已足以提供有效的局部几何消歧信号；2D检测器置信度能可靠反映遮挡/可见性从而合理调节采样邻域；逐关节局部深度统计量具有跨域不变性（不依赖场景级外观），因此在合成渲染与真实图像间迁移时仍有效。",
+  "limitation": "作者承认：MDE仅提供最近可见表面深度而非遮挡关节真实深度，且存在跨数据集域偏移；运动先验的脆弱性需进一步研究；实时部署需蒸馏轻量化。进一步读出：方法增益强依赖MDE质量，极端遮挡/低纹理/多人重叠场景下深度估计可能失效；dref为需扫描的超参数（3.5-6.0m），对不同场景距离分布敏感；多人场景、弱/自监督深度信号下的表现未验证；与PoseAug结合需SMPL拟合与可微渲染管线，增加训练复杂度；论文未报告对MDE本身域偏移的鲁棒性消融。",
+  "eval_setup": "4数据集(Human3.6M, MPI-INF-3DHP, 3DPW, Fit3D)×4架构；检测设置+GT 2D+DG设置；指标MPJPE；跨数据集评估(H36M→3DPW/3DHP)；基线含PoseAug、VideoPose3D、MotionBERT等；检测设置平均OOD降10.1%、ID降4.0%；GT+DG设置SOTA：3DHP 62.4mm、3DPW 92.6mm（较PoseAug分别提升14.5%和22.2%）；Fit3D新姿态误差降15.7%。",
+  "resources": "需现成单目深度估计器(Depth Anything V2)；与PoseAug结合需SMPL身体模型及128×128可微光栅化；无需新传感器或额外3D标注数据采集；代码/开源信息文中未明确提及。",
+  "paper_id": "W4414457910",
+  "paper_ids": [
+    "W4414457910"
+  ],
+  "paper_title": "AugLift: Depth-Aware Input Reparameterization Improves Domain Generalization in 2D-to-3D Pose Lifting",
+  "year": 2025,
+  "citation_count": 0
+}

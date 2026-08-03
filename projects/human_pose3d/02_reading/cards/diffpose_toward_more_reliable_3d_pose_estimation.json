@@ -1,0 +1,15 @@
+{
+  "problem": "单目3D人体姿态估计因固有的深度模糊性和遮挡问题，导致预测具有高不确定性和不确定性（indeterminacy），现有方法难以可靠地从2D姿态恢复准确的3D姿态。",
+  "method": "DiffPose将3D姿态估计建模为逆扩散过程：首先基于热力图初始化具有样本特异性不确定性的3D姿态分布HK；前向扩散采用高斯混合模型（GMM，5个核）对噪声建模，使中间分布逐步趋近该不确定性分布而非标准高斯；逆扩散过程由GCN构成的扩散模型g执行，以时空上下文特征fST和扩散步嵌入为条件，逐步将HK去噪为低不确定性的H0，最终取N=5个样本均值作为输出。推理时用DDIM加速至5步。",
+  "core_assumption": "每个3D姿态的不确定性分布可用有限核数的GMM充分刻画；预训练的上下文编码器提供的时空特征足以引导逆扩散收敛到与输入2D姿态对应的准确3D姿态；两阶段流程中2D检测误差不会破坏扩散过程的可恢复性。",
+  "limitation": "作者未明确讨论局限。可读出：(1)仍依赖两阶段流程，2D检测器误差会传播；(2)GMM固定5个核，对高度多模态或不规则不确定性分布的拟合能力有限；(3)上下文编码器需预训练并冻结，其质量直接约束上限；(4)仅在Human3.6M和MPI-INF-3DHP上验证，缺乏对野外复杂场景、多人、极端遮挡的评估；(5)多采样(N=5)+多步扩散的推理开销虽经DDIM缓解但仍高于单次回归方法；(6)未探讨扩散过程对2D检测失败的鲁棒性。",
+  "eval_setup": "数据集：Human3.6M（3.6M帧，11受试者，S1/5/6/7/8训练，S9/11测试）和MPI-INF-3DHP（1.3M帧，8视角）。视频设定用243帧输入。指标：MPJPE、P-MPJPE、PCK@150mm、AUC。基线包括Pavllo、Liu、Zeng、Zheng、Li、Shan、Zhang（视频）及Martinez、Zhao、Xu、Liu（帧）。关键超参：K=50步，N=5样本，M=5 GMM核，DDIM加速至5步。视频CPN检测2D下MPJPE 36.9mm（GT 2D下18.9mm），较SOTA提升约4mm。",
+  "resources": "项目主页 https://gongjia0208.github.io/Diffpose/；依赖预训练上下文编码器（视频用[49]，帧用[52]）及CPN 2D检测器；具体算力需求文中未给出。",
+  "paper_id": "W4386075813",
+  "paper_ids": [
+    "W4386075813"
+  ],
+  "paper_title": "DiffPose: Toward More Reliable 3D Pose Estimation",
+  "year": 2023,
+  "citation_count": 184
+}

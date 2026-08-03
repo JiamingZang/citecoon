@@ -1,0 +1,32 @@
+[17:48:42] write_tech_report 对称性感知的统一位姿估计_从旋转拓扑到对称-等变训练
+
+I'll write this technical feasibility report. Let me start by reading the review checklist and the finalized idea document.
+
+I've read the review checklist (2 P0, 9 P1, 5 P2 issues) and the idea document. Now reading source materials.
+
+Now reading the key cards and codebases needed for the report.
+
+Now reading more cards and the FoundPose paper for verification of specific claims.
+
+I have sufficient source material. Now writing the full report, incorporating all review corrections.
+
+Let me read the existing report to understand its current state before rewriting.
+
+I've read the existing report and all source materials. Now I'll rewrite the full report fixing all 16 issues from the review (2 P0, 9 P1, 5 P2). Writing the corrected version.
+
+Report written. Now doing the final review pass to verify all corrections against the checklist.
+
+Let me verify the key corrections are properly applied by checking for problematic patterns.
+
+Good - no instances of "23 个物体/零件" remain. The "明确指出" on line 44 refers to the NOCS card (correct usage), and "cyclic" on line 242 is quoting the paper's rejection of it. Let me verify a few more corrections.
+
+All review issues verified as fixed. Let me do one final check on the character count and overall consistency.
+
+All 16 review issues (2 P0 + 9 P1 + 5 P2) verified as fixed. Report is 27,615 characters (within 2.5-4万 target).
+
+报告已完成重写，输出至 `reports/对称性感知的统一位姿估计_从旋转拓扑到对称-等变训练.md`（27,615 字符）。
+
+**审校清单全部 16 项问题已修复：**
+
+- **P0×2**：T-LESS 物体数全部改为 30（原文编造"23"）；LM-O 定性改为"含遮挡物体（8个，其中 eggbox、glue 具有对称性）"
+- **P1×9**：Zhou et al. 改为"未讨论"（非"明确指出"）；FoundPose 匹配改为"单向 kNN"（非循环伙伴匹配）；排序标准改为"内点数 + featuremetric 精炼"；假设数统一为 K=5；T-LESS 测试图改为"~10K

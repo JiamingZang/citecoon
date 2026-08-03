@@ -1,0 +1,15 @@
+{
+  "problem": "现有单目RGB多人3D姿态估计方法要么仅达交互帧率(10-15 fps)要么为离线处理，且多聚焦单人场景、在遮挡下失效，输出逐帧关节位置无法直接驱动虚拟角色。本文旨在用单个RGB相机实现多人实时(>30 fps)3D骨骼运动捕捉，输出时间稳定的关节角度。",
+  "method": "提出三阶段流水线：Stage I为全卷积网络SelecSLS Net，以自底向上方式同时对场景中所有人联合推理2D与3D姿态，仅对可见关节或其运动学父关节可见的关节进行预测，输出2D置信图、部件-身份关联及局部3D姿态编码（仅感知运动学链上直接邻居）；Stage II为紧凑全连接网络，利用Stage I的中间编码与2D/3D证据，以全局上下文（所有关节）解码完整3D姿态并利用学习到的姿态先验处理遮挡关节；Stage III为基于模型的骨骼拟合，满足运动学约束并跨时间协调2D与3D预测，输出时间平滑的关节角。SelecSLS Net通过选择性短程与长程拼接跳跃连接，以远少于ResNet-50的特征数实现同等精度。",
+  "core_assumption": "可见关节（或其父关节可见）的局部3D编码配合全局上下文解码足以恢复完整3D姿态，无需对无图像证据的关节在Stage I中耗费表征容量；自底向上固定特征图编码方式可使计算代价不随人数线性增长；从图像直接回归的局部3D编码能有效缓解纯2D-to-3D lifting的病态性。",
+  "limitation": "作者承认单目深度歧义、遮挡和外观多样性仍极具挑战；Stage I仅处理可见关节，重度遮挡时完全依赖Stage II学习先验，缺乏显式图像证据支撑；输入分辨率仅512×320，限制远距离或小目标精度；系统依赖标准骨骼模型拟合，对极端体型或非人形姿态的泛化未讨论；评估主要在受控多人基准上进行，对极端拥挤、严重人物重叠的鲁棒性缺乏充分量化；论文未报告在野外无约束视频上的大规模定量结果。",
+  "eval_setup": "数据集：MuPoTS-3D等多人3D姿态基准；基线：LCRNet++(demo与full)、Moon et al. 2019、Dabral et al. 2019、Rogez et al. 2017/2019；指标：3D关节位置误差(MPJPE)、时间稳定性、帧率；规模：10人场景>30 fps(桌面GTX 1080Ti)，笔记本≈27 fps；输入512×320；无测试时增强、无Procrustes对齐、无GT相机定位。",
+  "resources": "代码/项目页：http://gvv.mpi-inf.mpg.de/projects/XNect/；硬件：标准RGB网络摄像头，桌面Intel Xeon E5 3.5 GHz + Nvidia GTX 1080Ti，笔记本Intel i7-8780H + GTX 1080-MaxQ；另在TitanX-Pascal(11 TFLOPs)与K80(4.1 TFLOPs)上测速；训练数据与算力细节在给定文本中未详述。",
+  "paper_id": "W2912199856",
+  "paper_ids": [
+    "W2912199856"
+  ],
+  "paper_title": "XNect: Real-time Multi-person 3D Human Pose Estimation with a Single RGB Camera",
+  "year": 2019,
+  "citation_count": 33
+}

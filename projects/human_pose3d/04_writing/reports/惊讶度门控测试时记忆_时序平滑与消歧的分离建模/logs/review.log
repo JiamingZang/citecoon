@@ -1,0 +1,24 @@
+[15:50:46] review_report 惊讶度门控测试时记忆_时序平滑与消歧的分离建模
+
+I'll read the report first, then systematically verify its claims against the source library.
+
+Let me now systematically verify the report's claims against the source library. I'll launch parallel agents to check different categories.
+
+Good progress. Let me verify the remaining claims that need checking — particularly the MotionBERT paper tables and a few other items.
+
+Let me verify one more critical claim — the MotionBERT card's exact content regarding the "性能上限" quote.
+
+The quote exists in the MotionBERT card. Let me check the exact context and also verify the TCPFormer "卡片局限栏" claim.
+
+Now I have all the data needed. Let me write the review.
+
+The existing review was based on an earlier report version. The report has since been updated and several previous issues were fixed. Let me write an updated review reflecting the current state.
+
+审校完成，已写入 `reports/惊讶度门控测试时记忆_时序平滑与消歧的分离建模/review.md`。
+
+**结果：P0=0, P1=0, P2=4，总体判定为"可发布"。**
+
+50+ 个可验证数字（指标/参数量/FLOPs/引用数/代码行号）逐项核对全部通过，无编造。4 条 P2 均为表述层面小问题：
+1. TCPFormer 引文在卡片 `problem` 字段而非 `limitation` 字段
+2. MotionBERT Table 5 描述暗示 2D 数据有助于降至 37.4 mm（实际 2D 数据使 3D 姿态微升至 37.5）
+3. AugLift 引文合并了两个独立陈述

@@ -1,0 +1,7 @@
+定向修订完成（success）：MASt3R自举3DGS模板的免训练PnP位姿估计_含特征级渲染精修 
+25403 → 26682 字符。日志: 
+results/pose6d_smoke/reports/MASt3R自举3DGS模板的免训练PnP位姿估计_含特征级渲染
+精修/logs/revise.log
+PDF 重导失败（Chrome 本次运行未写出新 PDF（渲染失败或超时时尚未落盘）），可用 
+export_report_pdf 重试。
+建议再跑一轮 review_report 确认问题已清零。

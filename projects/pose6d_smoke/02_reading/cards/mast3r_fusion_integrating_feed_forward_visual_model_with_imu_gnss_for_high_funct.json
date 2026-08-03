@@ -1,0 +1,15 @@
+{
+  "problem": "前馈视觉模型直接回归RGB图像的3D点图并估计相机位姿，但点图回归存在尺度不确定与尺度估计不稳定的问题，导致纯视觉MASt3R-SLAM在大尺度场景下几乎无法完成SLAM；本文旨在将前馈点图回归与IMU、GNSS融合，实现度量尺度的高精度定位与全局一致建图。",
+  "method": "基于MASt3R双视图前馈模型回归点图并生成像素级描述子，通过射线近邻优化与描述子邻域求精建立稠密数据关联；将多帧点图通过Sim(3)变换对齐，构建不含点深度的成对点图对齐残差以替代传统BA；把视觉对齐约束嵌入统一的度量尺度SE(3)因子图，紧耦合IMU与GNSS测量，分实时跟踪与全局优化两个阶段进行优化。",
+  "core_assumption": "前馈模型输出的点图结构准确，尺度是其中唯一不确定的量；相机内参已知，因为作者发现相机畸变会引入显著不稳定性，故主要考虑已知相机参数的情形。",
+  "limitation": "给定全文在方法部分截断，IMU/GNSS紧耦合细节与完整系统鲁棒性分析未充分展开；作者展望未来将引入语义融合与高级场景表示以支持具身导航任务，这是尚未跟进的开放方向。",
+  "eval_setup": "数据集：KITTI-360（单目+IMU，郊区/高速，公里级序列）、SubT-MRS（洞穴、四足机器人室内外）、自采武汉城区数据集（V-I-GNSS融合）。基线：VINS-Fusion、ORB-SLAM3、DM-VIO、DBA-Fusion、MASt3R-SLAM、VGGT-Long、Metric3D v2。指标：KITTI相对平移/旋转误差RTE/rrel、绝对平移误差ATE、水平位置RMSE。",
+  "resources": "",
+  "paper_id": "arxiv:2509.20757",
+  "paper_ids": [
+    "arxiv:2509.20757"
+  ],
+  "paper_title": "MASt3R-Fusion: Integrating Feed-Forward Visual Model with IMU, GNSS for High-Functionality SLAM",
+  "year": 2025,
+  "citation_count": 0
+}

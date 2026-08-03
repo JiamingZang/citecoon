@@ -1,0 +1,55 @@
+[19:42:46] revise_report 顺序无关_delta-rule_线性注意力的时空姿态提升_Order-Free_Delta-Rule_Linear_At
+
+I'll read the review checklist and report first, then verify each item against the source library.
+
+Now let me check the source library to verify the additional requirements. I'll search for the relevant papers and codebases.
+
+Good. The three review items (P1, P2×2) appear already fixed in the current report. Now I need to verify the additional 2026-07-23 requirements against source cards. Let me read the relevant cards.
+
+Now let me check the idea file for the specific update requirements and the GDN card.
+
+Let me read the idea file for the specific update content.
+
+Now let me check the Titans and Sapiens cards for the "5 new papers" requirement.
+
+All three review items (P1, P2×2) are already fixed in the current report. Now I'll implement the 2026-07-23 additional requirements. Starting with §1.2 跨领域 section.
+
+Now adding Test-time regression as theoretical support in §1.3 命题 3.
+
+Now adding ablation A13 to §3.2.
+
+Now I'll add the A13 explanation and update the ablation count from 12 to 13.
+
+Now updating the ablation count from 12 to 13 in §3.6.
+
+Now adding µP initialization and learning rate scaling to §2 超参数设置.
+
+Now updating §4.2 external dependency risk table.
+
+Now adding µP short-sequence risk to §4.3.
+
+Now adding Test-time regression reference to §1.1 瓶颈二 (Gap/motivation section).
+
+Now updating the 附录 source table with new entries.
+
+Now updating the 自查说明 to reflect the 2026-07-23 additions.
+
+Now updating §4.6 综合判级 to reflect updated repos and risks.
+
+Let me check if the timeline milestones reference ablation groups that need updating.
+
+Now updating the report header to reflect the 2026-07-23 update.
+
+Let me check if the "四篇" reference needs updating.
+
+Now let me do a final coherence check by reading the key edited sections.
+
+All edits look coherent. Let me do a final check on the conclusion section.
+
+修订完成。汇报如下：
+
+**已改条目（审校清单）：**
+- P1（§4.4 训练时间来源标注）、P2（§1.3 Theorem 3.4 结论措辞）、P2（§3.6 显存估算精度）——这三条在当前报告版本中**已经是修订后状态**（分别见"经验估计…原卡未报告训练时长"、"求解 AR（关联回忆；原文结合 Theorem 3.2 进一步推出…"、"每层每帧约 4 KB（20 层共约 80 KB）"），无需再改。
+
+**已改条目（2026-07-23 额外要求）：**
+1. §1.2 跨领域：新增 RWKV-7、Titans、Test-time regression、GDN µP、Sapiens 五

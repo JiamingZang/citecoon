@@ -1,0 +1,15 @@
+{
+  "problem": "头戴相机自我中心视角下的3D人体姿态估计面临关节不可见难题（有限FOV与自遮挡）。已有基于2D热图的方法丢失外观信息且扩展性差，基于3D体素的方法计算代价随体素网格增大而急剧上升。",
+  "method": "提出两阶段粗到精框架EgoPoseFormer：第一阶段PPN用全局平均池化多视角特征后经2层MLP预测各关节粗略3D位置；第二阶段PRFormer为DETR式Transformer，将每个关节的位置与身份编码为Joint Query Token，通过设计的Deformable Stereo Attention（将3D关节投影到各视角平面作为参考点做2D可变形注意力，FOV外填零）提取细粒度立体特征，再经自注意力建模运动学关系，逐层预测相对PPN的3D精化偏移。特征提取器采用UNet并先用单目2D热图预训练。",
+  "core_assumption": "多视角全局特征足以让简单MLP推理出不可见关节的粗略位置；已知相机参数可将3D关节准确投影到各视角平面，使可变形注意力的参考点落在关节附近从而有效聚合立体信息；粗估计误差在可变形注意力采样范围内可被精化弥补。",
+  "limitation": "作者承认单目设置下性能不及立体设置，需额外适配。读出局限：(1)主要评测在合成数据UnrealEgo上，真实场景仅在SceneEgo(28k图/2人)上验证，泛化性证据薄弱；(2)PPN依赖全局池化，若粗估计偏差过大，Deformable Attention参考点失效将导致精化失败；(3)无时序建模，未利用视频连续性；(4)需已知相机内外参，限制实际部署灵活性；(5)FOV外关节仅填零处理，缺乏显式不确定性建模；(6)未涉及手部精细姿态、物体交互及真实光照/运动模糊等开放问题。",
+  "eval_setup": "UnrealEgo(合成立体，451k视图，30动作，训练357k/测试48k/验证46k)；SceneEgo(真实单目，28k图像，2演员)。指标：MPJPE与PA-MPJPE(mm)。基线：xR-EgoPose、SelfPose、EgoGlass、UnrealEgo、Ego3DPose、SceneEgo等热图/体素方法。",
+  "resources": "特征提取器为UNet，先以单目2D热图预训练；模型计算量显著低于前人方法（具体FLOPs/GPU未在给定文本中列出）。代码与预训练权重在给定全文片段中未明确给出。",
+  "paper_id": "W4404720255",
+  "paper_ids": [
+    "W4404720255"
+  ],
+  "paper_title": "EgoPoseFormer: A Simple Baseline for Stereo Egocentric 3D Human Pose Estimation",
+  "year": 2024,
+  "citation_count": 10
+}

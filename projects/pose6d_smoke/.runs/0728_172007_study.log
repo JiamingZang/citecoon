@@ -1,0 +1,193 @@
+== naver/mast3r
+repo 卡已产出: results/pose6d_smoke/codebases/mast3r.md（11865 字符，探索状态 
+success）。
+write_tech_report / plan_experiment 会自动引用它。卡片内容：
+
+# MASt3R 工程侦察卡片
+
+> 目标仓库：https://github.com/naver/mast3r （浅克隆 `--depth 1`，commit 见 
+`mast3r/.git`）
+> 研究关注点：为免训练 6D 位姿精修管线提供代码级落地路径——(1) MASt3R 
+特征提取与稠密匹配接口（稠密对应点+置信度）；(2) 3DGS 
+可微渲染入口与位姿求导；(3) 3DGS 物体级最小训练配置。
+> 重要前置结论：**本仓库不含任何 3DGS / 高斯泼溅 / 可微渲染代码**（全仓 `grep -i
+"gaussian|splat|3DGS|gsplat|render"` 零命中）。MASt3R 只负责「稠密匹配 + 
+点云/位姿初值」，关注点 (2)(3) 必须由外部 3DGS 代码库（如 INRIA 
+gaussian-splatting / gsplat）承接。详见「风险与未知」。
+
+## 架构总览（模块划分，一段话+目录树摘要）
+
+MASt3R 在 DUSt3R（CroCo 立体骨干 + DPT 回归头）之上加了一个「局部描述子 + 
+置信度」头，把逐像素 3D 回归和稠密局部特征统一输出，再用快速互近邻（reciprocal 
+NN）做稠密 2D-2D 匹配，最后通过稀疏全局对齐（sparse global 
+alignment）把多视图匹配三角化成带相机位姿/焦距的点云。模型类 `AsymmetricMASt3R` 
+继承自 dust3r 的 `AsymmetricCroCo3DStereo`（dust3r 为 git 
+子模块，本浅克隆未拉取，目录为空）。匹配核心在 `fast_nn.py`，多视图优化在 
+`cloud_opt/sparse_ga.py`。仓库本身**没有渲染/3DGS 模块**。
+
+```
+mast3r/
+├── model.py                 # AsymmetricMASt3R 模型类、load_model、forward
+├── catmlp_dpt_head.py       # 描述子+pts3d+conf 预测头与 postprocess
+├── fast_nn.py               # 互近邻匹配：fast_reciprocal_NNs / 
+extract_correspondences_nonsym
+├── losses.py                # 训练损失（InfoNCE/APLoss/Regr3D）
+├── image_pairs.py           # 组对策略
+├── cloud_opt/
+│   ├── sparse_ga.py         # 稀疏全局对齐：forward_mast3r + 
+extract_correspondences + 优化
+│   ├── triangulation.py     # 三角化
+│   └── tsdf_optimizer.py    # TSDF 后处理
+├── colmap/ , retrieval/ , datasets/ , utils/
+├── demo.py / demo_glomap.py # gradio 演示入口
+train.py                     # MASt3R 训练入口（委托给 dust3r.training）
+dust3r/                      # 子模块（cvpr 分支）——本浅克隆为空，需 --recursive
+```
+
+## 关键事实（与关注点直接相关的代码事实，每条带 文件路径:行号 和原代码片段）
+
+### 关注点(1)：特征提取与稠密匹配接口
+
+**F1 — 模型前向输出字典（pts3d / conf / desc / desc_conf / 
+pts3d_in_other_view）**
+`mast3r/model.py:199-213`
+```python
+def forward(self, view1, view2):
+    # encode the two images --> B,S,D
+    with torch.no_grad():
+        (shape1, shape2), (feat1, feat2), (pos1, pos2) = 
+self.encode_symmetrized(view1, view2)
+    ...
+    dec1, dec2 = self.mast3r._decoder(feat1, pos1, feat2, pos2)
+    with torch.cuda.amp.autocast(enabled=False):
+        res1 = self.mast3r._downstream_head(1, [tok.float() for tok in dec1], 
+shape1)
+        res2 = self.mast3r._downstream_head(2, [tok.float() for tok in dec2], 
+shape2)
+    res2['pts3d_in_other_view'] = res2.pop('pts3d')  # predict view2's pts3d in 
+view1's frame
+    return res1, res2
+```
+> 说明：`res` 字典即逐像素稠密输出。`pts3d_in_other_view` 是 view2 在 view1 
+坐标系的稠密 3D 点——对 render-and-compare 精修而言，这是拿到「跨视图稠密对应 + 
+3D 初值」的直接来源。
+
+**F2 — 头 postprocess 产出 desc/conf（描述子 L2 归一化）**
+`mast3r/catmlp_dpt_head.py:27-41`
+```python
+def postprocess(out, depth_mode, conf_mode, desc_dim=None, desc_mode='norm', 
+two_confs=False, desc_conf_mode=None):
+    ...
+    fmap = out.permute(0, 2, 3, 1)  # B,H,W,D
+    res = dict(pts3d=reg_dense_depth(fmap[..., 0:3], mode=depth_mode))
+    if conf_mode is not None:
+        res['conf'] = reg_dense_conf(fmap[..., 3], mode=conf_mode)
+    if desc_dim is not None:
+        start = 3 + int(conf_mode is not None)
+        res['desc'] = reg_desc(fmap[..., start:start + desc_dim], 
+mode=desc_mode)
+     
+...（截断，完整内容在文件里）
+
+== graphdeco-inria/gaussian-splatting
+repo 卡已产出: results/pose6d_smoke/codebases/gaussian-splatting.md（11133 
+字符，探索状态 success）。
+write_tech_report / plan_experiment 会自动引用它。卡片内容：
+
+# gaussian-splatting 工程侦察卡片
+
+> 仓库：https://github.com/graphdeco-inria/gaussian-splatting （浅克隆，master 
+分支）
+> 研究关注点：为免训练管线提供代码级落地路径——MASt3R 稠密匹配接口、3DGS 
+可微渲染入口与位姿梯度、物体级最小训练配置。
+
+---
+
+## 架构总览（模块划分，一段话+目录树摘要）
+
+本仓库是 3D Gaussian Splatting (SIGGRAPH 2023) 
+的官方实现，核心流程为：COLMAP/NeRF-Synthetic 数据加载 → 初始化 3D 高斯点云 → 
+可微光栅化渲染 → L1+SSIM 损失优化 → 
+自适应密度控制（克隆/分裂/剪枝）。渲染器是自定义 CUDA 扩展 
+`diff-gaussian-rasterization`，Python 
+侧仅做参数组装与损失计算。相机外参（R/T）以 numpy 存储、构建为无梯度的 torch 
+张量后传入 CUDA kernel，**当前不支持对位姿求导**。
+
+```
+gaussian-splatting/
+├── train.py                  # 训练主循环
+├── render.py                 # 推理渲染
+├── metrics.py                # PSNR/SSIM/LPIPS 评估
+├── convert.py                # 图片→COLMAP 数据转换
+├── full_eval.py              # 论文全流程评估
+├── arguments/__init__.py     # CLI 
+参数定义（ModelParams/PipelineParams/OptimizationParams）
+├── scene/
+│   ├── __init__.py           # Scene 加载调度（COLMAP / Blender）
+│   ├── cameras.py            # Camera / MiniCam 类
+│   ├── colmap_loader.py      # COLMAP 二进制/文本 I/O
+│   ├── dataset_readers.py    # readColmapSceneInfo / readNerfSyntheticInfo
+│   └── gaussian_model.py     # 
+GaussianModel（nn.Module，高斯属性+优化器+密度控制）
+├── gaussian_renderer/
+│   ├── __init__.py           # render() 函数——调用 CUDA 光栅器
+│   └── network_gui.py        # SIBR 远程查看器桥接
+├── utils/
+│   ├── camera_utils.py       # loadCam、分辨率缩放
+│   ├── graphics_utils.py     # getWorld2View2、getProjectionMatrix
+│   ├── loss_utils.py         # l1_loss、ssim、FusedSSIMMap
+│   └── ...
+├── lpipsPyTorch/             # LPIPS 感知损失
+└── submodules/
+    ├── diff-gaussian-rasterization/  # CUDA 可微光栅器（branch dr_aa / 
+3dgs_accel）
+    ├── simple-knn/                   # KNN（密度控制用）
+    └── fused-ssim/                   # 融合 SSIM CUDA 扩展
+```
+
+---
+
+## 关键事实（与关注点直接相关的代码事实）
+
+### 事实 1：render() 函数签名与相机矩阵传入方式
+
+`gaussian_renderer/__init__.py:18`
+```python
+def render(viewpoint_camera, pc : GaussianModel, pipe, bg_color : torch.Tensor,
+           scaling_modifier = 1.0, separate_sh = False, override_color = None, 
+use_trained_exp=False):
+```
+
+相机矩阵以 **无梯度叶张量** 传入 CUDA 
+光栅器（`gaussian_renderer/__init__.py:38-50`）：
+```python
+raster_settings = GaussianRasterizationSettings(
+    ...
+    viewmatrix=viewpoint_camera.world_view_transform,
+    projmatrix=viewpoint_camera.full_proj_transform,
+    campos=viewpoint_camera.camera_center,
+    ...
+)
+rasterizer = GaussianRasterizer(raster_settings=raster_settings)
+```
+
+### 事实 2：Camera 类中 R/T 的存储——无梯度
+
+`scene/cameras.py:29-30`
+```python
+self.R = R        # plain numpy — NOT nn.Parameter
+self.T = T        # plain numpy — NOT nn.Parameter
+```
+
+`scene/cameras.py:86-89`（构建视图矩阵）：
+```python
+self.world_view_transform = torch.tensor(getWorld2View2(R, T, trans, 
+scale)).transpose(0, 1).cuda()
+self.projection_matrix = getProjectionMatrix(znear=self.znear, zfar=self.zfar,
+                                             fovX=self.FoVx, 
+fovY=self.FoVy).transpose(0,1).cuda()
+self.full_proj_transform = (self.world_view_transform.unsqueeze(0)
+                            .bmm(self.projection_matrix.unsqueeze(0))).squeeze(0
+)
+se
+...（截断，完整内容在文件里）

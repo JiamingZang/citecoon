@@ -1,0 +1,15 @@
+{
+  "problem": "野外多视角立体重建(MVS)必须预先获取相机内外参数，过程繁琐且误差会严重损害重建质量。本文旨在无需任何相机标定或位姿先验的前提下，从任意无约束图像集合直接完成稠密3D重建，并统一单目深度估计、双目重建、相对/绝对位姿估计等多种几何视觉任务。",
+  "method": "提出DUSt3R，将成对重建问题转化为\"点图\"(pointmap)回归——即为每个像素直接回归一个3D坐标，从而放松传统投影相机模型的硬约束。网络基于CroCo的Transformer编码器-解码器：两分支共享权重的ViT编码器提取特征，解码器通过逐层self-attention + cross-attention实现双视图联合推理，最终回归出以第一张图坐标系表达的两个点图及逐像素置信度图；训练仅用置信度加权的3D欧氏回归损失，并通过对预测与真值点图做尺度归一化消除尺度模糊。对于多于一张图的场景，先构建图像连通图（基于图像检索或网络置信度筛选），再通过全局优化将所有成对点图对齐到公共参考坐标系，从而恢复全局一致的3D结构与相机参数。",
+  "core_assumption": "通用Transformer架构无需显式施加几何约束（如极线约束、已知内参），网络可从训练集中自行学习全部相关几何先验——前提是训练数据仅包含几何一致的点图。将两个点图统一表达在第一张图的坐标系下，可自然弥合单目与双目重建两种情形。",
+  "limitation": "输出点图存在未知全局尺度因子，无法直接获得度量级重建；不显式强制几何约束意味着点图不一定对应物理可行的相机模型；在DTU基准上，无GT相机输入的DUSt3R(Overall 1.741 mm)远逊于依赖GT相机的专用MVS方法(最优0.295 mm)，说明在度量精度要求高的场景仍有明显差距；全局对齐为后处理优化，成对预测的误差可能在多图场景中累积；对天空、透明物体等病态区域依赖置信度外推，质量有限；给定文本中训练数据组成、数据增强细节及完整定量结果不完整。",
+  "eval_setup": "数据集：DTU(MVS, mm)、MegaDepth(深度估计与相对位姿)、CO3D v2(多位姿估计)、RealEstate10K、Cambridge Landmarks(KingsCollege/OldHospital等)、7Scenes(Chess/Fire/Heads等)、ETH3D。基线：传统MVS(Camp/Furu/Tola/Gipuma)、学习型MVS(MVSNet/CVP-MVSNet/CasMVSNet/GeoMVSNet等)。指标：DTU报告Acc/Comp/Overall(mm)；其余任务具体数值在给定文本中未完整展示。",
+  "resources": "代码：https://dust3r.europe.naverlabs.com ；基于CroCo预训练的ViT编码器；推理约40 ms/pair (H100 GPU)；训练数据与算力规模在给定文本中未详述。",
+  "paper_id": "W4402816534",
+  "paper_ids": [
+    "W4402816534"
+  ],
+  "paper_title": "DUSt3R: Geometric 3D Vision Made Easy",
+  "year": 2024,
+  "citation_count": 1663
+}

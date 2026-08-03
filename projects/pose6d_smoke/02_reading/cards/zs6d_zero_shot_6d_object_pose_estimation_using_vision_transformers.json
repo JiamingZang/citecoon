@@ -1,0 +1,15 @@
+{
+  "problem": "现有6D物体位姿估计方法需要针对每个新物体集进行任务特定微调或大规模合成数据训练（如MegaPose需200万张图像、2万物体），无法灵活扩展到不断变化的物体集合。本文旨在实现真正的零样本6D位姿估计，无需任何任务特定训练即可估计未见物体的位姿。",
+  "method": "ZS6D利用自监督预训练ViT（DINOv2 ViT-S/8，ImageNet1k权重）直接提取图像描述子，无需微调。流程为：(1) CNOS+SAM进行零样本实例分割；(2) 取第9层key token作为全局描述子，与BlenderProc渲染的300个均匀视角模板做余弦相似度匹配；(3) 利用patch级局部描述子在查询图与匹配模板间建立局部对应；(4) 由对应关系导出彩色物体坐标（colored object coordinates），通过RANSAC-PnP求解6D位姿。局部对应使精度超越模板视角离散化限制。",
+  "core_assumption": "自监督预训练ViT的描述子具有足够通用性和判别力，无需任务微调即可区分物体视角并建立有意义的局部patch对应。物体3D模型可用且可渲染模板，视角空间可被有限均匀采样（~300视角）充分覆盖。",
+  "limitation": "作者承认：仅生成初始位姿假设，无精化阶段；TLESS上无纹理对称物体导致局部对应歧义；CNOS分割质量是显著瓶颈（使用GT mask后AR提升77%-119%）。进一步读出：依赖外部检测/分割管线（SAM+CNOS），其失败直接导致位姿缺失；仅用RGB无深度信息；对称物体处理缺乏专门机制；仍需每物体300个渲染模板和3D模型；未讨论推理速度与实时性；仅在3个BOP数据集上验证，泛化性证据有限；零样本精化作为开放问题未被后续解决。",
+  "eval_setup": "BOP核心数据集LMO（遮挡）、YCBV（光照变化）、TLESS（无纹理）；基线MegaPose、OSOP、CNOS；指标Average Recall (AR)；每物体300模板（MegaPose用520）；输入224×224；ViT-S/8 patch=8，全局描述子384维、局部6528维；消融：mask质量、模板数(至300)、局部对应数(至~20)。",
+  "resources": "预训练DINOv2 ViT-S/8（ImageNet1k）；BlenderProc渲染模板；SAM+CNOS用于分割；无需训练数据与微调；具体GPU/算力需求未明确说明。",
+  "paper_id": "arxiv:2309.11986",
+  "paper_ids": [
+    "arxiv:2309.11986"
+  ],
+  "paper_title": "ZS6D: Zero-shot 6D Object Pose Estimation using Vision Transformers",
+  "year": 2023,
+  "citation_count": 0
+}

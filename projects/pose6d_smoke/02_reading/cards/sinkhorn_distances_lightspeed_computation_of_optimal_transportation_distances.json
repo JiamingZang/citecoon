@@ -1,0 +1,15 @@
+{
+  "problem": "最优传输距离（Earth Mover's Distance）在计算上代价极高，通用情况下复杂度至少为 O(d³log d)，对几百维直方图计算一次距离就需数秒，严重制约了其在大规模机器学习中的应用。",
+  "method": "对最优传输问题施加熵正则化（等价于约束传输矩阵与独立表 rc^T 的 KL 散度不超过阈值 α），将原线性规划转化为严格凸问题；该问题可通过 Sinkhorn-Knopp 矩阵缩放算法以线性收敛速度求解，且算法可完全向量化/并行化，适合 GPU 执行。正则化强度由参数 λ 控制，λ 越大越接近经典 EMD，λ 越小传输方案越平滑。",
+  "core_assumption": "最大熵原则下得到的平滑传输方案比经典 OT 的准确定性极端方案更鲁棒、更适合实际数据；即使 Sinkhorn 距离在数值上不收敛到 EMD（实用 λ 下仍高出约 10%），其作为核/SVM 距离度量在分类任务中仍然有效甚至更优。",
+  "limitation": "作者承认：(1) 即使 λ 很大，Sinkhorn 距离仍比 EMD 高约 10%，不保证数值逼近；(2) λ 需交叉验证调参；(3) 仅在 MNIST 上做了分类验证，称证据为 preliminary。可进一步读出的开放问题：未证明 Sinkhorn 距离本身是否满足三角不等式（即是否为度量）；未讨论 λ 选取的理论指导；未涉及非均匀支撑、变维或流形数据上的表现；对 λ 较小时距离退化为近似独立核、丧失几何区分力的边界缺乏分析。",
+  "eval_setup": "MNIST 20×20 像素归一化直方图（d=400），N∈{3,5,12,17,25}×10³，4折×6重复交叉验证，SVM(libsvm, one-vs-one)分类；基线：Hellinger、χ²、Total Variation、平方欧氏、Rubner EMD、FastEMD(Pele&Werman)、Independence kernel；指标：分类错误率、单次距离计算时间、迭代次数；速度测试在 d∈[64,4096] 均匀单纯形随机直方图上进行，收敛阈值 ε=0.01。",
+  "resources": "Sinkhorn 用 MATLAB 实现（Algorithm 1），GPU 为 NVidia Quadro K5000；CPU 为单核 2.66GHz Xeon；EMD 对比用 Rubner 及 Pele&Werman 公开 MEX/C 代码；MNIST 数据公开可下载；λ 在 {5,7,9,11}×1/q50(M) 中选取，固定点迭代 20 次。",
+  "paper_id": "arxiv:1306.0895",
+  "paper_ids": [
+    "arxiv:1306.0895"
+  ],
+  "paper_title": "Sinkhorn Distances: Lightspeed Computation of Optimal Transportation Distances",
+  "year": 2013,
+  "citation_count": 0
+}

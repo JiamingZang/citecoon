@@ -1,0 +1,16 @@
+{
+  "paper_id": "W4413557092",
+  "paper_title": "GS-Pose: Generalizable Segmentation-Based 6D Object Pose Estimation with 3D Gaussian Splatting",
+  "problem": "未见物体 6D 位姿估计中，模板检索给出的初始位姿精度不足以直接使用，必须依赖 test-time 精化兜底。",
+  "method": "离线建库：DINOv2+Co-Segmenter 抽物体语义 token；RA-Encoder 出 64 维旋转感知嵌入；3DGS 重建 3DGO。在线级联：Obj-Segmenter 分割→RA-Encoder 检索最近参考视图给初始旋转，平移由 mask 面积比 δs 与 2D 中心偏移解析推出→GS-Refiner 对可学习 SE(3) 变换做可微 3DGS 渲染 render-and-compare，损失 Lgs=D-SSIM+D-MSSIM，AdamW+余弦退火 lr 5e-3、10 步 warm-up、损失收敛到阈值 η 早停。",
+  "core_assumption": "初始位姿必须已落在 GS-Refiner 的收敛盆地内（render-and-compare 是局部优化）；分割质量决定损失信号质量（损失在分割后的图上计算）；模板检索的旋转覆盖足够密才能给对初始旋转。",
+  "limitation": "精化器是强制组件——粗估计档性能不可直接使用，每帧都要跑迭代优化（时延开销）；损失只对齐分割后外观，无显式几何/深度项；早期停止阈值 η 为预设超参；单盆地优化无多假设逃逸机制。",
+  "eval_setup": "Linemod-O / BOP unseen 设置；报告 w/o refiner 与 w/ refiner 两档（55.45 vs 92.0 量级，BOP 风格指标）；参考库为手机拍摄带位姿 RGB（非 CAD）。",
+  "resources": "arXiv 全文在 papers/ 已落盘；官方实现 github.com/DingdingXY/GS-Pose（论文中标注，未核实）。",
+  "year": 2024,
+  "citation_count": 15,
+  "paper_ids": [
+    "W4392971958",
+    "W4413557092"
+  ]
+}

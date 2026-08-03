@@ -1,0 +1,15 @@
+{
+  "problem": "现有视觉Transformer将图像切分为固定均匀网格作为token，对所有区域一视同仁，这在以人为中心的视觉任务中是次优的——人体（尤其面部、手部）需要更精细的token表示，而背景只需少量token即可。",
+  "method": "提出Token Clustering Transformer (TCFormer)，采用4阶段层次结构，阶段间插入CTM（Clustering-based Token Merge）模块：先用DPC-KNN密度峰值聚类算法根据token特征进行聚类，再通过重要性分数加权平均将同簇token合并为单个token（形状、大小、位置均灵活），合并后的token作为Q、原始token作为K/V送入Transformer块，重要性分数还加入注意力权重。此外提出MTA（Multi-stage Token Aggregation）头，从最后阶段逐步上采样token并聚合各阶段特征，避免将动态token转为低分辨率特征图时的细节损失。",
+  "core_assumption": "假设token特征的语义相似性能有效反映图像区域的重要性与归属关系，即通过特征空间中的聚类即可自动将人体关键区域分配更多token、将背景合并为少量token；同时假设DPC-KNN的局部密度与距离指标乘积能有效识别聚类中心。",
+  "limitation": "作者承认手部关键点因在输入图像中尺寸极小，估计仍极具挑战性；聚类质量高度依赖所学特征的语义区分度，若特征不够好则token分配失当；DPC-KNN的邻居数k及聚类中心数量为需调节的超参；实验仅覆盖以人为中心的任务（姿态估计、网格重建），未验证在检测、分割等通用任务上的泛化性；MTA头依赖记录的合并关系进行上采样，对非层次化或更动态的结构扩展性不明；token与特征图之间的转换（按重叠面积平均）本身引入近似误差。",
+  "eval_setup": "数据集：COCO-WholeBody V1.0（133个关键点：身体17、脚6、脸68、手42）及3DPW（3D人体网格重建）；基线：HRNet、ZoomNet等SOTA top-down方法（结果来自MMPose）；指标：OKS-based AP/AR；规模：TCFormer达57.2% AP、67.8% AR，大幅超越基线；训练用AdamW（动量0.9，权重衰减1e-2），遵循mmpose默认设置。",
+  "resources": "代码开源：https://github.com/zengwang430521/TCFormer.git；CTM模块仅占前向推理时间的9.4%；具体GPU型号与训练时长未在给定文本中明确。",
+  "paper_id": "W4312530435",
+  "paper_ids": [
+    "W4312530435"
+  ],
+  "paper_title": "Not All Tokens Are Equal: Human-centric Visual Analysis via Token Clustering Transformer",
+  "year": 2022,
+  "citation_count": 186
+}

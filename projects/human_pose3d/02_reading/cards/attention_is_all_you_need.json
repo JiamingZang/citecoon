@@ -1,0 +1,15 @@
+{
+  "problem": "主流序列转换模型依赖循环或卷积神经网络，其固有的逐步顺序计算特性阻碍了训练样本内的并行化，在长序列时尤为严重；同时卷积模型（ByteNet、ConvS2S）关联任意两位置所需操作数随距离线性或对数增长，难以学习远距离依赖。",
+  "method": "提出 Transformer，完全基于注意力机制的编码器-解码器架构，摒弃循环与卷积。核心机制包括：(1) 缩放点积注意力 Attention(Q,K,V)=softmax(QK^T/√dk)V，用 1/√dk 缩放防止点积过大导致 softmax 梯度消失；(2) 多头注意力，将 Q/K/V 线性投影到 h 个子空间并行计算再拼接，使模型同时关注不同表示子空间的信息；(3) 编码器 6 层（多头自注意力+逐位置 FFN，残差+LayerNorm），解码器 6 层额外加入对编码器输出的交叉注意力并用掩码阻止左向信息流；(4) 正弦位置编码提供位置信息。训练使用标签平滑(ε=0.1)与残差 dropout(0.1)，推理用 beam search 并平均最后若干 checkpoint。",
+  "core_assumption": "仅凭自注意力（无需循环或卷积）即足以建模序列中任意距离的依赖关系，且常数步操作即可关联任意两位置；缩放点积在 dk 较大时通过 1/√dk 缩放即可恢复有效梯度，无需更复杂的兼容性函数；位置信息可由无参数的正弦编码充分表达。",
+  "limitation": "作者承认：(1) 注意力对值做加权平均会降低有效分辨率，需多头机制弥补；(2) 解码仍为自回归逐步生成，推理阶段无法完全并行；(3) 对图像/音频/视频等大规模输入输出，全局注意力的 O(n²) 复杂度不可行，需研究局部受限注意力。我读出的开放问题：(a) 消融实验显示减小 dk 显著损害质量，暗示点积兼容性函数可能不够充分，但论文未深入；(b) 正弦与可学习位置编码效果几乎相同，说明位置建模机制未被真正理解；(c) 论文仅在翻译和句法分析上验证，对更长文本、低资源语言、非文本模态的泛化留待未来；(d) 标签平滑损害困惑度却提升 BLEU，校准与生成质量的权衡未解释。",
+  "eval_setup": "任务：WMT 2014 EN-DE（BLEU 28.4，big）与 EN-FR（BLEU 41.8，big）机器翻译；English constituency parsing（WSJ Penn Treebank Section 23 F1，4 层 Transformer 达 91.3/92.7）。基线：ByteNet、GNMT+RL、ConvS2S、MoE、Deep-Att+PosUnk 及其集成。模型规模：base 65M 参数（N=6, d=512, h=8），big 213M 参数（N=6, d=1024, h=16）。消融在 newstest2013 开发集上以 PPL 和 BLEU 衡量。",
+  "resources": "代码：https://github.com/tensorflow/tensor2tensor。算力：big 模型 8×P100 GPU 训练 3.5 天（EN-FR），base 模型约 12 小时（8×P100）；训练 FLOPs 约 2.3×10^19（big EN-DE）。数据：WMT 2014 平行语料、WSJ Penn Treebank ~40K 句（句法分析）。",
+  "paper_id": "W2626778328",
+  "paper_ids": [
+    "W2626778328"
+  ],
+  "paper_title": "Attention Is All You Need",
+  "year": 2021,
+  "citation_count": 185487
+}

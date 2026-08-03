@@ -1,0 +1,15 @@
+{
+  "problem": "现有CNN-based人体姿态估计方法虽擅长视觉表征，但缺乏显式建模关键点之间解剖约束关系（如相邻、对称）的能力，没有具体变量直接代表关键点实体。",
+  "method": "TokenPose将每个关键点显式嵌入为可学习的keypoint token，同时将图像均匀切分为patch生成visual token，二者共同输入Transformer编码器。通过self-attention交互，keypoint token同时从visual token学习外观线索、从其他keypoint token学习约束关系（类似DETR的object query机制）。探索了混合CNN+Transformer与纯Transformer两种架构，最终由MLP head基于输出的keypoint token预测heatmap。",
+  "core_assumption": "关键点之间的统计约束关系（相邻、对称等）可被编码进可学习的token向量相似度中，且无需显式图结构即可通过self-attention从大量数据中自动习得；同时假设top-down范式下已有可靠的人体检测器提供单人裁剪。",
+  "limitation": "作者承认：keypoint token fusion对小模型（TokenPose-S）反而导致性能下降，仅对深层大模型有效；依赖两阶段top-down流程，受限于人体检测器质量。读出的局限：学习到的约束为数据集统计先验，对非常规姿态或新关键点定义的泛化未讨论；纯Transformer变体（TokenPose-T）精度明显低于混合架构，未解决无预训练时纯Transformer在高分辨率输入上的效率瓶颈；遮挡场景仅定性展示，未给出量化分析；未在更大规模或3D姿态任务上验证。",
+  "eval_setup": "COCO keypoint（train2017 57k图，val2017 5k，test-dev2017 20k，17关键点）+ MPII；指标AP/AR（基于OKS）；基线为HRNet-W32/W48、SimpleBaseline等CNN方法；TokenPose-S 72.5 AP（6.2M参数），TokenPose-L 75.8 AP（35.8M参数）；输入256×192；Adam优化，lr 1e-3→1e-4→1e-5（epoch 200/260）。",
+  "resources": "代码开源 https://github.com/leeyegy/TokenPose ；参数6.2M–38.2M，GFLOPs较CNN基线降低24.7%–75.3%；训练需COCO train2017，具体GPU配置文中未详述。",
+  "paper_id": "W3203925315",
+  "paper_ids": [
+    "W3203925315"
+  ],
+  "paper_title": "TokenPose: Learning Keypoint Tokens for Human Pose Estimation",
+  "year": 2021,
+  "citation_count": 388
+}

@@ -1,0 +1,50 @@
+[19:09:38] revise_report MASt3R自举3DGS模板的免训练PnP位姿估计_含特征级渲染精修
+
+I'll start by reading the review checklist and the report to understand what needs to be revised.
+
+Now let me verify the key claims against the source libraries before making edits.
+
+Let me verify the P0 claim about MASt3R's pretrain source and other key facts.
+
+Verification complete. Key findings:
+- **P0 confirmed**: MASt3R pretrain chain is CroCo v2 → DUSt3R → MASt3R, zero DINOv2 mentions
+- **P1 BOP reference**: Reviewer is **wrong** — the source file `papers/bop_benchmark_for_6d_object_pose_estimation.md` DOES define MSSD and MSPD. Will skip this item.
+-
+
+Good. Now I have all the verification I need. Key finding: the reviewer's P1 about BOP MSSD/MSPD is **wrong** — the source paper file DOES define both MSSD and MSPD. I'll skip that item.
+
+Let me start making edits. First, the P0 fix.
+
+Now let me fix the related P0 mentions in the ablation matrix and conclusion sections.
+
+P0 done. Now fixing P1 items.
+
+Now fixing the P1 timing inconsistencies. Let me read the current state of §4.4.
+
+Now fixing the two P1 timing issues. The text derives 10.5s for feature refinement but the table says 6s; the table total (~14s) doesn't match the sum of parts.
+
+Now fixing P2 items: FoundPose author, 7000 steps, top-5/top-10, T-LESS citation.
+
+Now fixing the top-5/top-10 inconsistency and T-LESS citation.
+
+Let me check if there are other T-LESS "无纹理" mentions and verify the §3.4 section.
+
+Let me check one more P0-related mention in Contribution 3's design motivation.
+
+Line 89 implies MASt3R builds on DINOv2 ("进一步"). Let me fix this P0-related mention.
+
+Let me also fix the ablation matrix table entry for C' which still says "裁定 3D 微调增益".
+
+Let me check and fix one more P0-related mention in §3.5.
+
+Let me add the T-LESS original paper to the references since I now cite it.
+
+Now let me do a final consistency check on the modified sections.
+
+All checks pass. Let me finalize.
+
+修订完成。汇报如下：
+
+**已修订（8 条）：**
+
+1. **[P0] MASt3R 预训练来源**：将全部 7 处"DINOv2 初始化"相关表述改为"CroCo v2 预训练 → DUSt3R → MASt3R"链路（来源：`codebases/dust3r.md` 模型类 `AsymmetricCroCo3DStereo`；MASt3R 论文原文）。消融解释从"差异完全归因于 3D 微调"改为"预训练来源 + 3D 微调联合效果，无法隔离单一变量"，并建议增设 C'' 对照组。涉及 §1.3、§2 Contribution 3 设计动机、§2 梯度流架构段、§3.2 消融矩阵、§3.5

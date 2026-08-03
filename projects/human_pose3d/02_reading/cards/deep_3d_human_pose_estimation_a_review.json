@@ -1,0 +1,15 @@
+{
+  "problem": "3D人体姿态估计面临深度歧义、缺乏大规模野外3D标注数据集、多人遮挡与跨视角歧义等核心挑战；同时已有综述主要覆盖传统方法，缺少对深度学习方法全面、系统的梳理与对比分析。",
+  "method": "本文是一篇综述论文，按输入类型（单目图像、多视角图像、视频序列）、姿态表示（骨架模型、SMPL参数化模型、DensePose表面模型）以及人数（单人/多人，多人又分top-down、bottom-up两阶段与单阶段）对深度学习方法进行系统分类；对直接回归法、2D-to-3D提升法、基于SMPL的方法、体积热图法、时序建模法等逐类总结优劣；并对HumanEva-I、Human3.6M、MPI-INF-3DHP、3DPW、SURREAL、CMU Panoptic等十余个数据集及MPJPE、PA-MPJPE、PCK、PCP、Bone Error、MRPE等评估指标进行统一梳理与横向比较。",
+  "core_assumption": "综述的分类框架假设：(1) 按输入模态与姿态表示划分能完整覆盖该领域方法空间；(2) 各数据集的标注精度（如3DPW的26 mm VIP精度）足以作为可靠基准；(3) 深度学习方法在现有室内MoCap数据集上的性能提升可有效反映向野外场景的泛化潜力。",
+  "limitation": "作者承认：(1) 野外3D数据集仍极度匮乏，现有方法在野外性能远不及2D姿态估计；(2) 单阶段多人方法远未成熟；(3) 单目输入下2D到3D提升本质为病态问题。读者可进一步指出的开放问题：综述截止2021年，未覆盖Transformer/大模型范式；对弱监督、自监督、跨域泛化等缓解数据稀缺的路线讨论有限；缺乏对实时性与部署效率的系统对比；未深入讨论SMPL参数化表示对非标准体型（儿童、残障、宽松衣物）的适用性边界。",
+  "eval_setup": "数据集：HumanEva-I(4人6动作)、Human3.6M(3.6M帧/11人/17场景/4视角)、MPI-INF-3DHP(1.3M帧/8人)、3DPW(60序列/7人/野外)、SURREAL(6M合成帧)、CMU Panoptic(521相机)、MuCo-3DHP/MuPoTS-3D(多人)、Total Capture(多模态)、JTA(500K合成帧)等。指标：MPJPE、PA-MPJPE、NMPJPE、PCK/AUC、PCP、Bone Error/Std/Illegal Angle、MRPE、3D Error。评估协议：Human3.6M P1(S1,5,6,7,8训练/S9,11测试)、P2、P3(仅正面相机)。综述本身不含新实验，为文献对比分析。",
+  "resources": "综述论文，无自有代码或新数据发布；所涉方法多数基于Human3.6M等公开数据集，部分方法提供开源代码（文中Table 2列出Code列）；算力需求因具体方法而异，文中未统一给出。",
+  "paper_id": "W3165265377",
+  "paper_ids": [
+    "W3165265377"
+  ],
+  "paper_title": "Deep 3D human pose estimation: A review",
+  "year": 2021,
+  "citation_count": 392
+}

@@ -1,0 +1,6 @@
+== 遮挡鲁棒
+审校结束（success）但没有产出 
+reports/遮挡鲁棒的多人绝对3D位姿估计_几何先验增强的RootNet/review.md——视为失败，
+可重试。日志: 
+results/human_pose3d/reports/遮挡鲁棒的多人绝对3D位姿估计_几何先验增强的RootNet/
+logs/review.log

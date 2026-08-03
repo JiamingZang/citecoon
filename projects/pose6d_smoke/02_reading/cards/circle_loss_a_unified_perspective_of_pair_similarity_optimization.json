@@ -1,0 +1,15 @@
+{
+  "problem": "现有深度特征学习损失函数（triplet loss、softmax交叉熵等）将类内相似度sp与类间相似度sn嵌入相似对并以等权重优化(sn−sp)，导致两个问题：对每个相似度分数的惩罚力度被限制为相等（缺乏灵活性），以及决策边界sp−sn=m允许模糊收敛（如{0.2,0.5}与{0.4,0.7}均满足margin但可分性不同）。",
+  "method": "将(sn−sp)推广为(αn·sn−αp·sp)，其中αn、αp分别为sn、sp的自适应线性权重函数：相似度偏离最优值越远，权重越大、梯度越大，从而让欠优化的相似度获得更强惩罚。该优化在(sn,sp)空间产生圆形决策边界，故称Circle Loss。论文给出统一公式，兼容class-level标签（proxy-based，样本与权重向量的相似度）和pair-wise标签（样本间相似度）两种范式，可退化为triplet loss或softmax交叉熵。",
+  "core_assumption": "相似度分数偏离最优值越远应受到越强惩罚（自适应重加权优于等权优化）；在余弦相似度度量下sp→1、sn→0是明确且可达的最优目标；类级标签与对级标签下的特征学习本质上可统一为相似对优化问题。",
+  "limitation": "作者承认：在LFW/YTF/CFP-FP等近饱和数据集上提升极微（+0.03%~+0.18%）；在MSMT17上被使用生成式数据增强的JDGL超越。我读出的局限：(1)所有实验均为图像检索/识别场景，未验证在NLP、图、少样本等任务的泛化性；(2)超参m和γ仍需调优，m的最优值因任务而异（人脸识别0.25 vs re-ID未明确）；(3)未讨论大规模类别数下pair枚举的计算开销及hard mining策略的交互影响；(4)圆形决策边界的'确定收敛点'依赖sp→1、sn→0的假设，在类内方差大或标注噪声场景下该假设可能不成立；(5)缺乏对训练不稳定或失败案例的分析。",
+  "eval_setup": "任务：人脸识别（LFW/YTF/CFP-FP/IJB-C，ResNet34/100）、行人重识别（Market-1501/MSMT17，ResNet50+MGN）、细粒度图像检索（CUB-200-2011/Cars196/Stanford Online Products，embedding 512维）。基线：ArcFace、AM-Softmax、Triplet、Multi-Similarity、LiftedStruct、HDC、ABE等。指标：Rank-1、mAP、R@K、TAR@FAR。规模：IJB-C含百万级对；CUB/Cars/SOP为标准检索规模。",
+  "resources": "骨干网络ResNet34/50/100；论文未明确给出GPU型号与训练时长；代码已开源（GitHub: xialuxi/CircleLoss_Face_Recognition 及官方MMLab实现）。数据均为公开数据集，无特殊算力要求。",
+  "paper_id": "W3034303554",
+  "paper_ids": [
+    "W3034303554"
+  ],
+  "paper_title": "Circle Loss: A Unified Perspective of Pair Similarity Optimization",
+  "year": 2020,
+  "citation_count": 1036
+}

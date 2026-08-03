@@ -1,0 +1,32 @@
+[15:13:04] write_tech_report 惊讶度门控测试时记忆_时序平滑与消歧的分离建模
+
+I'll write this technical feasibility report by first reading all source materials, then composing chapter by chapter. Let me start by exploring the directory structure and reading the key files.
+
+Now let me read the core idea file and key materials.
+
+Let me read the codebase cards and key paper cards in parallel.
+
+Now let me read the key paper cards referenced in the idea.
+
+Let me read a few more relevant cards and check the papers for specific numbers I'll need.
+
+Let me check the reports directory and read a bit more from the VideoPose3D paper for specific numbers.
+
+Let me check the existing report file and read a few more paper details.
+
+Let me read the full existing report to understand what's already there.
+
+I now have all the materials needed. The existing report is good but lacks the code-level insertion details from the MotionBERT repo card. I'll rewrite it with full DSTformer insertion-point-level implementation details. Let me compose the complete report.
+
+Now let me do the self-review pass to verify numbers and citations.
+
+Report is 33,786 characters (within 2.5-4万 target). Let me verify a few key numbers against sources.
+
+All key numbers verified against source papers and repo cards. Let me finalize.
+
+报告已完成，输出至 `reports/惊讶度门控测试时记忆_时序平滑与消歧的分离建模.md`（33,786 字符）。
+
+**关键改进（相比原稿）：**
+- 第 2 章方法部分以 MotionBERT DSTformer 为骨架，给出了插入点级改法：主方案为 `lib/model/DSTformer.py:340-351`（Block 输出后、`ts_attn` 门控融合前），附完整伪代码和配置扩展方案
+- 所有代码事实均来自 `codebases/MotionBERT.md`（文件:行号），移除了原稿中"codebases/ 目录当前为空"的标注
+- 三个候选插入位置（最小侵入/表征级/帧级）

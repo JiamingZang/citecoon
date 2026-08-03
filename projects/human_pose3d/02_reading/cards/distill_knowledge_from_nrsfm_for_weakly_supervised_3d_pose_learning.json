@@ -1,0 +1,15 @@
+{
+  "problem": "3D姿态估计严重依赖大量3D标注数据，而多视角/运动捕捉数据仅覆盖有限主体和简单背景，限制了泛化能力。本文旨在仅使用2D关键点标注（无3D标签、无多视角/时序数据、无物体特定先验）训练3D姿态估计网络，缓解数据瓶颈。",
+  "method": "以改进的Deep-NRSfM（多层块稀疏字典学习）为教师，从2D标注恢复3D形状字典、相机矩阵和稀疏编码。核心创新在于不直接用NRSfM深度输出作硬标签，而是设计知识蒸馏损失：将学生网络的深度预测z'映射为编码子空间S(z')={φ: B_z φ=z'}，以该子空间上NRSfM代价函数（重投影误差+正则项）的最小值衡量深度假设质量。由于精确求解约束优化在SGD中不可行，推导了凸上界——在NRSfM解φ_nrsfm到子空间的投影处评估代价，实现可微训练。学生网络（Integral Regression + ResNet50）的xy由2D标注监督，z由该蒸馏损失监督。",
+  "core_assumption": "1) 弱透视相机模型成立且NRSfM恢复的相机矩阵足够准确可视为oracle；2) 形状字典过完备，保证任意深度假设对应的编码子空间非空；3) 卷积网络的深度图像先验（结构约束）能在NRSfM歧义区域提供额外消歧信息，使学生超越教师。",
+  "limitation": "作者承认：(1)依赖弱透视投影，强透视变化场景不适用；(2)未建模缺失标签，遮挡/出视野关键点需额外处理（MPII实验中仅对完整骨架用蒸馏损失）。读出局限：(3)方法强依赖NRSfM教师质量，若字典学习本身失败则蒸馏无从谈起；(4)凸上界近似与真实子空间最优解存在gap，理论保证有限；(5)仅在人体姿态(H3.6M)验证，虽声称通用但未在其他物体类别实验；(6)需要预先对全训练集跑NRSfM获取字典和编码，扩展到新类别需重新训练NRSfM；(7)无人跟进的开放问题：如何将框架扩展到非关键点表示（如mesh）、如何处理大规模in-the-wild数据的分布外姿态。",
+  "eval_setup": "数据集：Human3.6M（H3.6M ECCV18 Challenge子集，训练35k+帧，5个主体训练/2个测试）+可选MPII；基线：7种NRSfM方法（Ranklet, Sparse, SPM, SFC, KSTA, RIKS, Consensus, Deep-NRSfM）及7种弱监督方法（Rhodin, Tung, 3Dinterp, AIGN, Tome, Drover等）；指标：PA-MPJPE、MPJPE、depth error（mm）；规模：ResNet50 backbone，256×256输入，batch size 32；结果：训练集PA-MPJPE 56.4mm（vs Deep-NRSfM 73.2），验证集MPJPE 86.4mm / PA-MPJPE 62.8mm，加MPII后降至83.0/57.5mm。",
+  "resources": "代码：未明确提供开源链接；数据：H3.6M + MPII（公开数据集）；算力：ResNet50训练，batch size 32，学习率1e-3降至1e-5，具体GPU未说明（文中提及受计算资源限制使用较小batch）；NRSfM教师需6层字典（256/128/64/32/16/8）预训练。",
+  "paper_id": "W2981691949",
+  "paper_ids": [
+    "W2981691949"
+  ],
+  "paper_title": "Distill Knowledge From NRSfM for Weakly Supervised 3D Pose Learning",
+  "year": 2019,
+  "citation_count": 52
+}

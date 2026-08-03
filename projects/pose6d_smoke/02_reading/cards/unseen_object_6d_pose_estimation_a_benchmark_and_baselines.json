@@ -1,0 +1,15 @@
+{
+  "problem": "现有6D姿态估计方法依赖训练时已见过的物体，无法对测试阶段出现的未见新物体直接估计6D姿态，导致部署新物体时需重复数据采集与网络重训练，成本高昂。本文提出\"未见物体6D姿态估计\"新任务，要求算法仅凭物体网格模型（无需重训练）即可估计任意新物体的6D姿态。",
+  "method": "提出两阶段基线方案：第一阶段为端到端3D对应点网络，以ResUNet14为骨干网络分别提取场景与物体点云的逐点高维特征，再经Object-Level分割候选网络（SPN）定位场景中目标物体的ROI区域（使用均值池化+MLP+Otsu后处理），然后由Object-Scene对应网络（OSCN）对ROI内随机采样的点对评分，筛选置信度>0.8的3D对应点对；第二阶段基于EPOS中的PROSAC算法从对应点对中鲁棒地计算6D姿态，以应对物体对称性带来的关键点歧义问题。同时提出新评价指标IADD（Infimum ADD），将inf操作引入ACPD，统一处理有限与无限姿态歧义（包括连续旋转对称轴物体），解决ADD与ADD-S无法在同一框架下比较对称与非对称物体的问题。",
+  "core_assumption": "物体网格模型在测试时可低成本获取（如商用3D扫描仪），且骨干网络在足够多样的训练物体上能学到模型无关的通用几何对应特征，从而泛化到训练时未见的新物体。此外，物体的部分视角点云与完整网格之间存在可学习的几何与外观对应关系。",
+  "limitation": "1.（作者承认）训练集仅有40个真实物体，需额外用BlenderProc合成1400个场景补充，合成与真实域差距未被深入讨论。2.（作者承认）IADD对含无限旋转轴的物体（如无纹理球体）退化为中心距，评价信息量有限；对有一条无限歧义轴的物体采用均匀采样近似，精度取决于采样数n。3.（读出）SPN后处理依赖Otsu阈值与连通域面积阈值等手工超参，对密集杂乱场景的鲁棒性未充分验证。4.（读出）OSCN在测试时对M'×N点对随机采样L=102400对，计算开销较大，实时性未讨论。5.（读出）仅与手工规则及浅层深度学习基线比较，缺乏与同期更强的生成式或类别级方法的对比；跨数据集（YCB-Video）实验未重训练但也未分析域迁移失败案例。6.（开放问题）如何在遮挡率高、IoU极低的场景下提升对应点质量；如何将该框架扩展至仅有RGB（无深度）输入的设置，均未被后续工作跟进解决。",
+  "eval_setup": "数据集：训练集=GraspNet-1Billion真实100场景（40物体）+BlenderProc合成1400场景（来自Google Scanned Objects的1070物体），测试集=GraspNet-1Billion 90个真实场景（76物体，其中48个未见），并在YCB-Video上做零样本迁移验证。测试子集分为seen/similar/novel三类。基线：点云聚类(Euclidean)+ICP、SuperGlue+RANSAC+最小二乘、FCGF+SPN。指标：ADD、ADD-S、IADD（均以AUC形式报告，上界设为目标物体对角线的0.5倍）。规模：8块NVIDIA RTX 3090 GPU训练。",
+  "resources": "代码、数据与模型承诺公开（项目页面：www.graspnet.net/unseen6d）；训练需8×NVIDIA RTX 3090 GPU；依赖MinkowskiEngine（稀疏卷积）、BlenderProc（合成数据生成）、PyTorch框架；Google Scanned Objects数据集（1000+物体）。",
+  "paper_id": "W4283453676",
+  "paper_ids": [
+    "W4283453676"
+  ],
+  "paper_title": "Unseen Object 6D Pose Estimation: A Benchmark and Baselines",
+  "year": 2022,
+  "citation_count": 23
+}

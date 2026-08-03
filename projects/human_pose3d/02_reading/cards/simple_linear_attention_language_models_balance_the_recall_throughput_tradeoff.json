@@ -1,0 +1,15 @@
+{
+  "problem": "注意力语言模型在召回（recall，即基于上下文中已见token进行生成）方面表现优异，但推理时KV-cache的内存消耗随序列长度线性增长，严重制约生成吞吐量。本文探索能否在降低内存占用的同时不损害召回能力，识别并刻画了状态大小与召回能力之间的根本性权衡。",
+  "method": "提出BASED架构，将两种简单技术组合：(1) 全局线性注意力，使用softmax指数函数的二阶Taylor展开作为特征映射，保持固定大小的循环状态并建模长程依赖；(2) 局部小窗口（64-128 token）精确softmax注意力，负责精细的局部token移位与比较。通过调节线性注意力特征维度和滑动窗口宽度，可沿召回-内存Pareto前沿平滑移动。此外设计了IO感知的CUDA内核（prefill与decoding算法），将KV状态存储于寄存器中，大幅减少HBM与SRAM间的数据搬运。",
+  "core_assumption": "线性注意力虽缺乏精确局部比较能力，但其大循环记忆足以建模长程token交互；小窗口softmax注意力虽范围有限，但能精确完成局部移位与比较——两者互补即可覆盖召回所需的全部能力。同时假设二阶Taylor近似在较小特征维度（d'=16）下仍能提供足够的softmax逼近精度。",
+  "limitation": "作者承认：BASED在召回密集型任务上仍显著落后于全注意力（1.3b/10b下SWDE 48.06 vs 71.92，FDA 24.41 vs 73.23）；理论证明任何循环模型需Ω(N)比特状态才能完美解决MQAR，即BASED无法彻底消除权衡。我读出的局限：(1) 实验规模仅到1.3B参数/50B token，未验证7B+规模下结论是否成立；(2) 小窗口64-128的硬件最优选择依赖特定GPU（H100）的tensor core tile尺寸，换硬件需重新调参；(3) 混合架构中约60%为门控卷积层，各组件比例的选择缺乏系统消融；(4) 未探讨在超长上下文（>32K）场景下Taylor线性注意力的数值稳定性与精度退化问题。",
+  "eval_setup": "数据：Pile语料，10B-50B token训练；合成任务MQAR（256对key-value）。规模：360M与1.3B参数。基线：Transformer++、Mamba、H3、RWKV v5、GLA、Hyena。指标：Pile困惑度（含AR切片）、MQAR准确率、SWDE/FDA信息抽取准确率、SQUAD F1、LM Eval Harness常识推理均分、prefill/generation吞吐量（tok/ms）。效率测试：单张NVIDIA H100，4096 token prefill + 1024 token生成，batch size至128。",
+  "resources": "代码：https://github.com/HazyResearch/based ；高效CUDA内核：https://github.com/HazyResearch/ThunderKittens ；算力：单张NVIDIA H100 GPU（效率基准），训练使用Pile语料（GPT-2 BPE分词），具体训练GPU数量未在正文中明确。",
+  "paper_id": "arxiv:2402.18668",
+  "paper_ids": [
+    "arxiv:2402.18668"
+  ],
+  "paper_title": "Simple linear attention language models balance the recall-throughput tradeoff",
+  "year": 2024,
+  "citation_count": 0
+}

@@ -1,0 +1,15 @@
+{
+  "problem": "针对未见物体6-DoF绝对位姿估计中，现有方法要么依赖精确CAD模型（获取成本高），要么需要密集多视角参考图（采集耗时、存储大），且模板匹配引入额外计算开销，难以在机器人操作场景中规模化部署的问题。本文探索仅用单张参考视图即可估计任意新视角下未见物体绝对位姿的极简设定。",
+  "method": "提出SinRef-6D框架：(1) Points Focalization将参考与查询点云统一变换到物体坐标系，建立公共坐标基准；(2) 设计Point SSM与RGB SSM，以状态空间模型线性复杂度捕获单视角下的长程空间依赖，提取逐点特征；(3) 利用GeoTransformer建立逐点特征对齐，通过加权SVD求解6-DoF位姿；(4) 将求解位姿反馈至坐标变换，迭代T轮逐步缩小参考-查询间的位姿偏差。初始化阶段用SAM驱动相似性匹配分割物体，深度反投影得到点云；参考视图通过半自动标注器（标定板定旋转+键盘调平移与尺寸）一次性获取。",
+  "core_assumption": "单张带位姿标注的参考视图所提供的几何先验，经物体坐标系对齐与迭代细化后，足以支撑任意新视角的绝对位姿恢复；SSM能在严重受限的单视角几何信息下有效建模长程空间关系；初始位姿（单位旋转+均值平移）经迭代可收敛到正确解，即目标函数在较大位姿偏差下仍具有可优化性。",
+  "limitation": "作者承认：单参考视图空间信息有限、参考与查询间可能存在大位姿偏差。进一步读出的局限：(1) 半自动标注仍需人工介入（标定板+键盘），并非完全零成本；(2) 依赖外部分割器（Mask R-CNN/CNOS+FastSAM）， cluttered场景或遮挡严重时分割失败将直接导致位姿崩溃；(3) 对高度对称或无纹理物体，单视角几何先验极度匮乏，迭代对齐可能陷入局部最优；(4) 迭代次数T为超参，收敛性与计算开销的权衡未给出理论保证；(5) 训练使用合成数据（ShapeNet+GSO），sim-to-real gap在极端光照/材质下未被充分讨论；(6) 论文未与最新3D基础模型（SAM 3D、VGGT）做端到端对比，仅声称互补，开放问题在于基础模型能否直接替代本流程。",
+  "eval_setup": "6个公开基准（LineMod、LM-O、TUD-L、ICBIN、HB、YCB-V）+真实机器人抓取场景；训练集为MegaPose生成的合成数据（ShapeNet-Objects+Google-Scanned-Objects，约50K物体、~200万张图像）；指标：ADD-0.1d、ADD-AUC、BOP AR（VSD/MSSD/MSPD）；基线涵盖manual reference view-based（FS6D、OnePose/++、Gen6D、FoundationPose、GS-Pose、UNOPose、One2Any、Any6D等）与CAD model-based（MegaPose、GigaPose等）；消融验证迭代次数、随机参考视角选取、各模块贡献；真实部署于自研硬件-软件机器人系统执行抓取。",
+  "resources": "自研半自动位姿标注器（标定板+键盘控制）；完整硬件-软件机器人系统（机械臂+RGB-D相机）；训练需~200万合成图像（~50K物体）；推理依赖SAM/FastSAM/Mask R-CNN/CNOS分割及GeoTransformer对齐模块；具体GPU型号与训练时长未在给定文本中明确。",
+  "paper_id": "W7155098975",
+  "paper_ids": [
+    "W7155098975"
+  ],
+  "paper_title": "Scalable Unseen Objects 6-DoF Absolute Pose Estimation With Robotic Integration",
+  "year": 2026,
+  "citation_count": 9
+}

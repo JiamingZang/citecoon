@@ -1,0 +1,15 @@
+{
+  "problem": "视频中2D-to-3D人体姿态提升问题：现有基于膨胀时序卷积和循环网络的方法时序连接有限，难以建模长程帧间依赖；而将每帧所有关节直接作为token送入单一Transformer会导致token数爆炸（如243帧×17关节=4131），内存不可接受。",
+  "method": "提出PoseFormer，首个纯Transformer的2D-to-3D提升网络，将建模分解为两个独立Transformer模块：空间Transformer以每帧各关节坐标为token，通过自注意力编码帧内关节间运动学关联；时序Transformer以各帧空间特征（展平后）为token，通过自注意力捕获整段序列的全局帧间依赖。回归头对时序输出做可学习加权平均后接MLP输出中心帧3D姿态，训练损失为标准MPJPE。",
+  "core_assumption": "空间（关节间）与时序（帧间）关系可被有效解耦为两个串行Transformer分别建模，无需联合注意力即可充分表达时空依赖；同时假设现成2D检测器提供的关键点已足够可靠，深度歧义可由时序上下文隐式消解。",
+  "limitation": "作者承认：FLOPs随帧数平方增长（f=81时1358M，远超TCN的33.87M），推理速度非最快；依赖外部2D检测器，检测误差直接传播（GT 2D使MPJPE从44.3降至31.3）。我读出的开放问题：未显式引入骨骼长度、左右对称等运动学约束；仅在单人单视角设定下验证，未涉及多人或遮挡严重场景；空间Transformer对所有关节一视同仁，未利用人体拓扑先验；对更长序列（f>81）的可扩展性未探讨。",
+  "eval_setup": "Human3.6M（S1/5/6/7/8训练，S9/S11测试，15个动作，CPN检测2D，f=9/27/81）；MPI-INF-3DHP（GT 2D输入，f=9）。指标：MPJPE、P-MPJPE（Protocol 1&2）、PCK@150mm、AUC。基线：VideoPose3D、Chen et al. TCSVT'21、SRNet、METRO、UGCN、Liu et al. CVPR'20等。最优结果：H3.6M MPJPE 44.3mm / P-MPJPE 34.6mm；MPI-INF-3DHP MPJPE 77.1mm、PCK 88.6、AUC 56.4。",
+  "resources": "代码开源 https://github.com/zczcwh/PoseFormer ；训练用2×NVIDIA RTX 3090，PyTorch实现，batch size 1024，Adam优化器训练130 epochs，权重衰减0.1，随机深度率0.1；推理FPS测试用单卡GTX 2080 Ti（f=81时约269 FPS）。模型参数量约9.6M。",
+  "paper_id": "W3136525061",
+  "paper_ids": [
+    "W3136525061"
+  ],
+  "paper_title": "3D Human Pose Estimation with Spatial and Temporal Transformers",
+  "year": 2021,
+  "citation_count": 692
+}

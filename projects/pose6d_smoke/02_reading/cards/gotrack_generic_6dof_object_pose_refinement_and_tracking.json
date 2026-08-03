@@ -1,0 +1,15 @@
+{
+  "paper_id": "arxiv:2506.07155",
+  "paper_title": "GoTrack: Generic 6DoF Object Pose Refinement and Tracking",
+  "problem": "直接回归相对位姿的精化器难训练且需专门打分网络；跟踪中逐帧重启 model-to-frame 配准导致抖动。",
+  "method": "flow-based 精化器：冻结 DINOv2 + CroCov2 双分支 transformer decoder + DPT head，对模板→crop 预测稠密 2D-2D flow 与可见性掩码（BCE + 可见像素 L1 flow 监督）；可见模板像素借模板深度提升为 2D-3D 对应，EPnP+RANSAC 拟合 + LM 收尾；位姿质量分 q=内点权重和/全对应权重和，直接用于多假设择优；可迭代多次精化。",
+  "core_assumption": "精化的本质是稠密对应估计而非姿态回归或渲染对齐优化——预测 2D 输出（flow+可见性）比直接回归相对位姿更易训练、可解释；内点权重占比 q=s'/s 足以作为可靠的位姿质量分，无需专门打分网络；帧间一致性只需 pose 之外的像素级对应传播即可消抖。",
+  "limitation": "需合成数据训练（非免训练）；依赖 CAD 模型深度提升对应到 3D；跟踪靠上帧位姿初始化仍有漂移风险（r 参数调平滑/漂移折中）。",
+  "eval_setup": "LM-O/T-LESS/YCB-V；MegaPose-GSO 100 万合成图训练+强增广跨域到真实图；800 RGB-D 模板 SO(3) 均匀采样；粗估计用 FoundPose BoW 检索（与精化共享同一 DINOv2 特征，一次提取两处复用）；跟踪时 RAFT 帧间 flow，内点比阈值 τi≈0.8 门控是否重做 model-to-frame。",
+  "resources": "arXiv 全文在 papers/ 已落盘。",
+  "year": 2025,
+  "citation_count": 7,
+  "paper_ids": [
+    "arxiv:2506.07155"
+  ]
+}

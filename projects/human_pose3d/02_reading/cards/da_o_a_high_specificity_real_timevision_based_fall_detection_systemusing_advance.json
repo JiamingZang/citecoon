@@ -1,0 +1,15 @@
+{
+  "problem": "现有视觉跌倒检测系统在日常活动（如叩拜、深蹲、快速坐下）中误报率高，且在关节遮挡时性能严重下降；同时云端推理带来隐私泄露与延迟问题。",
+  "method": "DAÏO采用混合流水线：MediaPipe Pose提取33个骨骼关键点，随后用带自适应测量噪声的扩展卡尔曼滤波（EKF）平滑抖动并在遮挡时依据visibility分数动态降低Kalman增益、仅依赖过程模型预测；核心判别为三重检查逻辑引擎——髋部垂直位移（相对校准基线下降超阈值）、躯干倾斜角（接近水平）、垂直速度锁存（超1.5 m/s后在确认窗口内保持True），三者同时满足才触发跌倒；有限状态机管理校准→监测→疑似→确认→恢复的状态转移，需连续30帧满足条件方确认，全程本地边缘运行。",
+  "core_assumption": "真实跌倒与受控ADL在物理层面可分：跌倒具有不可控的高垂直速度（>1.5 m/s）与最终水平躯干姿态，而叩拜/深蹲等受控动作速度低于该阈值；MediaPipe返回的visibility分数能可靠反映遮挡程度，使EKF可据此在观测与预测间正确切换；前100帧站立校准能建立有效的个体化高度基线。",
+  "limitation": "作者承认：(1)慢速滑落型跌倒（如晕厥沿墙滑下）因速度不超阈值而漏检，灵敏度损失0.9%；(2)关键关节完全遮挡超2秒后EKF协方差膨胀，重现时产生坐标跳变。进一步开放问题：单相机架构存在盲区与跨房间失效；固定速度阈值未考虑不同体型/年龄人群差异；校准基线假设用户初始100帧稳定站立，实际部署中难以保证；缺乏零光照/夜间场景能力；仅在340段视频上验证，未与ST-GCN等深度学习方法在相同协议下对比；无长期纵向评估，基线漂移（步态随年龄变化）未解决。",
+  "eval_setup": "数据集：UR Fall Dataset + Multiple Cameras Fall Dataset (MCFD) + 自定义压力测试片段，共340段视频约153,000帧；基线：仅含位置+角度检查的Posture-Only模型（消融对比）；指标：准确率95.3%、灵敏度93.3%、特异度96.4%、平均报警延迟1.23 s、速度锁存使FPR相对降低79.7%、叩拜序列特异度100%；运行规模：工作站(i7-11700K+RTX 3070)达35.7 FPS，Raspberry Pi 4达12.3 FPS。",
+  "resources": "硬件：消费级工作站或Raspberry Pi 4（四核1.5 GHz），无需GPU；软件：MediaPipe Pose（CPU推理）、MQTT over TLS + Telegram告警；代码/数据：未提供公开代码仓库链接，UR Fall Dataset与MCFD为公开数据集，自定义压力测试片段未公开；算力需求极低（EKF+逻辑检查仅增加5–8 ms/帧）。",
+  "paper_id": "W7169498896",
+  "paper_ids": [
+    "W7169498896"
+  ],
+  "paper_title": "DAÏO: A High-Specificity Real-TimeVision-Based Fall Detection SystemUsing Advanced Kinematic Tracking andComputer Vision",
+  "year": 2026,
+  "citation_count": 0
+}

@@ -1,0 +1,41 @@
+[20:00:38] review_report 先验-精度_Pareto_前沿_Model-Free_位姿估计的统一横向基准与参考视角蒸馏
+
+I'll review the report adversarially by first reading it, then cross-checking claims against the source library.
+
+Now let me read the report and key source files.
+
+Now I need to read the key source files to cross-check claims. Let me start with the most referenced ones.
+
+Let me continue reading more source files to cross-check the report's claims.
+
+Let me continue checking more sources referenced in the report.
+
+Let me check more sources referenced in the report.
+
+Let me check more specific claims in the report.
+
+Let me verify more specific claims from the report.
+
+Let me check the UNOPose card and verify some more claims.
+
+Let me read the UNOPose card and check the FoundPose paper for the +17 AR claim.
+
+Now I have enough data to write the review. Let me compile my findings.
+
+Let me verify a few more specific claims before writing the review.
+
+Let me check a few more claims.
+
+Let me verify one more quote from the report.
+
+Now I have enough information to write the review. Let me compile my findings into the review document.
+
+Now I'll write the updated review based on my full cross-check of the current report against all sources.
+
+审校完成，已写入 `review.md`。
+
+**结果：P0×0 / P1×1 / P2×4，判定"需修订后发布"。**
+
+核心问题是 LM-O 物体数错误（报告写 15，实际为 8），源自 idea 卡笔误但向统计检验、资源估算、可视化计划多处传播。其余 4 条 P2 为 GS-Pose 参考图数量无出处、FoundPose 耗时估算未标"待验证"、MegaPose refiner "3 步"无来源、PoseGAM 对比对象为推断。
+
+前轮 3 条 P0（520→800 模板数、PoseGAM 数据集归属、编造 FoundPose 含 Gen6D/GS-Pose 数字）已全部修正。80+ 项

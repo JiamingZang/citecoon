@@ -1,0 +1,18 @@
+[17:20:08] study_codebase https://github.com/graphdeco-inria/gaussian-splatting
+
+目录不存在，开始浅克隆。
+
+克隆成功。立即创建骨架卡片，然后边查边写。
+
+骨架已建。现在并行探索代码库各关键部分。
+
+所有探索完成，现在写入完整卡片。
+
+卡片已完成。六个章节全部填充完毕，所有关键事实均带 `文件路径:行号` 和原代码片段。
+
+核心发现摘要：
+- **render() 入口**在 `gaussian_renderer/__init__.py:18`，相机矩阵以无梯度叶张量传入 CUDA 光栅器
+- **R/T 不可微**：`getWorld2View2` 用 numpy（`utils/graphics_utils.py:38-49`），`Camera` 中 `torch.tensor(...)` 无 `requires_grad`
+- **位姿精服最大未知**：CUDA 光栅器子模块未初始化，无法确认 backward 是否对 viewmatrix 求导
+- **MASt3R 不在本仓库**，需外部调用后以 COLMAP/PLY 格式注入
+- **物体级最小配置**：7000 迭代 + 少量标定图 + 初始点云即可启动

@@ -1,0 +1,15 @@
+{
+  "problem": "现有基于Transformer的3D人体姿态估计方法依赖自注意力机制进行时空建模，存在二次计算复杂度、单向时空关系建模以及时空关联学习不充分的问题，难以在长序列上高效且全面地捕捉关节间依赖。",
+  "method": "提出PoseMamba，一种纯SSM架构，以线性复杂度实现单目视频2D-to-3D姿态提升。核心为双向全局-局部时空SSM块：在空间维度上，按关节编号0-16进行全局扫描捕获全身姿态，同时设计基于人体骨骼几何拓扑的局部重排序扫描（沿肢体链路）捕获四肢细节，两者融合形成全局-局部空间扫描；在时间维度上进行正反向时间扫描。四个方向的扫描特征融合后输入Mamba块（含LayerNorm、深度卷积、SiLU、残差连接和MLP）。损失函数结合MPJPE Loss、时序平滑T-Loss和2D重投影Loss。",
+  "core_assumption": "标准SSM的单向建模不足以充分表达关节间双向依赖，双向扫描可弥补；人体骨骼具有固定拓扑结构，按肢体链路设计的局部扫描顺序能为SSM提供更合理的几何先验，从而改善四肢预测精度；线性复杂度的SSM在适当设计扫描策略后可达到甚至超越二次复杂度注意力的时空建模能力。",
+  "limitation": "作者承认仅依赖标准Mamba无法达到最优性能，需额外设计双向与局部扫描；局部扫描顺序是针对17关节人体骨架手工设计的启发式策略，缺乏理论最优性证明，对其他骨架定义或多人场景的泛化性未讨论；方法仍依赖上游2D姿态检测，深度模糊和严重遮挡等单目固有难题未根本解决；仅在室内/受控数据集上验证，野外复杂场景的鲁棒性缺乏系统评估；SSM的因果递推结构在实时流式推理中的延迟特性未分析。",
+  "eval_setup": "数据集：Human3.6M（360万帧，11受试者，15类动作，S1/5/6/7/8训练，S9/11测试）和MPI-INF-3DHP（130万帧，绿幕/非绿幕/户外三场景）；基线：MotionBERT、MotionAGFormer、MixSTE、P-STMO、STCFormer、HDFormer等；指标：MPJPE(P1)、P-MPJPE(P2)；输入帧数T=27/81/243；模型变体S/B/L；PoseMamba-L在H3.6M上P1=38.1mm（估计2D）/15.6mm（GT 2D），较MotionBERT精度提升1.1/2.2mm且仅用16%计算量。",
+  "resources": "代码与模型承诺开源；训练硬件为单张NVIDIA RTX 3090 GPU；框架PyTorch；训练120 epochs，batch size 4，AdamW优化器，初始学习率2e-4，指数衰减因子0.99，权重衰减0.01；2D检测使用Stacked Hourglass；未报告具体训练时长与显存峰值。",
+  "paper_id": "W4409368373",
+  "paper_ids": [
+    "W4409368373"
+  ],
+  "paper_title": "PoseMamba: Monocular 3D Human Pose Estimation with Bidirectional Global-Local Spatio-Temporal State Space Model",
+  "year": 2025,
+  "citation_count": 25
+}

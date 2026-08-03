@@ -1,0 +1,15 @@
+{
+  "problem": "Transformer 注意力机制具有二次复杂度，限制了上下文窗口长度；线性循环模型虽可线性扩展，但将长上下文压缩为固定大小的向量/矩阵状态会丢失信息。现有架构缺乏能在测试时主动学习记忆与遗忘的长期记忆模块。",
+  "method": "提出神经长期记忆模块：将记忆训练视为在线学习问题，用关联记忆损失对输入的梯度衡量\"惊讶度\"（surprise），惊讶度高的事件更值得记忆；引入衰减机制（等价于带 momentum 和 weight decay 的 mini-batch 梯度下降）管理有限记忆容量。记忆模块为深层非线性网络，通过张量化 mini-batch 梯度下降实现快速可并行训练。架构 Titans 包含三个超头：Core（有限窗口注意力作短期记忆）、长期神经记忆分支、以及可学习但与数据无关的持久记忆参数。提出 MAC（记忆作上下文）、MAG（记忆作门控）、MAL（记忆作层）三种融合变体。",
+  "core_assumption": "梯度大小是衡量输入\"惊讶度\"从而决定记忆优先级的有效代理指标；深层非线性网络的参数足以编码长期历史的抽象表示；通过元学习\"如何记忆\"而非直接记忆训练数据，可在测试时获得更好泛化。",
+  "limitation": "作者承认：更深记忆带来更慢训练吞吐，存在效果-效率权衡；MAL 变体反而不如 MAC/MAG，说明当前混合架构设计尚未最优；论文为第一版，更大模型结果未完成。读出局限：模型规模仅至 760M，缺乏十亿级以上验证；惊讶度仅用梯度刻画，未讨论语义重要性或多粒度重要性；持久记忆为静态可学习参数，无法随任务动态调整；未报告推理时记忆更新的额外延迟开销；BABILong 等长文推理任务中未分析记忆模块在真正需要多跳推理时的失败模式。",
+  "eval_setup": "语言建模：FineWeb-Edu 15B/30B tokens，4K 训练长度，perplexity + 常识推理准确率；NIAH：2K-2M 上下文；BABILong：few-shot 与 fine-tuning 两种设置；时间序列：ETTm1/m2/h1/h2、ECL、Traffic、Weather，MSE/MAE；基因组：GenomicsBenchmarks top-1 acc。基线：Transformer++、RetNet、GLA、Mamba/2、DeltaNet、TTT、Gated DeltaNet、Samba、GPT-4、Llama3.1-8B/70B、Qwen2.5-72B 等。模型规模 170M-760M。",
+  "resources": "训练数据 FineWeb-Edu（公开）；模型 170M-760M 参数；AdamW lr=4e-4，batch 0.5M tokens；具体 GPU 型号与总训练时长未在给定文本中披露；代码是否开源未提及。",
+  "paper_id": "arxiv:2501.00663",
+  "paper_ids": [
+    "arxiv:2501.00663"
+  ],
+  "paper_title": "Titans: Learning to Memorize at Test Time",
+  "year": 2025,
+  "citation_count": 0
+}

@@ -1,0 +1,15 @@
+{
+  "problem": "探究卷积和自注意力是否是视觉模型取得良好性能的必要条件。论文旨在证明仅用多层感知机（MLP）即可构建在图像分类上与CNN和Transformer竞争力相当的架构，从而突破既有建模范式。",
+  "method": "MLP-Mixer将图像切分为不重叠patch并线性投影为'patches×channels'表格，交替堆叠两类MLP层：token-mixing MLP作用于表格的列（跨空间位置混合，所有通道共享同一权重），channel-mixing MLP作用于表格的行（逐位置混合通道，所有位置共享同一权重）。每个MLP块由两层全连接+GELU构成，配合LayerNorm、残差连接、dropout；最终用全局平均池化+线性分类头输出。计算复杂度对patch数和像素数均为线性。",
+  "core_assumption": "在大规模数据（~100M–300M图像）预训练或现代正则化（RandAugment、mixup、stochastic depth等）辅助下，纯MLP的通用函数逼近能力足以替代卷积的局部性归纳偏置和自注意力的动态空间交互。token-mixing MLP对所有通道共享同一组全感受野权重这一强约束不会显著损害表达能力。",
+  "limitation": "作者承认：在中小规模数据（1–10M图像）上Mixer仍略逊于专用CNN；无正则化时易过拟合；金字塔式缩减token数的变体在JFT上有效但无法迁移到ImageNet/21k。读出局限：token-mixing MLP的输入维度与patch数绑定，分辨率变化需特殊初始化技巧且仅支持整数倍缩放；缺乏对密集预测、检测等下游任务的验证；论文未解释为何跨通道参数共享不损性能，理论理解缺失；在NLP或其他模态的适用性仅为展望，无实验支撑。",
+  "eval_setup": "预训练数据：ImageNet(1.3M)、ImageNet-21k(14M)、JFT-300M(300M，专有)。下游：ImageNet/ReaL、CIFAR-10/100、Oxford Pets、Flowers-102、VTAB-1k(19任务)。基线：ViT、BiT-ResNet、HaloNet、NFNet、MPL、ALIGN。指标：top-1准确率、TPU-v3吞吐量(img/sec/core)、预训练core-days。模型规模19M–431M参数，分辨率224预训练、448微调。",
+  "resources": "代码：https://github.com/google-research/vision_transformer（JAX/Flax实现）。算力：TPU-v3，Mixer-H/14预训练约1.01k core-days；最大对比模型MPL约20.48k core-days。数据：JFT-300M为Google专有数据集，其余公开。",
+  "paper_id": "W3157506437",
+  "paper_ids": [
+    "W3157506437"
+  ],
+  "paper_title": "MLP-Mixer: An all-MLP Architecture for Vision",
+  "year": 2021,
+  "citation_count": 3706
+}

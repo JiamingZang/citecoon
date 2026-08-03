@@ -1,0 +1,15 @@
+{
+  "problem": "SfM 的精度严重依赖图像匹配质量。MASt3R 虽能在困难条件下实现鲁棒匹配，但对非重叠图像对仍会输出错误对应；现有 MASt3R-SfM 直接将这些不可靠匹配纳入优化，导致 bundle adjustment 难以保持全局一致性，位姿估计精度显著退化，且随视角增多几何一致性更难维持。",
+  "method": "G-MASt3R-SfM 在 MASt3R-SfM 上加入两个模块。GVP 模块基于 MASt3R 置信度构建场景图：先用 MASt3R 点图导出的焦距与 RANSAC 估计的基本矩阵做相对位姿重投影筛选内点，仅对内点置信度之和超阈值(1000)的配对加边；再用 Louvain 方法划分社区，并以 Spring Layout 将图嵌入 2D 平面计算分离分数 si，移除 si>1.5 的离群社区。MSO 模块在 GA 初始化后分 Local(社区内)、Neighbor(社区及其相邻社区)、Global(全部视图)三阶段迭代执行 bundle adjustment，以最后 k=5 次与前 l=10 次平均误差之比 ej<δ(0.01) 为收敛判据，Global 收敛后回到 Local 循环，直至达到总迭代上限 imax。",
+  "core_assumption": "离群视图会偏离场景而形成孤立或弱连接的小社区，可被社区划分与力导向布局识别；图的社区结构能反映视图间真实的几何一致性关系；由局部到全局逐步扩大优化范围可稳定收敛并维持多视图一致性；内点置信度之和能可靠度量视图对连接质量。",
+  "limitation": "作者承认未来工作需改进视图选择算法并扩展到其他参数估计任务。我读出的局限：阈值(边权 1000、si 1.5、δ 0.01、imax 等)均为经验设定，缺乏自适应机制；仅在 ETH3D(25 场景)上验证，泛化性未充分检验；GVP 假设离群视图形成明显小社区，在大型复杂或弱连接场景中可能失效；Neighbor 阶段需均匀采样以控成本，暗示可扩展性受限；未讨论动态场景、严重遮挡及大规模视图下的行为；与 VGGSfM/VGGT 的对比未深入分析其在 ETH3D 上表现差的原因。",
+  "eval_setup": "数据集：ETH3D(25 个室内外场景，提供高精度相机参数作为 GT)。基线：COLMAP、DFSfM、VGGSfM、VGGT、MASt3R-SfM。位姿指标：两组角度误差(deg.)与两组百分比(含 SfM 成功率)。重建指标：Acc.、Cpl.、F1，使用 ICP 对齐点云后由官方 ETH3D 脚本评估。设置：图像统一缩放至 640×1024，深度图估计限制 10 视图、深度置信阈值 0.5，DPCD 去噪；仅对成功估计位姿的视图做重建。规模：G-MASt3R-SfM 位姿误差 0.474/0.978(deg.)、成功率 93.9/97(%)，F1 最优。",
+  "resources": "依赖 MASt3R、MASt3R-SfM、COLMAP、DPCD、Louvain、Spring Layout 等工具；数据集为公开 ETH3D；论文未提及代码开源与算力需求，相关资源未知。",
+  "paper_id": "arxiv:2606.22856",
+  "paper_ids": [
+    "arxiv:2606.22856"
+  ],
+  "paper_title": "G-MASt3R-SfM: Graph-based View Pruning and Multi-stage Optimization for Robust SfM",
+  "year": 2026,
+  "citation_count": 0
+}

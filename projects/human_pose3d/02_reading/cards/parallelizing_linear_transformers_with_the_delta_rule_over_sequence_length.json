@@ -1,0 +1,15 @@
+{
+  "problem": "线性Transformer和状态空间模型在需要上下文检索的任务上仍逊于softmax Transformer。DeltaNet通过delta规则提升了联想召回能力，但其已有训练算法无法沿序列长度并行化，导致在现代GPU上训练效率低下，难以扩展到标准语言建模规模。",
+  "method": "将DeltaNet重参数化为矩阵值RNN，其递推由广义Householder变换给出；利用Householder矩阵乘积的紧凑WY表示，避免在并行训练时逐步实例化矩阵大小的隐状态，从而将分块并行（chunkwise parallel）策略扩展到DeltaNet。构造伪值向量u_i后，剩余计算与普通线性注意力相同，整体复杂度为O(LCd + Ld²)，实现沿序列维度的前向/反向并行。",
+  "core_assumption": "DeltaNet的delta更新中转移矩阵M_t = I − β_t k_t k_t^T可视为广义Householder变换（要求k_t为单位向量），使得WY紧凑表示成立，从而无需显式实例化每步隐状态即可计算伪值向量序列。此外假设分块内并行+块间递推的trade-off在C=64/128时足以兼顾速度与精度。",
+  "limitation": "作者承认：(1)训练速度仍慢于GLA，因核内需对head维度做边际化，限制了可用head维度大小，进而限制记忆容量与召回性能；(2)长度泛化能力有限，无法像GLA/RetNet/Mamba那样外推至训练长度以外，推测因缺乏显式衰减因子。我读出的开放问题：(3)算法仅针对D=I的DPLR结构，更一般的对角加低秩转移矩阵未被探索；(4)纯DeltaNet仍逊于Transformer，需依赖与滑动窗口/全局注意力的混合才能超越，说明单一delta规则在长程依赖建模上仍有本质瓶颈；(5)β_t的软写入强度机制在极长序列下是否导致记忆饱和或遗忘不足未被充分讨论。",
+  "eval_setup": "1.3B参数模型在100B token上训练；基线包括Mamba、GLA等线性循环模型及标准Transformer；指标为困惑度与零样本下游任务准确率；另在合成联想召回及真实检索基准（含MAD benchmark）上评测；混合架构实验：DeltaNet+隔层滑动窗口注意力、DeltaNet+2层全局注意力，对比强Transformer基线。",
+  "resources": "代码开源于FLASHLINEARATTENTION库(https://github.com/fla-org/flash-linear-attention)；计算支持来自MIT-IBM Watson AI Lab和MIT-Google Program for Computing Innovation；文中提及还训练/评估了3B模型，具体GPU型号与数量未在给定文本中明确。",
+  "paper_id": "arxiv:2406.06484",
+  "paper_ids": [
+    "arxiv:2406.06484"
+  ],
+  "paper_title": "Parallelizing Linear Transformers with the Delta Rule over Sequence Length",
+  "year": 2024,
+  "citation_count": 0
+}

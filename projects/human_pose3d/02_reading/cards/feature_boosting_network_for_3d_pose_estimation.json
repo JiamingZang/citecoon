@@ -1,0 +1,15 @@
+{
+  "problem": "从单张RGB图像估计3D手部/人体姿态，面临2D到3D的歧义性、频繁自遮挡、纹理与光照变化等挑战；现有CNN方法未充分利用关节间的依赖结构来增强中间特征表示。",
+  "method": "提出特征增强网络（Feature Boosting Network），在CNN（Hourglass）内部嵌入LSTD模块，其核心为Graphical ConvLSTM，使各关节特征图沿预定义的依赖图（物理连接+对称连接，双向传递）感知长短期依赖关系以增强特征。进一步引入上下文一致性门（CCG）作为软调制器，根据特征与上下文表示的一致性程度调节特征传播，提升可靠性。多个LSTD子网络可在不同层级堆叠，实现逐级特征增强。",
+  "core_assumption": "关节间存在可被图结构（物理连接+对称连接）有效刻画的直接与间接运动/外观依赖关系，且ConvLSTM沿该图传播信息能有效建模这些依赖；上下文一致性可作为特征可靠性的有效代理指标，用于门控调制。",
+  "limitation": "作者承认受GPU显存限制仅能堆叠两个子网络，未能验证更深层增强的收益；依赖图（含对称连接）为人工预定义，对不同拓扑或异常姿态的泛化未讨论。读出局限：方法假设单人场景且骨架拓扑已知；对称连接假设在不对称动作下可能引入噪声；仅在受控基准上评估，未涉及野外复杂场景、多人遮挡或实时性分析；CCG的上下文表示来源及失效条件未深入探讨。",
+  "eval_setup": "3DHandPose数据集（30k训练/6k测试，21关键点，PCK@20/25/30mm）；Human3.6M（5 subjects训练、2 subjects测试，PCK@50，另报58.0mm关节误差）；跨数据集评估MPI-INF-3DHP（PCK）；MPII定性分析。基线包括PSO、ICPPSO、CHPR、Zimmermann et al.、Mueller et al.、Zhou et al.等。消融涵盖连接方式、循环结构（ConvRNN/ConvGRU/ConvLSTM）、子网络数量。",
+  "resources": "基于Hourglass CNN架构，训练使用数据增强（随机平移、缩放、旋转）；受GPU显存限制仅堆叠两层子网络，具体GPU型号与训练时长未明确给出；代码未公开。",
+  "paper_id": "W2963225971",
+  "paper_ids": [
+    "W2963225971"
+  ],
+  "paper_title": "Feature Boosting Network For 3D Pose Estimation",
+  "year": 2019,
+  "citation_count": 135
+}

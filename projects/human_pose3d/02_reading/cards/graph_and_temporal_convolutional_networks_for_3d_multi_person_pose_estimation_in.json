@@ -1,0 +1,15 @@
+{
+  "problem": "单目视频中多人3D姿态估计面临遮挡、目标部分出画、人体检测不准确等导致的信息缺失问题；现有方法要么依赖相机参数无法用于野外视频，要么在多人遮挡场景下性能严重退化。",
+  "method": "提出GCN+TCN统一框架：空间上，joint-GCN基于有向图并以2D置信度为边权使高置信关节向低置信关节传播信息，bone-GCN利用part affinity field置信度建模骨骼连接，两者拼接后经MLP输出逐帧person-centric 3D姿态；时间上，joint-TCN利用前后帧插值补全遮挡，velocity-TCN通过预测关节速度保证运动连续性，root-TCN将深度Z/f离散为60个bin并以soft-argmax回归，在无需相机参数下估计camera-centric深度。",
+  "core_assumption": "弱透视投影模型成立且相机光心近似位于图像中心，使得人体在画面中的尺度可表征深度；2D姿态估计器输出的置信度分数能可靠反映关节可见性与准确性，从而指导有向图的信息传播方向；人体运动在短时间窗内平滑连续，速度可预测。",
+  "limitation": "作者承认弱透视假设和光心假设对近距离或广角镜头可能失效；方法依赖top-down流程中的人体检测与跟踪器，检测ID切换会破坏时间建模；深度离散化为60 bin限制了精度上限；velocity-TCN假设运动平滑，对突然加速、急停等剧烈动作适应性不足；论文未讨论极端遮挡（多人长时间完全重叠）下bone-GCN的PAF置信度本身也不可靠的情况；camera-centric估计缺乏全局尺度一致性保证，多人相对深度关系未被显式约束。",
+  "eval_setup": "测试集：MuPoTS-3D（室内外多人，多视角无标记捕捉GT，评估person-centric与camera-centric）、3DPW（室外多人，SMPL GT，选取遮挡子集做公平对比）；均不做fine-tuning；指标文中未完整给出（实验节被截断），按领域惯例应为MPJPE/PA-MPJPE；基线包括Moon et al. 2019、Li et al. 2020、Lin & Lee 2020、Zhen et al. 2020等。",
+  "resources": "代码与模型：https://github.com/3dpose/GnTCN；训练数据未在给定文本中明确说明（提及对GT做随机置信度与噪声增强）；算力需求未提及。",
+  "paper_id": "W3177383258",
+  "paper_ids": [
+    "W3177383258"
+  ],
+  "paper_title": "Graph and Temporal Convolutional Networks for 3D Multi-person Pose Estimation in Monocular Videos",
+  "year": 2021,
+  "citation_count": 43
+}

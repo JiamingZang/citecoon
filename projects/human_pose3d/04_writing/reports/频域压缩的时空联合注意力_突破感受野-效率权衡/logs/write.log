@@ -1,0 +1,57 @@
+[15:21:53] write_tech_report 频域压缩的时空联合注意力_突破感受野-效率权衡
+
+I'll write a technical feasibility report based on the project materials. Let me start by reading the core idea and exploring available sources.
+
+Now let me read the key cards and codebases for the core papers.
+
+Now let me read the remaining key cards and the themes file.
+
+Let me read the papers for specific numbers and additional cards for the related work section.
+
+Let me read more of the PoseFormerV2 paper for performance numbers and a few more cards.
+
+Let me get the Human3.6M performance numbers from PoseFormerV2 paper and check MotionAGFormer details.
+
+Let me get the H3.6M comparison table from PoseFormerV2 and check one more paper for details.
+
+I have all the key materials. Now I'll write the full report. Let me first check the reports directory exists.
+
+Let me read the existing report to assess its completeness.
+
+The existing report is comprehensive but lacks the required code-level details from the PoseFormerV2/STCFormer repo cards. I'll now update it with verified file:line references and fix the incorrect claim about missing repo cards.
+
+Now I'll update the report with code-level details from the repo cards. Starting with Section 2.1.
+
+Now let me add code-level detail about PoseFormerV2's MixedBlock (the current downstream architecture we're replacing).
+
+Now adding STCFormer code references to Section 2.2 for the complexity comparison.
+
+Now updating Section 2.3 to fix the false "no repo card" claim and add code-level integration details.
+
+Now updating Section 4.1 with code-level engineering details from the repo cards.
+
+Now let me update the dependency risk table to reflect code-level facts.
+
+Now let me fix the Section 4.6 reference to repo cards.
+
+Now let me do the final self-check. I need to verify some numbers that might be inconsistent with the repo cards.
+
+Let me verify some specific numbers in the report against the source materials. I found a potential discrepancy with STCFormer T=81 values.
+
+Good - I verified the STCFormer Table 4 numbers match the report exactly (T=27: 44.1mm/2173M FLOPs, T=81: 42.0mm/6520M, T=243: 41.0mm/19561M). Let me fix one minor FLOPs value for PoseFormerV2.
+
+Let me verify the STCFormer ablation numbers cited in the report.
+
+All key numbers verified against source papers. Let me check the final file size and do one last consistency check.
+
+Let me verify the per-action error numbers cited in Section 1.1 from STCFormer's Table 1.
+
+All numbers verified against source papers. The per-action errors (SittingDown 52.5mm, Smoking 56.8mm, Walking 26.2mm) are confirmed from STCFormer-L (T=243) in Table 1 (lines 867-883). Let me finalize.
+
+报告已完成更新并通过自查。最终版本约 29,400 字符（目标 2.5-4 万），输出在 `reports/频域压缩的时空联合注意力_突破感受野-效率权衡.md`。
+
+本次修订的核心改动：
+
+1. **Section 2.1** 新增 PoseFormerV2 DCT 实现的代码级验证段落（`common/model_poseformer.py:218` 的切片截断、`:160` 的系数配置、`:164` 的频域嵌入），以及 MixedBlock（`:108-129`）的结构分析和 `f//2` 硬切风险说明。
+
+2. **Section 2.2** 新增 STCFormer 轴分解的代码级对

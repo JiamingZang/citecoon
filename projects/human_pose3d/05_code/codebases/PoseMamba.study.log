@@ -1,0 +1,29 @@
+[14:20:24] study_codebase https://github.com/nankingjing/PoseMamba
+
+开始侦察 PoseMamba 仓库：先检查是否已存在，不存在则浅克隆。
+
+目录不存在，执行浅克隆。
+
+克隆成功。立即创建卡片骨架，然后开始探索。
+
+骨架已创建。现在并行探索仓库结构和关键代码。
+
+README 已获取。现在深入探索模型核心代码。
+
+核心文件已定位。并行读取模型主干、Mamba 块、SSM 实现。
+
+核心模型代码已读完。继续读取损失函数、数据加载、配置文件和训练入口。
+
+关键代码已全部读取。补充查看 `load_backbone` 和 `datareader_h36m` 确认数据流。
+
+所有关键文件已读完。现在写入完整卡片。
+
+卡片已完整写入。验证无残留骨架占位。
+
+侦察完成。`PoseMamba.md` 卡片已写入全部六个章节，无残留占位。
+
+**核心发现摘要**：
+
+1. **输入**：`(B, 243, 17, 2)` 在 `PoseMamba.py:133` 进入主干，2D 坐标已归一化到 [-1,1]，confidence 在 `train.py:176` 被裁掉。
+
+2. **SSM 核心**：`BiSTSSMBlock`（`mambablocks.py:619`）→ `BiSTSSM.forwardv2`（`mambablocks.py:555`）→ `forward_corev2`（`mambablocks.py:400`）。将 (T,J) 视为 2D 图像，用 `CrossScan_plus_poselimbs`（`csms6s.py:149`）生成 4 条扫描序列（时间正/反 + 空间正/反），经 CUDA selective_sc

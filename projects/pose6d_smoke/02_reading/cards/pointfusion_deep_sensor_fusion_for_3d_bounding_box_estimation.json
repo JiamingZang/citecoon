@@ -1,0 +1,15 @@
+{
+  "problem": "3D目标检测中，现有方法要么依赖多阶段流水线（如Kalman滤波后融合），要么对传感器类型和数据集做特定假设（如MV3D假设所有物体可在俯视图分割），难以泛化到不同传感器配置与场景（室外驾驶vs室内）。本文旨在设计一种通用、与传感器/数据集无关的早期融合3D检测模型。",
+  "method": "PointFusion由三部分组成：(1) ResNet-50提取2D图像裁剪区域的外观特征；(2) 去除BatchNorm的PointNet变体直接处理原始点云（避免体素化/投影的有损量化），并用已知相机几何计算正则化旋转矩阵消除2D框位置偏置；(3) 稠密融合网络以每个输入3D点为空间锚点，预测该点到3D框8个角点的相对偏移（n×8×3），再通过无监督评分函数（n×1 score取argmax）选出最优假设。核心思想是用相对偏移代替绝对坐标回归以降低回归方差。",
+  "core_assumption": "以输入3D点作为空间锚点预测相对偏移，比直接回归绝对3D角点坐标具有更低的回归方差，从而提升精度。此外，方法假设已有高质量2D检测器提供物体裁剪框，且投影到2D框内的点云足以表征该物体的3D几何。",
+  "limitation": "作者承认：(1) 非端到端，依赖外部2D检测器，存在级联误差；(2) 缺乏时序建模，无法联合检测与跟踪。进一步可读出：(3) 每个2D框最多采样400点，稀疏点云下信息有限；(4) SUN-RGBD上相比rgb-d基线仅提升约6% mAP，说明在稠密深度下融合增益有限；(5) 对部分可见物体和2D检测器漏检鲁棒性不足；(6) 未探索多传感器（多lidar/radar）的实际融合效果，仅声称架构支持。",
+  "eval_setup": "数据集：KITTI（7481张，车/行人/骑行者，3D IoU阈值0.7/0.5/0.5）和SUN-RGBD（5285训练/5050测试，10类+19类，3D IoU阈值0.25）。指标：AP3D（per-class PR曲线下面积）。基线：KITTI上对比MV3D；SUN-RGBD上对比DSS、COG、Lahoud et al.。消融：6种模型变体（final/dense/dense-no-im/global/global-no-im/rgb-d）。规模：每帧top-300个2D框，每框最多400点，运行约1.3s/帧。",
+  "resources": "ResNet-50（ImageNet预训练）；Faster-RCNN（MS-COCO预训练后在目标数据集微调）；PointNet原版实现去BN。未明确报告GPU型号与训练时长。推理约1.3s/帧（SUN-RGBD，含2D检测0.2s）。代码/数据未提供公开链接。",
+  "paper_id": "W2962888833",
+  "paper_ids": [
+    "W2962888833"
+  ],
+  "paper_title": "PointFusion: Deep Sensor Fusion for 3D Bounding Box Estimation",
+  "year": 2018,
+  "citation_count": 852
+}

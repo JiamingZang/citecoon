@@ -1,0 +1,2893 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd"><key id="d7" for="edge" attr.name="type" attr.type="string"/>
+<key id="d6" for="node" attr.name="betweenness" attr.type="double"/>
+<key id="d5" for="node" attr.name="pagerank" attr.type="double"/>
+<key id="d4" for="node" attr.name="depth" attr.type="long"/>
+<key id="d3" for="node" attr.name="role" attr.type="string"/>
+<key id="d2" for="node" attr.name="citation_count" attr.type="long"/>
+<key id="d1" for="node" attr.name="year" attr.type="long"/>
+<key id="d0" for="node" attr.name="title" attr.type="string"/>
+<graph edgedefault="directed"><node id="W4283453676">
+  <data key="d0">Unseen Object 6D Pose Estimation: A Benchmark and Baselines</data>
+  <data key="d1">2022</data>
+  <data key="d2">23</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W4402727146">
+  <data key="d0">MatchU: Matching Unseen Objects for 6D Pose Estimation from RGB-D Images</data>
+  <data key="d1">2024</data>
+  <data key="d2">37</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003594</data>
+  <data key="d6">0.0003</data>
+</node>
+<node id="W2158131535">
+  <data key="d0">Sinkhorn Distances: Lightspeed Computation of Optimal Transport</data>
+  <data key="d1">2013</data>
+  <data key="d2">2244</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003646</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W2963177347">
+  <data key="d0">DenseFusion: 6D Object Pose Estimation by Iterative Dense Fusion</data>
+  <data key="d1">2019</data>
+  <data key="d2">1170</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.009865</data>
+  <data key="d6">0.002863</data>
+</node>
+<node id="W2161168419">
+  <data key="d0">Model globally, match locally: Efficient and robust 3D object recognition</data>
+  <data key="d1">2010</data>
+  <data key="d2">1085</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.059115</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W3034303554">
+  <data key="d0">Circle Loss: A Unified Perspective of Pair Similarity Optimization</data>
+  <data key="d1">2020</data>
+  <data key="d2">1036</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003646</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W2962888833">
+  <data key="d0">PointFusion: Deep Sensor Fusion for 3D Bounding Box Estimation</data>
+  <data key="d1">2018</data>
+  <data key="d2">852</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.005692</data>
+  <data key="d6">2.9e-05</data>
+</node>
+<node id="W132147841">
+  <data key="d0">Learning 6D Object Pose Estimation Using 3D Object Coordinates</data>
+  <data key="d1">2014</data>
+  <data key="d2">868</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.021944</data>
+  <data key="d6">0.000502</data>
+</node>
+<node id="W1969868017">
+  <data key="d0">Multimodal templates for real-time detection of texture-less objects in heavily cluttered scenes</data>
+  <data key="d1">2011</data>
+  <data key="d2">681</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.031765</data>
+  <data key="d6">0.000175</data>
+</node>
+<node id="W2580726517">
+  <data key="d0">T-LESS: An RGB-D Dataset for 6D Pose Estimation of Texture-Less Objects</data>
+  <data key="d1">2017</data>
+  <data key="d2">598</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.013432</data>
+  <data key="d6">0.000592</data>
+</node>
+<node id="W2963678509">
+  <data key="d0">Multi-view self-supervised deep learning for 6D pose estimation in the Amazon Picking Challenge</data>
+  <data key="d1">2017</data>
+  <data key="d2">487</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.012722</data>
+  <data key="d6">0.000189</data>
+</node>
+<node id="W2989915422">
+  <data key="d0">CDPN: Coordinates-Based Disentangled Pose Network for Real-Time RGB-Based 6-DoF Object Pose Estimation</data>
+  <data key="d1">2019</data>
+  <data key="d2">492</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.007047</data>
+  <data key="d6">0.000165</data>
+</node>
+<node id="W2888752296">
+  <data key="d0">BOP: Benchmark for 6D Object Pose Estimation</data>
+  <data key="d1">2018</data>
+  <data key="d2">543</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.00901</data>
+  <data key="d6">0.001001</data>
+</node>
+<node id="W1909903157">
+  <data key="d0">Learning descriptors for object recognition and 3D pose estimation</data>
+  <data key="d1">2015</data>
+  <data key="d2">463</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.018465</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W2963139856">
+  <data key="d0">Recovering 6D Object Pose and Predicting Next-Best-View in the Crowd</data>
+  <data key="d1">2016</data>
+  <data key="d2">268</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.008234</data>
+  <data key="d6">0.000231</data>
+</node>
+<node id="W2903435684">
+  <data key="d0">Scan2CAD: Learning CAD Model Alignment in RGB-D Scans</data>
+  <data key="d1">2019</data>
+  <data key="d2">284</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004636</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W3179923621">
+  <data key="d0">FFB6D: A Full Flow Bidirectional Fusion Network for 6D Pose Estimation</data>
+  <data key="d1">2021</data>
+  <data key="d2">359</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.007159</data>
+  <data key="d6">0.003392</data>
+</node>
+<node id="W3034986117">
+  <data key="d0">PVN3D: A Deep Point-Wise 3D Keypoints Voting Network for 6DoF Pose Estimation</data>
+  <data key="d1">2020</data>
+  <data key="d2">592</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.007627</data>
+  <data key="d6">0.002367</data>
+</node>
+<node id="W2990248992">
+  <data key="d0">LatentFusion: End-to-End Differentiable Reconstruction and Rendering for Unseen Object Pose Estimation</data>
+  <data key="d1">2020</data>
+  <data key="d2">164</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003908</data>
+  <data key="d6">8.7e-05</data>
+</node>
+<node id="W2971088236">
+  <data key="d0">PRNet: Self-Supervised Learning for Partial-to-Partial Registration</data>
+  <data key="d1">2019</data>
+  <data key="d2">466</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003908</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W2962783853">
+  <data key="d0">DeepIM: Deep Iterative Matching for 6D Pose Estimation</data>
+  <data key="d1">2018</data>
+  <data key="d2">584</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.013291</data>
+  <data key="d6">0.001802</data>
+</node>
+<node id="W4312445439">
+  <data key="d0">Zero-Shot Category-Level Object Pose Estimation</data>
+  <data key="d1">2022</data>
+  <data key="d2">47</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.005989</data>
+  <data key="d6">0.00155</data>
+</node>
+<node id="W4401417458">
+  <data key="d0">ZS6D: Zero-shot 6D Object Pose Estimation using Vision Transformers</data>
+  <data key="d1">2024</data>
+  <data key="d2">62</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.005653</data>
+  <data key="d6">0.001972</data>
+</node>
+<node id="W2949924544">
+  <data key="d0">On the Continuity of Rotation Representations in Neural Networks</data>
+  <data key="d1">2019</data>
+  <data key="d2">1857</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.005023</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W7165818136">
+  <data key="d0">Learning Cross-View Semantic Priors for Single-Reference Unseen Object Pose Estimation</data>
+  <data key="d1">2026</data>
+  <data key="d2">0</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W7140953602">
+  <data key="d0">Object Pose Transformer: Unifying Unseen Object Pose Estimation</data>
+  <data key="d1">2026</data>
+  <data key="d2">0</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W7131816364">
+  <data key="d0">Semantic and stability-aware grasp pose estimation for unseen objects using deformable shape models</data>
+  <data key="d1">2026</data>
+  <data key="d2">0</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W7155098975">
+  <data key="d0">Scalable Unseen Objects 6-DoF Absolute Pose Estimation With Robotic Integration</data>
+  <data key="d1">2026</data>
+  <data key="d2">10</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W7117850891">
+  <data key="d0">PoseStreamer: A Multi-modal Framework for 6DoF Pose Estimation of Unseen Moving Objects</data>
+  <data key="d1">2025</data>
+  <data key="d2">0</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W4417296911">
+  <data key="d0">PoseGAM: Robust Unseen Object Pose Estimation via Geometry-Aware Multi-View Reasoning</data>
+  <data key="d1">2025</data>
+  <data key="d2">0</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W4415967370">
+  <data key="d0">RayPose: Ray Bundling Diffusion for Template Views in Unseen 6D Object Pose Estimation</data>
+  <data key="d1">2025</data>
+  <data key="d2">4</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W4414538698">
+  <data key="d0">Multiscale-Hashing Network for 6-D Pose Estimation of Unseen Objects in the Wild</data>
+  <data key="d1">2025</data>
+  <data key="d2">1</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W4413277972">
+  <data key="d0">Adapting Foundation Features via Cross-View Contrastive Learning for Unseen Object Pose Estimation</data>
+  <data key="d1">2025</data>
+  <data key="d2">0</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W4413156710">
+  <data key="d0">iG-6DoF: Model-Free 6DoF Pose Estimation for Unseen Object via Iterative 3D Gaussian Splatting</data>
+  <data key="d1">2025</data>
+  <data key="d2">6</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004453</data>
+  <data key="d6">0.000803</data>
+</node>
+<node id="W4413146937">
+  <data key="d0">UNOPose: Unseen Object Pose Estimation with an Unposed RGB-D Reference Image</data>
+  <data key="d1">2025</data>
+  <data key="d2">16</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003713</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W4413144617">
+  <data key="d0">RefPose: Leveraging Reference Geometric Correspondences for Accurate 6D Pose Estimation of Unseen Objects</data>
+  <data key="d1">2025</data>
+  <data key="d2">5</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W2909314588">
+  <data key="d0">Normalized Object Coordinate Space for Category-Level 6D Object Pose and Size Estimation</data>
+  <data key="d1">2019</data>
+  <data key="d2">913</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003814</data>
+  <data key="d6">0.000386</data>
+</node>
+<node id="W4413145170">
+  <data key="d0">GCE-Pose: Global Context Enhancement for Category-level Object Pose Estimation</data>
+  <data key="d1">2025</data>
+  <data key="d2">19</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003814</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W4402716422">
+  <data key="d0">Instance-Adaptive and Geometric-Aware Keypoint Learning for Category-Level 6D Object Pose Estimation</data>
+  <data key="d1">2024</data>
+  <data key="d2">52</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003923</data>
+  <data key="d6">0.000631</data>
+</node>
+<node id="W4404002617">
+  <data key="d0">Grounding Image Matching in 3D with MASt3R</data>
+  <data key="d1">2024</data>
+  <data key="d2">154</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.006058</data>
+  <data key="d6">4.9e-05</data>
+</node>
+<node id="W4317552994">
+  <data key="d0">OnePose++: Keypoint-Free One-Shot Object Pose Estimation without CAD Models</data>
+  <data key="d1">2023</data>
+  <data key="d2">172</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.007759</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W4311640782">
+  <data key="d0">MegaPose: 6D Pose Estimation of Novel Objects via Render &amp;amp; Compare</data>
+  <data key="d1">2022</data>
+  <data key="d2">281</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.011243</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W4400023965">
+  <data key="d0">High-resolution open-vocabulary object 6D pose estimation</data>
+  <data key="d1">2024</data>
+  <data key="d2">9</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004802</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W4402816534">
+  <data key="d0">DUSt3R: Geometric 3D Vision Made Easy</data>
+  <data key="d1">2024</data>
+  <data key="d2">1663</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.009726</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W4396914081">
+  <data key="d0">Deep Learning-Based Object Pose Estimation: A Comprehensive Survey</data>
+  <data key="d1">2025</data>
+  <data key="d2">80</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004226</data>
+  <data key="d6">0.001962</data>
+</node>
+<node id="W4224598146">
+  <data key="d0">Gen6D: Generalizable Model-Free 6-DoF Object Pose Estimation from RGB Images</data>
+  <data key="d1">2022</data>
+  <data key="d2">129</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.009581</data>
+  <data key="d6">0.003988</data>
+</node>
+<node id="W4293365527">
+  <data key="d0">BundleTrack: 6D Pose Tracking for Novel Objects without Instance or Category-Level 3D Models</data>
+  <data key="d1">2021</data>
+  <data key="d2">165</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004226</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W2895439318">
+  <data key="d0">Implicit 3D Orientation Learning for 6D Object Detection from RGB Images</data>
+  <data key="d1">2018</data>
+  <data key="d2">600</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.01474</data>
+  <data key="d6">0.00106</data>
+</node>
+<node id="W4402727436">
+  <data key="d0">SAM-6D: Segment Anything Model Meets Zero-Shot 6D Object Pose Estimation</data>
+  <data key="d1">2024</data>
+  <data key="d2">171</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.007938</data>
+  <data key="d6">0.004397</data>
+</node>
+<node id="W4403842181">
+  <data key="d0">FoundPose: Unseen Object Pose Estimation with Foundation Features</data>
+  <data key="d1">2024</data>
+  <data key="d2">128</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.006615</data>
+  <data key="d6">0.005731</data>
+</node>
+<node id="W4391630742">
+  <data key="d0">A Survey of 6DoF Object Pose Estimation Methods for Different Application Scenarios</data>
+  <data key="d1">2024</data>
+  <data key="d2">72</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004515</data>
+  <data key="d6">0.001411</data>
+</node>
+<node id="W4402816866">
+  <data key="d0">Confronting Ambiguity in 6D Object Pose Estimation via Score-Based Diffusion on SE(3)</data>
+  <data key="d1">2024</data>
+  <data key="d2">21</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004186</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W4408564950">
+  <data key="d0">Diff9D: Diffusion-Based Domain-Generalized Category-Level 9-DoF Object Pose Estimation</data>
+  <data key="d1">2025</data>
+  <data key="d2">22</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004186</data>
+  <data key="d6">0.000401</data>
+</node>
+<node id="W4402753839">
+  <data key="d0">Open-vocabulary object 6D pose estimation</data>
+  <data key="d1">2024</data>
+  <data key="d2">34</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004214</data>
+  <data key="d6">0.000769</data>
+</node>
+<node id="arxiv:2503.18673">
+  <data key="d0">Any6D: Model-free 6D Pose Estimation of Novel Objects</data>
+  <data key="d1">2025</data>
+  <data key="d2">54</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2311.14155">
+  <data key="d0">GigaPose: Fast and Robust Novel Object Pose Estimation via One Correspondence</data>
+  <data key="d1">2023</data>
+  <data key="d2">149</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.005513</data>
+  <data key="d6">9.8e-05</data>
+</node>
+<node id="arxiv:2310.15008">
+  <data key="d0">Wonder3D: Single Image to 3D using Cross-Domain Diffusion</data>
+  <data key="d1">2023</data>
+  <data key="d2">832</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003979</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2212.06870">
+  <data key="d0">MegaPose: 6D Pose Estimation of Novel Objects via Render &amp; Compare</data>
+  <data key="d1">2022</data>
+  <data key="d2">279</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2502.10606">
+  <data key="d0">HIPPo: Harnessing Image-to-3D Priors for Model-free Zero-shot 6D Pose Estimation</data>
+  <data key="d1">2025</data>
+  <data key="d2">10</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003979</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2312.08344">
+  <data key="d0">FoundationPose: Unified 6D Pose Estimation and Tracking of Novel Objects</data>
+  <data key="d1">2023</data>
+  <data key="d2">691</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004349</data>
+  <data key="d6">0.000345</data>
+</node>
+<node id="arxiv:2203.04802">
+  <data key="d0">NeRF-Pose: A First-Reconstruct-Then-Regress Approach for Weakly-supervised 6D Object Pose Estimation</data>
+  <data key="d1">2022</data>
+  <data key="d2">83</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004224</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2203.14628">
+  <data key="d0">FS6D: Few-Shot 6D Pose Estimation of Novel Objects</data>
+  <data key="d1">2022</data>
+  <data key="d2">133</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004718</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:1905.09304">
+  <data key="d0">PoseRBPF: A Rao-Blackwellized Particle Filter for 6D Object Pose Tracking</data>
+  <data key="d1">2019</data>
+  <data key="d2">256</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004224</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2603.00493">
+  <data key="d0">COG: Confidence-aware Optimal Geometric Correspondence for Unsupervised Single-reference Novel Object Pose Estimation</data>
+  <data key="d1">2026</data>
+  <data key="d2">1</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2601.06883">
+  <data key="d0">MixRI: Mixing Features of Reference Images for Novel Object Pose Estimation</data>
+  <data key="d1">2026</data>
+  <data key="d2">0</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2509.21927">
+  <data key="d0">SingRef6D: Monocular Novel Object Pose Estimation with a Single RGB Reference</data>
+  <data key="d1">2025</data>
+  <data key="d2">2</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2504.02617">
+  <data key="d0">PicoPose: Progressive Pixel-to-Pixel Correspondence Learning for Novel Object Pose Estimation</data>
+  <data key="d1">2025</data>
+  <data key="d2">5</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2503.17731">
+  <data key="d0">Co-op: Correspondence-based Novel Object Pose Estimation</data>
+  <data key="d1">2025</data>
+  <data key="d2">18</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2409.05413">
+  <data key="d0">From Words to Poses: Enhancing Novel Object Pose Estimation with Vision Language Models</data>
+  <data key="d1">2024</data>
+  <data key="d2">2</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2306.00129">
+  <data key="d0">Self-supervised Vision Transformers for 3D Pose Estimation of Novel Objects</data>
+  <data key="d1">2023</data>
+  <data key="d2">15</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2303.13612">
+  <data key="d0">NOPE: Novel Object Pose Estimation from a Single Image</data>
+  <data key="d1">2023</data>
+  <data key="d2">50</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2302.11827">
+  <data key="d0">Open Challenges for Monocular Single-shot 6D Object Pose Estimation</data>
+  <data key="d1">2023</data>
+  <data key="d2">4</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2305.15727">
+  <data key="d0">POPE: 6-DoF Promptable Pose Estimation of Any Object, in Any Scene, with One Reference</data>
+  <data key="d1">2023</data>
+  <data key="d2">48</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004226</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2403.11510">
+  <data key="d0">GenFlow: Generalizable Recurrent Flow for 6D Pose Refinement of Novel Objects</data>
+  <data key="d1">2023</data>
+  <data key="d2">51</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.080005</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:1712.07629">
+  <data key="d0">SuperPoint: Self-Supervised Interest Point Detection and Description</data>
+  <data key="d1">2017</data>
+  <data key="d2">3572</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004226</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2208.14201">
+  <data key="d0">ASpanFormer: Detector-Free Image Matching with Adaptive Span Transformer</data>
+  <data key="d1">2022</data>
+  <data key="d2">301</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004649</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2403.09799">
+  <data key="d0">BOP Challenge 2023 on Detection, Segmentation and Pose Estimation of Seen and Unseen Rigid Objects</data>
+  <data key="d1">2024</data>
+  <data key="d2">98</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004226</data>
+  <data key="d6">4.9e-05</data>
+</node>
+<node id="arxiv:2406.09414">
+  <data key="d0">Depth Anything V2</data>
+  <data key="d1">2024</data>
+  <data key="d2">1960</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003979</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2104.00680">
+  <data key="d0">LoFTR: Detector-Free Local Feature Matching with Transformers</data>
+  <data key="d1">2021</data>
+  <data key="d2">1969</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003979</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2205.12257">
+  <data key="d0">OnePose: One-Shot Object Pose Estimation without CAD Models</data>
+  <data key="d1">2022</data>
+  <data key="d2">248</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004941</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2307.11067">
+  <data key="d0">CNOS: A Strong Baseline for CAD-based Novel Object Segmentation</data>
+  <data key="d1">2023</data>
+  <data key="d2">118</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004279</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2304.07193">
+  <data key="d0">DINOv2: Learning Robust Visual Features without Supervision</data>
+  <data key="d1">2023</data>
+  <data key="d2">9477</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003908</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2001.07715">
+  <data key="d0">TEASER: Fast and Certifiable Point Cloud Registration</data>
+  <data key="d1">2020</data>
+  <data key="d2">925</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004226</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2103.00020">
+  <data key="d0">Learning Transferable Visual Models From Natural Language Supervision</data>
+  <data key="d1">2021</data>
+  <data key="d2">52940</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004226</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2203.17234">
+  <data key="d0">Templates for 3D Object Pose Estimation Revisited: Generalization to New Objects and Robustness to Occlusions</data>
+  <data key="d1">2022</data>
+  <data key="d2">102</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004501</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2203.15533">
+  <data key="d0">OSOP: A Multi-Stage One Shot Object Pose Estimation Framework</data>
+  <data key="d1">2022</data>
+  <data key="d2">126</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004501</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2112.05814">
+  <data key="d0">Deep ViT Features as Dense Visual Descriptors</data>
+  <data key="d1">2021</data>
+  <data key="d2">414</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2104.14294">
+  <data key="d0">Emerging Properties in Self-Supervised Vision Transformers</data>
+  <data key="d1">2021</data>
+  <data key="d2">9755</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003908</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2010.11929">
+  <data key="d0">An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale</data>
+  <data key="d1">2020</data>
+  <data key="d2">66876</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003908</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2104.02057">
+  <data key="d0">An Empirical Study of Training Self-Supervised Vision Transformers</data>
+  <data key="d1">2021</data>
+  <data key="d2">2438</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003908</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:1512.03385">
+  <data key="d0">Deep Residual Learning for Image Recognition</data>
+  <data key="d1">2015</data>
+  <data key="d2">234802</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003908</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2303.11328">
+  <data key="d0">Zero-1-to-3: Zero-shot One Image to 3D Object</data>
+  <data key="d1">2023</data>
+  <data key="d2">1802</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004078</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2210.04628">
+  <data key="d0">Novel View Synthesis with Diffusion Models</data>
+  <data key="d1">2022</data>
+  <data key="d2">348</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004078</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2501.09747">
+  <data key="d0">FAST: Efficient Action Tokenization for Vision-Language-Action Models</data>
+  <data key="d1">2025</data>
+  <data key="d2">0</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2505.17016">
+  <data key="d0">Interactive Post-Training for Vision-Language-Action Models</data>
+  <data key="d1">2025</data>
+  <data key="d2">0</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W4413557092">
+  <data key="d0">GS-Pose: Generalizable Segmentation-Based 6D Object Pose Estimation with 3D Gaussian Splatting</data>
+  <data key="d1">2025</data>
+  <data key="d2">13</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.012136</data>
+  <data key="d6">0.010668</data>
+</node>
+<node id="W7119832289">
+  <data key="d0">SNOP-GS: Self-refining novel object pose via 3D Gaussian splatting</data>
+  <data key="d1">2026</data>
+  <data key="d2">0</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W1526868886">
+  <data key="d0">Model Based Training, Detection and Pose Estimation of Texture-Less 3D Objects in Heavily Cluttered Scenes</data>
+  <data key="d1">2013</data>
+  <data key="d2">1198</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.032373</data>
+  <data key="d6">0.000838</data>
+</node>
+<node id="W1580389772">
+  <data key="d0">Multiscale structural similarity for image quality assessment</data>
+  <data key="d1">2004</data>
+  <data key="d2">5921</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004245</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W1991544872">
+  <data key="d0">EPnP: An Accurate O(n) Solution to the PnP Problem</data>
+  <data key="d1">2008</data>
+  <data key="d2">3203</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.039192</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W2058761328">
+  <data key="d0">The MOPED framework: Object recognition and pose estimation for manipulation</data>
+  <data key="d1">2011</data>
+  <data key="d2">445</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.030479</data>
+  <data key="d6">0.000719</data>
+</node>
+<node id="W2344474200">
+  <data key="d0">Pose Estimation for Augmented Reality: A Hands-On Survey</data>
+  <data key="d1">2015</data>
+  <data key="d2">720</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.006483</data>
+  <data key="d6">0.000176</data>
+</node>
+<node id="W2799058067">
+  <data key="d0">High Performance Visual Tracking with Siamese Region Proposal Network</data>
+  <data key="d1">2018</data>
+  <data key="d2">2980</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003954</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W2952122856">
+  <data key="d0">Microsoft COCO: Common Objects in Context</data>
+  <data key="d1">2014</data>
+  <data key="d2">2438</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003954</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W2963150697">
+  <data key="d0">Mask R-CNN</data>
+  <data key="d1">2017</data>
+  <data key="d2">28993</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.01181</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W2963188159">
+  <data key="d0">PoseCNN: A Convolutional Neural Network for 6D Object Pose Estimation in Cluttered Scenes</data>
+  <data key="d1">2018</data>
+  <data key="d2">2105</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.0261</data>
+  <data key="d6">0.002383</data>
+</node>
+<node id="W2963756608">
+  <data key="d0">PVNet: Pixel-Wise Voting Network for 6DoF Pose Estimation</data>
+  <data key="d1">2019</data>
+  <data key="d2">1055</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.010082</data>
+  <data key="d6">0.00114</data>
+</node>
+<node id="W2998787775">
+  <data key="d0">Deep Multi-state Object Pose Estimation for Augmented Reality Assembly</data>
+  <data key="d1">2019</data>
+  <data key="d2">100</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004063</data>
+  <data key="d6">7.8e-05</data>
+</node>
+<node id="W3009516594">
+  <data key="d0">Pix2Pose: Pixel-Wise Coordinate Regression of Objects for 6D Pose Estimation</data>
+  <data key="d1">2019</data>
+  <data key="d2">440</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.008246</data>
+  <data key="d6">0.001027</data>
+</node>
+<node id="W3034597466">
+  <data key="d0">Learning Canonical Shape Space for Category-Level 6D Object Pose and Size Estimation</data>
+  <data key="d1">2020</data>
+  <data key="d2">196</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.006849</data>
+  <data key="d6">0.002316</data>
+</node>
+<node id="W3090584485">
+  <data key="d0">Self-supervised 6D Object Pose Estimation for Robot Manipulation</data>
+  <data key="d1">2020</data>
+  <data key="d2">200</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.005227</data>
+  <data key="d6">0.000443</data>
+</node>
+<node id="W3092774272">
+  <data key="d0">CosyPose: Consistent multi-view multi-object 6D pose estimation</data>
+  <data key="d1">2020</data>
+  <data key="d2">416</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.007666</data>
+  <data key="d6">0.003582</data>
+</node>
+<node id="W3107372911">
+  <data key="d0">Category Level Object Pose Estimation via Neural Analysis-by-Synthesis</data>
+  <data key="d1">2020</data>
+  <data key="d2">114</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.006731</data>
+  <data key="d6">0.000855</data>
+</node>
+<node id="W3113383835">
+  <data key="d0">PVNet: Pixel-Wise Voting Network for 6DoF Object Pose Estimation</data>
+  <data key="d1">2020</data>
+  <data key="d2">147</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004775</data>
+  <data key="d6">0.001286</data>
+</node>
+<node id="W7160083737">
+  <data key="d0">BoxDreamer: Dreaming Box Corners for Generalizable Object Pose Estimation</data>
+  <data key="d1">2025</data>
+  <data key="d2">1</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W4415939224">
+  <data key="d0">FS-Gen6D: Few-shot generalizable 6DoF pose estimation combining dynamic region attention with cross-stage residual module for robotic grasping</data>
+  <data key="d1">2025</data>
+  <data key="d2">1</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W4413156536">
+  <data key="d0">Reconstructing In-the-Wild Open-Vocabulary Human-Object Interactions</data>
+  <data key="d1">2025</data>
+  <data key="d2">0</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W7169757710">
+  <data key="d0">RAFusion: Integrating Residual Attention for Global Context-Aware 6D Pose Estimation</data>
+  <data key="d1">2026</data>
+  <data key="d2">0</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W7128402891">
+  <data key="d0">Accurate one-shot object pose estimation with Gaussian Splatting reconstruction</data>
+  <data key="d1">2026</data>
+  <data key="d2">0</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W4415968666">
+  <data key="d0">Evaluating Robustness of 3D Gaussian Splatting–Based 6D Camera Pose Refinement Under Degraded Conditions for Lightly Textured Industrial Synthetic Objects</data>
+  <data key="d1">2025</data>
+  <data key="d2">0</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W7165622095">
+  <data key="d0">Weakly Textured Objects Pose Estimation: A Comprehensive Review</data>
+  <data key="d1">2026</data>
+  <data key="d2">0</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W7169675136">
+  <data key="d0">ZeroForge: Zero-Shot 6D Pose Estimation via Generative 3D Reconstruction and Vision-Language Models</data>
+  <data key="d1">2026</data>
+  <data key="d2">0</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W7166506414">
+  <data key="d0">Gripperpose: A Novel Approach for Large Industrial Grippers 5D Pose Estimation</data>
+  <data key="d1">2026</data>
+  <data key="d2">0</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="W7160269432">
+  <data key="d0">Eff-GRot: Efficient and Generalizable Rotation Estimation with Transformers</data>
+  <data key="d1">2026</data>
+  <data key="d2">0</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2307.12172">
+  <data key="d0">Challenges for Monocular 6-D Object Pose Estimation in Robotics</data>
+  <data key="d1">2023</data>
+  <data key="d2">58</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2404.18201">
+  <data key="d0">What foundation models can bring for robot learning in manipulation: A survey</data>
+  <data key="d1">2024</data>
+  <data key="d2">40</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2504.02812">
+  <data key="d0">BOP Challenge 2024 on Model-Based and Model-Free 6D Object Pose Estimation</data>
+  <data key="d1">2025</data>
+  <data key="d2">26</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="s2:51ab011aa9aee3f5c2bfff4ba153b7329428477b">
+  <data key="d0">Pos3R: 6D Pose Estimation for Unseen Objects Made Easy</data>
+  <data key="d1">2025</data>
+  <data key="d2">19</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.004207</data>
+  <data key="d6">4.9e-05</data>
+</node>
+<node id="s2:f20947a26e8b54138abfa6721df0cf37f42a4760">
+  <data key="d0">Large vision-language models enabled novel objects 6D pose estimation for human-robot collaboration</data>
+  <data key="d1">2025</data>
+  <data key="d2">15</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="s2:8984f16353a279851cd2bdfedaaaa188a569d9eb">
+  <data key="d0">GaussianNexus: Room-Scale Real-Time AR/VR Telepresence with Gaussian Splatting</data>
+  <data key="d1">2025</data>
+  <data key="d2">11</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2506.09784">
+  <data key="d0">Accurate and efficient zero-shot 6D pose estimation with frozen foundation models</data>
+  <data key="d1">2025</data>
+  <data key="d2">9</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2506.07155">
+  <data key="d0">GoTrack: Generic 6DoF Object Pose Refinement and Tracking</data>
+  <data key="d1">2025</data>
+  <data key="d2">7</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2503.03726">
+  <data key="d0">Active 6D Pose Estimation for Textureless Objects using Multi-View RGB Frames</data>
+  <data key="d1">2025</data>
+  <data key="d2">7</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2408.08234">
+  <data key="d0">Comparative Evaluation of 3D Reconstruction Methods for Object Pose Estimation</data>
+  <data key="d1">2024</data>
+  <data key="d2">6</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2603.25135">
+  <data key="d0">EgoXtreme: A Dataset for Robust Object Pose Estimation in Egocentric Views under Extreme Conditions</data>
+  <data key="d1">2026</data>
+  <data key="d2">3</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2503.14051">
+  <data key="d0">Foundation Feature-Driven Online End-Effector Pose Estimation: A Marker-Free and Learning-Free Approach</data>
+  <data key="d1">2025</data>
+  <data key="d2">3</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2602.04343">
+  <data key="d0">Finding NeMO: A Geometry-Aware Representation of Template Views for Few-Shot Perception</data>
+  <data key="d1">2026</data>
+  <data key="d2">2</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2408.17297">
+  <data key="d0">BOP-Distrib: Revisiting 6D Pose Estimation Benchmarks for Better Evaluation under Visual Ambiguities</data>
+  <data key="d1">2024</data>
+  <data key="d2">2</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="s2:03f52835b5a7ef384ab0e2d41946ff9adbed41e4">
+  <data key="d0">FreePose: Zero-Shot 6D Object Pose Estimation Using Pretrained Foundation Models</data>
+  <data key="d1">2026</data>
+  <data key="d2">1</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="s2:f33e4455e4b4a7805ba444cfac9b7d59cea2fccd">
+  <data key="d0">Monocular RGB 6D object pose estimation for augmented reality: a survey</data>
+  <data key="d1">2026</data>
+  <data key="d2">1</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2607.23669">
+  <data key="d0">RRTrack: Robust and Recoverable Object 6D Pose Tracking for Dynamic Scenes</data>
+  <data key="d1">2026</data>
+  <data key="d2">0</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2607.16015">
+  <data key="d0">PIXIE: A Zero-Shot texture-invariant 6D pose estimation framework for unseen objects with assembly defects</data>
+  <data key="d1">2026</data>
+  <data key="d2">0</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="arxiv:2606.23634">
+  <data key="d0">Pose Anything Anywhere:Model-free Object Poses from Arbitrary References</data>
+  <data key="d1">2026</data>
+  <data key="d2">0</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<node id="s2:f9a7238898f6edfd123dd7b4426893b4fde8b331">
+  <data key="d0">PEGE: Monocular 6D Pose Estimation with Geometry-Aware Enhancements for Small Objects</data>
+  <data key="d1">2026</data>
+  <data key="d2">0</data>
+  <data key="d3"></data>
+  <data key="d4">1</data>
+  <data key="d5">0.003485</data>
+  <data key="d6">0.0</data>
+</node>
+<edge source="W4283453676" target="W2888752296">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4283453676" target="W2903435684">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4283453676" target="W3179923621">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4283453676" target="W3034986117">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4283453676" target="W2990248992">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4283453676" target="W2971088236">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4283453676" target="W2962783853">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402727146" target="W132147841">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402727146" target="W1909903157">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402727146" target="W1969868017">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402727146" target="W2158131535">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402727146" target="W2161168419">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402727146" target="W2580726517">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402727146" target="W2888752296">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402727146" target="W2962888833">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402727146" target="W2963139856">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402727146" target="W2963177347">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402727146" target="W2963678509">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402727146" target="W2989915422">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402727146" target="W3034303554">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402727146" target="W3034986117">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402727146" target="W3092774272">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402727146" target="W3179923621">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402727146" target="W4224598146">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402727146" target="W4311640782">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402727146" target="W4317552994">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2963177347" target="W132147841">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2963177347" target="W1526868886">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2963177347" target="W1909903157">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2963177347" target="W1969868017">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2963177347" target="W2058761328">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2963177347" target="W2161168419">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2963177347" target="W2344474200">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2963177347" target="W2895439318">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2963177347" target="W2962783853">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2963177347" target="W2962888833">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2963177347" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2962888833" target="W2058761328">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W132147841" target="W1526868886">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W132147841" target="W2161168419">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W1969868017" target="W2161168419">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2580726517" target="W1909903157">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2580726517" target="W2058761328">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2963678509" target="W1969868017">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2963678509" target="W2058761328">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2989915422" target="W132147841">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2989915422" target="W2895439318">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2989915422" target="W2962783853">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2989915422" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2888752296" target="W132147841">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2888752296" target="W1526868886">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2888752296" target="W1909903157">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2888752296" target="W2161168419">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2888752296" target="W2580726517">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2888752296" target="W2963139856">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2963139856" target="W132147841">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2963139856" target="W1909903157">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2963139856" target="W1969868017">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2963139856" target="W2161168419">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3179923621" target="W132147841">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3179923621" target="W1526868886">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3179923621" target="W1909903157">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3179923621" target="W1969868017">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3179923621" target="W2058761328">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3179923621" target="W2344474200">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3179923621" target="W2580726517">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3179923621" target="W2888752296">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3179923621" target="W2895439318">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3179923621" target="W2962783853">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3179923621" target="W2962888833">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3179923621" target="W2963139856">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3179923621" target="W2963177347">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3179923621" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3179923621" target="W2963756608">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3179923621" target="W2989915422">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3179923621" target="W3009516594">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3179923621" target="W3034597466">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3179923621" target="W3034986117">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3034986117" target="W132147841">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3034986117" target="W1526868886">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3034986117" target="W1969868017">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3034986117" target="W2058761328">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3034986117" target="W2344474200">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3034986117" target="W2895439318">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3034986117" target="W2962783853">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3034986117" target="W2962888833">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3034986117" target="W2963139856">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3034986117" target="W2963150697">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3034986117" target="W2963177347">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3034986117" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3034986117" target="W2963756608">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3034986117" target="W2989915422">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3034986117" target="W3009516594">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2990248992" target="W1969868017">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2990248992" target="W2962783853">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2990248992" target="W2963177347">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2990248992" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2990248992" target="W2963756608">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2990248992" target="W3009516594">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2962783853" target="W132147841">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2962783853" target="W1526868886">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2962783853" target="W2058761328">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2962783853" target="W2580726517">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2962783853" target="W2895439318">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2962783853" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2962783853" target="W2963678509">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4312445439" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4312445439" target="W3034597466">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4312445439" target="W3090584485">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4312445439" target="W3107372911">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4401417458" target="W132147841">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4401417458" target="W2161168419">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4401417458" target="W2580726517">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4401417458" target="W2962783853">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4401417458" target="W2963150697">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4401417458" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4401417458" target="W3009516594">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4401417458" target="W3092774272">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4401417458" target="W4311640782">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4401417458" target="W4312445439">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2949924544" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7140953602" target="W2909314588">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7140953602" target="W4413145170">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7140953602" target="W4402716422">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7140953602" target="W4404002617">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7140953602" target="W4317552994">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7140953602" target="W4311640782">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7140953602" target="W4400023965">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7140953602" target="W4402816534">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7140953602" target="W4402753839">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7155098975" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7117850891" target="W4396914081">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7117850891" target="W4224598146">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7117850891" target="W4293365527">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7117850891" target="W2895439318">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4417296911" target="W4402816534">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4417296911" target="W4404002617">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4417296911" target="W4311640782">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4417296911" target="s2:51ab011aa9aee3f5c2bfff4ba153b7329428477b">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4417296911" target="W4402727436">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4417296911" target="W4403842181">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4415967370" target="W4391630742">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4415967370" target="W4402816866">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4415967370" target="W4311640782">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4415967370" target="W4408564950">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4415967370" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413277972" target="W4401417458">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413277972" target="W4402727436">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413277972" target="W4403842181">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413156710" target="W1580389772">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413156710" target="W1909903157">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413156710" target="W2962783853">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413156710" target="W2963150697">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413156710" target="W2963177347">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413156710" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413156710" target="W2963756608">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413156710" target="W3034986117">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413156710" target="W3092774272">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413156710" target="W4224598146">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413156710" target="W4402727436">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413156710" target="W4402753839">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413156710" target="W4403842181">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413144617" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2909314588" target="W132147841">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2909314588" target="W1969868017">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2909314588" target="W2058761328">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2909314588" target="W2962783853">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2909314588" target="W2963150697">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2909314588" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2909314588" target="W2963678509">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402716422" target="W2344474200">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402716422" target="W2949924544">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402716422" target="W2963177347">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402716422" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402716422" target="W2963756608">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402716422" target="W3009516594">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402716422" target="W3034986117">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402716422" target="W3179923621">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4404002617" target="W4402816534">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W4401417458">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W132147841">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W4413557092">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W3034597466">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W3107372911">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W4402753839">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W2963139856">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W2161168419">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W4312445439">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W4391630742">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W2963150697">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W3034986117">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W3179923621">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W1526868886">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W2580726517">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W4402816866">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W4402727146">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W3092774272">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W2962783853">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W2989915422">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W4402727436">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W4402716422">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W4408564950">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W4224598146">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W4403842181">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W3009516594">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W2963756608">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W2998787775">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W2895439318">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W2963177347">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W1909903157">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4396914081" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4224598146" target="W1909903157">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4224598146" target="W1969868017">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4224598146" target="W2888752296">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4224598146" target="W2895439318">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4224598146" target="W2962783853">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4224598146" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4224598146" target="W2963756608">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4224598146" target="W3034597466">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4224598146" target="W3092774272">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4224598146" target="W3107372911">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4224598146" target="W4312445439">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2895439318" target="W1526868886">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2895439318" target="W1909903157">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2895439318" target="W1969868017">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2895439318" target="W2580726517">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402727436" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402727436" target="W3034986117">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402727436" target="W3092774272">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402727436" target="W3179923621">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402727436" target="W4224598146">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402727436" target="W4311640782">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402727436" target="W4312445439">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402727436" target="W4317552994">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4403842181" target="W132147841">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4403842181" target="W1969868017">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4403842181" target="W1991544872">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4403842181" target="W2058761328">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4403842181" target="W2161168419">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4403842181" target="W2580726517">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4403842181" target="W2888752296">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4403842181" target="W2895439318">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4403842181" target="W2963139856">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4403842181" target="W2963150697">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4403842181" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4403842181" target="W3092774272">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4403842181" target="W4224598146">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4403842181" target="W4311640782">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4403842181" target="W4312445439">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4403842181" target="W4401417458">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4403842181" target="W4402727436">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4391630742" target="W132147841">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4391630742" target="W1991544872">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4391630742" target="W2161168419">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4391630742" target="W2580726517">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4391630742" target="W2888752296">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4391630742" target="W2895439318">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4391630742" target="W2949924544">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4391630742" target="W2962783853">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4391630742" target="W2962888833">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4391630742" target="W2963150697">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4391630742" target="W2963177347">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4391630742" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4391630742" target="W2963756608">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4391630742" target="W2989915422">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4391630742" target="W3009516594">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4391630742" target="W3034986117">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4391630742" target="W3092774272">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4391630742" target="W3107372911">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4391630742" target="W3179923621">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4408564950" target="W2895439318">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4408564950" target="W2963150697">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4408564950" target="W2963177347">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4408564950" target="W3034986117">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4408564950" target="W3113383835">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4408564950" target="W3179923621">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402753839" target="W2344474200">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402753839" target="W2888752296">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402753839" target="W3179923621">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402753839" target="W4224598146">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402753839" target="W4311640782">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4402753839" target="W4317552994">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2503.18673" target="W4400023965">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2503.18673" target="arxiv:2311.14155">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2503.18673" target="arxiv:2310.15008">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2503.18673" target="W4311640782">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2503.18673" target="W4317552994">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2503.18673" target="arxiv:2502.10606">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2311.14155" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2312.08344" target="W4311640782">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2312.08344" target="W4317552994">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2312.08344" target="arxiv:2203.04802">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2312.08344" target="arxiv:2203.14628">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2312.08344" target="arxiv:1905.09304">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2603.00493" target="arxiv:2305.15727">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2603.00493" target="W4317552994">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2603.00493" target="W4311640782">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2603.00493" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2601.06883" target="W4401417458">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2601.06883" target="arxiv:1712.07629">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2601.06883" target="arxiv:2208.14201">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2601.06883" target="arxiv:2403.09799">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2509.21927" target="arxiv:2406.09414">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2509.21927" target="arxiv:2104.00680">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2509.21927" target="arxiv:2205.12257">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2509.21927" target="arxiv:2203.14628">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2509.21927" target="W4400023965">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2509.21927" target="arxiv:2312.08344">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2504.02617" target="arxiv:2311.14155">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2504.02617" target="W4403842181">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2504.02617" target="W4311640782">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2504.02617" target="arxiv:2312.08344">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2504.02617" target="arxiv:2205.12257">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2504.02617" target="W4317552994">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2504.02617" target="arxiv:2307.11067">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2504.02617" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2503.17731" target="W4311640782">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2503.17731" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2503.17731" target="W4403842181">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2503.17731" target="arxiv:2311.14155">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2503.17731" target="arxiv:2307.11067">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2503.17731" target="arxiv:2304.07193">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2503.17731" target="arxiv:2208.14201">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2409.05413" target="arxiv:2001.07715">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2409.05413" target="arxiv:2103.00020">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2409.05413" target="arxiv:2311.14155">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2409.05413" target="W4311640782">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2306.00129" target="arxiv:2203.17234">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2306.00129" target="arxiv:2010.11929">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2306.00129" target="arxiv:2104.14294">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2306.00129" target="arxiv:2104.02057">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2306.00129" target="arxiv:1512.03385">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2306.00129" target="arxiv:2203.15533">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2306.00129" target="W4311640782">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2303.13612" target="arxiv:2203.17234">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2303.13612" target="arxiv:2303.11328">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2303.13612" target="arxiv:2210.04628">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2303.13612" target="arxiv:2203.15533">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2303.13612" target="arxiv:2205.12257">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2403.09799" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413557092" target="W1526868886">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413557092" target="W1580389772">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413557092" target="W1991544872">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413557092" target="W2058761328">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413557092" target="W2344474200">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413557092" target="W2799058067">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413557092" target="W2895439318">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413557092" target="W2952122856">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413557092" target="W2962783853">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413557092" target="W2963150697">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413557092" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413557092" target="W2963756608">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413557092" target="W2989915422">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413557092" target="W2998787775">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413557092" target="W3009516594">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413557092" target="W3034597466">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413557092" target="W3090584485">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413557092" target="W3092774272">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413557092" target="W3107372911">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413557092" target="W3113383835">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413557092" target="W4224598146">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413557092" target="W4402727436">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W1526868886" target="W1969868017">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W1526868886" target="W2161168419">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2058761328" target="W1991544872">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2344474200" target="W1991544872">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2963188159" target="W132147841">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2963188159" target="W1526868886">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2963188159" target="W2058761328">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2963188159" target="W2963678509">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2963756608" target="W132147841">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2963756608" target="W1526868886">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2963756608" target="W1991544872">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2963756608" target="W2895439318">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2963756608" target="W2963139856">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2963756608" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2998787775" target="W1526868886">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2998787775" target="W2895439318">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2998787775" target="W2963150697">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2998787775" target="W2963177347">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W2998787775" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3009516594" target="W1991544872">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3009516594" target="W2580726517">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3009516594" target="W2888752296">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3009516594" target="W2963150697">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3009516594" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3034597466" target="W132147841">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3034597466" target="W1909903157">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3034597466" target="W2903435684">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3034597466" target="W2962783853">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3034597466" target="W2963150697">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3034597466" target="W2963177347">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3034597466" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3034597466" target="W2963756608">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3090584485" target="W132147841">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3090584485" target="W1526868886">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3090584485" target="W2058761328">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3090584485" target="W2895439318">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3090584485" target="W2963177347">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3090584485" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3090584485" target="W2963678509">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3092774272" target="W1526868886">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3092774272" target="W1969868017">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3092774272" target="W2058761328">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3092774272" target="W2161168419">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3092774272" target="W2580726517">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3092774272" target="W2888752296">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3092774272" target="W2895439318">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3092774272" target="W2949924544">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3092774272" target="W2962783853">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3092774272" target="W2963139856">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3092774272" target="W2963177347">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3092774272" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3092774272" target="W2963756608">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3092774272" target="W3009516594">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3107372911" target="W2962783853">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3107372911" target="W2963150697">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3107372911" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3107372911" target="W2963678509">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3107372911" target="W2963756608">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3107372911" target="W2989915422">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3107372911" target="W3009516594">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3113383835" target="W132147841">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3113383835" target="W1526868886">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3113383835" target="W1991544872">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3113383835" target="W2580726517">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3113383835" target="W2888752296">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3113383835" target="W2895439318">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3113383835" target="W2949924544">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3113383835" target="W2962783853">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3113383835" target="W2963139856">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3113383835" target="W2963177347">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3113383835" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3113383835" target="W2963756608">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3113383835" target="W2989915422">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3113383835" target="W3009516594">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3113383835" target="W3034597466">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3113383835" target="W3034986117">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3113383835" target="W3092774272">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W3113383835" target="W3107372911">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7160083737" target="W132147841">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7160083737" target="W1526868886">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7160083737" target="W2962783853">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7160083737" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7160083737" target="W2963756608">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7160083737" target="W2989915422">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7160083737" target="W3009516594">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7160083737" target="W4224598146">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7160083737" target="W4402816534">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7160083737" target="W4404002617">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7160083737" target="W4413557092">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4415939224" target="W1526868886">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4415939224" target="W4224598146">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4415939224" target="W4413557092">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4413156536" target="W4413557092">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7169757710" target="W2888752296">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7169757710" target="W2962783853">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7169757710" target="W2962888833">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7169757710" target="W2963177347">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7169757710" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7169757710" target="W2963756608">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7169757710" target="W3034986117">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7169757710" target="W4391630742">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7169757710" target="W4413557092">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7128402891" target="W1526868886">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7128402891" target="W4224598146">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7128402891" target="W4413156710">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7128402891" target="W4413557092">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4415968666" target="W4404002617">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W4415968666" target="W4413557092">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7165622095" target="W132147841">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7165622095" target="W1526868886">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7165622095" target="W2580726517">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7165622095" target="W2962783853">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7165622095" target="W3034986117">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7165622095" target="W3113383835">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7165622095" target="W4402727436">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7165622095" target="W4403842181">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7165622095" target="s2:51ab011aa9aee3f5c2bfff4ba153b7329428477b">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7165622095" target="W4413146937">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7165622095" target="W4413156710">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7165622095" target="W4413557092">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7165622095" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7169675136" target="W2963150697">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7169675136" target="W4402727436">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7169675136" target="W4413557092">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7166506414" target="W2888752296">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7166506414" target="W2963150697">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7166506414" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7166506414" target="W2989915422">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7166506414" target="W3092774272">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7166506414" target="W3179923621">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7166506414" target="W4224598146">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7166506414" target="W4402727436">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7166506414" target="W4413557092">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7160269432" target="W1526868886">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7160269432" target="W1991544872">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7160269432" target="W2949924544">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7160269432" target="W2963177347">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7160269432" target="W2963188159">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7160269432" target="W2963756608">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7160269432" target="W2989915422">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7160269432" target="W3034597466">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7160269432" target="W3107372911">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7160269432" target="W4224598146">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7160269432" target="W4402727436">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7160269432" target="W4403842181">
+  <data key="d7">cites</data>
+</edge>
+<edge source="W7160269432" target="W4413557092">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2307.12172" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2404.18201" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2504.02812" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="s2:51ab011aa9aee3f5c2bfff4ba153b7329428477b" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="s2:f20947a26e8b54138abfa6721df0cf37f42a4760" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="s2:8984f16353a279851cd2bdfedaaaa188a569d9eb" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2506.09784" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2506.07155" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2503.03726" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2408.08234" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2603.25135" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2503.14051" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2602.04343" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2408.17297" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="s2:03f52835b5a7ef384ab0e2d41946ff9adbed41e4" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="s2:f33e4455e4b4a7805ba444cfac9b7d59cea2fccd" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2607.23669" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2607.16015" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="arxiv:2606.23634" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+<edge source="s2:f9a7238898f6edfd123dd7b4426893b4fde8b331" target="arxiv:2403.11510">
+  <data key="d7">cites</data>
+</edge>
+</graph></graphml>

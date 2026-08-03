@@ -1,0 +1,15 @@
+{
+  "problem": "自动驾驶赛车中，对手车辆速度高达260km/h、加速度达30m/s²，感知算法需要极低延迟（<50ms）和远距离（120m）检测能力。LiDAR检测延迟60-90ms且频率仅10-30Hz，现有单目3D检测方法深度回归不准且为多类复杂场景设计，无法满足赛车场景的实时性需求。",
+  "method": "SPARK将YOLO-Pose（YOLOv11/v12）的2D关键点检测与经典SQPnP求解器结合，实现单相机6D位姿估计。选取9个语义关键点（四轮胎、前后翼边缘、顶部相机外壳），确保任意朝向下至少4个可见。通过在YOLO训练中增加vis属性的BCE损失，预测关键点可见性，以阈值tvis过滤被遮挡关键点后再送入PnP求解；物体侧3D关键点坐标直接来自精确CAD模型，无需深度学习3D检测头。",
+  "core_assumption": "场景为单一目标类别且所有赛车几何尺寸完全相同（Dallara EAV24），因此可用固定CAD模型提供精确3D关键点坐标。同时假设9个关键点的布局能保证任意相对朝向下至少4个关键点可见，从而满足PnP求解的最低约束。",
+  "limitation": "作者承认：训练/评估依赖LiDAR真值标注，LiDAR与相机无法精确同步触发导致帧间残余偏移，高速高角速度下尤为严重；平移误差显著高于LiDAR方法。进一步局限：数据集极小（976训练+245测试帧），泛化性存疑；仅在单一车型、单一赛道验证，无法推广至不同车身外形；未评估多对手密集遮挡场景（作者也指出关键点子集优势尚未充分体现）；真值关键点上限仅67.7% KITTI AP，说明标注本身或LiDAR-camera对齐仍有系统性误差；缺乏多相机/雷达融合及闭环跟踪性能验证。",
+  "eval_setup": "自建A2RL数据集：976训练/245测试帧，1920×1080，标注距离最远120m、平均58m；同时转换为KITTI格式。基线：LiDAR（CenterPoint、VoxelNeXt）、单目（MonoDTR、MonoDETR、MonoDETR-tuned）；MonoFlex/RTM3D训练发散未出结果。指标：KITTI BEV AP@R40、nuScenes AP、ATE、AOE、推理延迟(ms)。硬件：AMD Epyc 7313P 16核 + NVIDIA RTX A6000，TensorRT FP16部署。",
+  "resources": "代码与数据集开源（Ultralytics YOLO Pose格式及KITTI格式）；训练/推理硬件为AMD Epyc 7313P + NVIDIA RTX A6000；传感器为Leopard Imaging IMX728-80H相机（45Hz）与Seyond Falcon K LiDAR（20Hz）；YOLO训练100 epochs，具体GPU时长未报告。",
+  "paper_id": "W7165219691",
+  "paper_ids": [
+    "W7165219691"
+  ],
+  "paper_title": "SPARK: Low Latency Single-Camera 3D Pose Estimation for Autonomous Racing using Keypoints",
+  "year": 2026,
+  "citation_count": 0
+}

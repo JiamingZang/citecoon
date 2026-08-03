@@ -1,0 +1,15 @@
+{
+  "problem": "现有基于Transformer的2D-to-3D人体姿态提升方法（如PoseFormer）面临两大瓶颈：(a) 对全部输入帧施加自注意力导致序列增长时计算开销剧增；(b) 对2D关节检测器引入的噪声天然缺乏鲁棒性。",
+  "method": "PoseFormerV2对完整长序列的每个关节轨迹做DCT变换，仅保留少量低频系数作为频域紧凑表征（zFreq），与空间编码器输出的少数中心帧时域特征（zTime）拼接后送入时间编码器，实现时频特征融合；同时将时间编码器中的普通MLP替换为FreqMLP以更好地融合两域特征。通过调节完整序列长度F可在不增加计算量的前提下任意扩大感受野。",
+  "core_assumption": "人体运动轨迹能量集中于低频分量，少量低频DCT系数即可编码长序列的全局时序轮廓；高频分量主要对应检测噪声与抖动，丢弃后反而提升鲁棒性。时域中心帧提供细粒度局部信息，与频域全局信息互补。",
+  "limitation": "作者承认纯频域输入会导致过平滑、丢失快速运动等高频细节（Table 6 baseline验证），因此必须依赖时频融合；方法仍绑定2D-to-3D lifting范式，受限于上游2D检测器质量；仅在室内数据集（Human3.6M、MPI-INF-3DHP）上验证，缺乏对户外复杂场景、遮挡及多人场景的评估；DCT假设序列平稳且等间隔采样，对变帧率或非匀速运动的适用性未讨论；感受野扩大依赖固定长度窗口，对极长序列或实时流式推理的延迟问题未涉及。",
+  "eval_setup": "数据集：Human3.6M（S1/5/6/7/8训练，S9/11测试，Protocol 1 MPJPE & Protocol 2 P-MPJPE）和MPI-INF-3DHP（MPJPE/PCK/AUC）。基线：PoseFormerV1、MHFormer、MixSTE、P-STMO等Transformer方法。规模：单卡RTX 3090，AdamW训练80 epochs；典型设置f=n=3或9，F=81；Human3.6M使用CPN 2D检测，MPI-INF-3DHP使用GT 2D。",
+  "resources": "代码：https://github.com/QitaoZhao/PoseFormerV2；算力：单张NVIDIA RTX 3090；数据：Human3.6M与MPI-INF-3DHP公开数据集，无需额外预训练数据。",
+  "paper_id": "W4386083126",
+  "paper_ids": [
+    "W4386083126"
+  ],
+  "paper_title": "PoseFormerV2: Exploring Frequency Domain for Efficient and Robust 3D Human Pose Estimation",
+  "year": 2023,
+  "citation_count": 229
+}

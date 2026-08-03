@@ -1,0 +1,15 @@
+{
+  "problem": "从单张单目RGB图像中，在不知道人数的前提下，一次性（single-shot）估计场景中所有人的3D人体姿态，需同时处理遮挡、截断、多尺度及人群密集等复杂情况。",
+  "method": "以堆叠沙漏网络（4个Hourglass模块）为骨干，每个模块同时输出2D关节热图、遮挡鲁棒姿态图（ORPM，将多人3D坐标以固定尺寸图存储于对应2D位置）和关联嵌入图（Associative Embedding）用于关节分组；通过逐级堆叠实现多尺度特征精炼，结合ORPM的冗余存储机制应对遮挡与裁剪，最终在单次前向传播中端到端完成2D检测、关节分组与3D姿态回归，并辅以多尺度推理（MSI）提升不同距离行人的估计精度。",
+  "core_assumption": "ORPM能在固定尺寸的特征图上以2D位置为索引存储任意数量人的3D坐标，且遮挡时冗余存储仍可恢复正确3D值；关联嵌入学到的嵌入空间能将同一人的关节可靠聚类；堆叠沙漏的逐级精炼能持续降低定位误差。",
+  "limitation": "作者承认：极远距离行人无法被检测，密集拥挤场景下方法失效；运动树中父关节误差会向末端关节（手腕、脚踝）传播，末端关节精度显著低于脊柱和髋部；作者提出可将关节坐标相对于更稳定关节表达但留作未来工作。我读出的局限：JTA数据集上整体3DPCKr仅约43.9%，说明在真实复杂户外场景精度仍有限；训练相机数少于4时性能急剧下降（3个相机MPJPE翻倍），对多视角标注数据依赖强；单目深度歧义未被显式建模；MuPoTS-3D上仅与Mehta等人对比，缺少与更多后续方法的比较。",
+  "eval_setup": "数据集：Human 3.6M（单人受控）、CMU Panoptic（多人受控，多协议）、MuPoTS-3D（室内外多人）、JTA（合成户外，每图平均21人，测试集262510人）。基线：Mehta et al.、MubyNet、Moon et al.、Martinez et al.、Zhou et al.等。指标：MPJPE(mm)、3DPCKr/3DPCKa（阈值150mm）。规模：4个堆叠沙漏，输入分辨率512/1024/1536px，多尺度推理。",
+  "resources": "代码基于Newell et al.关联嵌入公开实现；训练使用8块Nvidia Titan X GPU，batch size 30，Adam优化器，初始学习率1e-4，迭代240k次；框架PyTorch；数据需CMU Panoptic多相机MoCap标注、MuCo-3DHP合成数据、COCO 2D标注及JTA合成数据。",
+  "paper_id": "W2986352270",
+  "paper_ids": [
+    "W2986352270"
+  ],
+  "paper_title": "Single-shot 3D multi-person pose estimation in complex images",
+  "year": 2020,
+  "citation_count": 37
+}

@@ -1,0 +1,161 @@
+[
+  {
+    "theme": "渲染-比较-迭代精修（render-and-compare）已成为位姿估计的通用精炼范式，但初始化敏感性与推理速度是其固有代价",
+    "type": "通用套路",
+    "cards": [
+      "DeepIM: Deep Iterative Matching for 6D Pose Estimation",
+      "MegaPose: 6D Pose Estimation of Novel Objects via Render and Compare",
+      "GS-Pose: Generalizable Segmentation-Based 6D Object Pose Estimation with 3D Gaussian Splatting",
+      "iG-6DoF: Model-Free 6DoF Pose Estimation for Unseen Object via Iterative 3D Gaussian Splatting",
+      "LatentFusion: End-to-End Differentiable Reconstruction and Rendering for Unseen Object Pose Estimation",
+      "RefPose: Leveraging Reference Geometric Correspondences for Accurate 6D Pose Estimation of Unseen Objects",
+      "PoseStreamer: A Multi-modal Framework for 6DoF Pose Estimation of Unseen Moving Objects",
+      "GenFlow: Generalizable Recurrent Flow for 6D Pose Refinement of Novel Objects",
+      "GoTrack: Generic 6DoF Object Pose Refinement and Tracking"
+    ],
+    "evidence": "DeepIM：'给定初始位姿，渲染该位姿下图像，将渲染图与观测图配对输入网络回归相对SE(3)变换，迭代直至收敛'；MegaPose：'精炼器在初始位姿下渲染多视角图像与真实查询图像比较，迭代精炼，66.5ms/步'；GS-Pose：'3DGS提供的可微渲染…测试时对位姿做基于梯度的迭代优化'；iG-6DoF：'位姿精化器利用3DGS迭代渲染-比较，0.5s/帧（含0.4s精化）'；LatentFusion：'通过最小化渲染图像与查询图像之间的差异来优化位姿…推理速度慢'；RefPose：'由P0渲染参考图…correlation volume-guided attention…精化依赖迭代渲染，对初始位姿误差较大时可能收敛不佳'；GenFlow：'级联递归flow模块，5次外层×8次内层更新，98.2ms/外层'；GoTrack：'flow+可见性掩码→2D-3D对应→PnP-RANSAC，可迭代多次精化'",
+    "tension": "所有方法默认'初始位姿在真值邻域内'即可收敛（DeepIM限45°、iG-6DoF未给容错边界），但无人给出迭代精修的全局收敛性理论保证；速度代价（0.4-0.5s/帧）使该套路在实时机器人操作中几乎不可用——GenFlow/GoTrack 用学习式前馈对应部分兑现了'精化蒸馏为前馈网络'的方向，但代价是回到合成数据训练，训练无关性（FoundPose/Pos3R 路线）与精化质量的交换比无人系统量化"
+  },
+  {
+    "theme": "合成数据训练→真实场景测试的域迁移被普遍假设为'数据规模+多样性即可弥合'，但对无纹理/对称/反光物体该假设系统性失效",
+    "type": "共享假设",
+    "cards": [
+      "MegaPose: 6D Pose Estimation of Novel Objects via Render and Compare",
+      "Normalized Object Coordinate Space for Category-Level 6D Object Pose and Size Estimation",
+      "Diff9D: Diffusion-Based Domain-Generalized Category-Level 9-DoF Object Pose Estimation",
+      "Implicit 3D Orientation Learning for 6D Object Detection from RGB Images",
+      "SAM-6D: Segment Anything Model Meets Zero-Shot 6D Object Pose Estimation",
+      "Scalable Unseen Objects 6-DoF Absolute Pose Estimation With Robotic Integration",
+      "ZS6D: Zero-shot 6D Object Pose Estimation using Vision Transformers",
+      "PoseGAM: Robust Unseen Object Pose Estimation via Geometry-Aware Multi-View Reasoning",
+      "RayPose: Ray Bundling Diffusion for Template Views in Unseen 6D Object Pose Estimation"
+    ],
+    "evidence": "MegaPose：'深度神经网络在足够大规模和多样化合成数据上训练后…合成到实的域差距可以通过数据规模和多样性弥合'，局限'合成到实域差距对纹理较少的物体影响较大'；NOCS：'真实数据量较少(REAL275仅2.75K帧)，合成到实的域gap仍存在'；Diff9D：'扩散模型…利用潜在泛化能力弥合合成域与真实域之间的域差距'；AAE：'域随机化假设：若网络在足够多样的半真实渲染条件下训练，则真实图像与合成图像的差异会被视为又一种无关变化'；SAM-6D/SinRef-6D/RayPose训练集均为MegaPose合成数据(~200万张)；PoseGAM：'大规模多样化合成数据足以提升对真实场景的泛化能力'",
+    "tension": "几乎所有2022年后方法共享同一训练集（MegaPose 2M合成图/GSO+ShapeNet），域迁移的'规模假说'从未在无纹理对称物体（T-LESS类）上被正面验证——AAE在T-LESS纯RGB recall仅26.79%即为反例，但后续工作仍沿用同一假设而未提出针对性解决方案"
+  },
+  {
+    "theme": "上游实例分割（SAM/CNOS/Mask R-CNN）是全领域公认的级联失败点，却无人将其纳入端到端联合优化",
+    "type": "共同瓶颈",
+    "cards": [
+      "DenseFusion: 6D Object Pose Estimation by Iterative Dense Fusion",
+      "Diff9D: Diffusion-Based Domain-Generalized Category-Level 9-DoF Object Pose Estimation",
+      "FoundPose: Unseen Object Pose Estimation with Foundation Features",
+      "ZS6D: Zero-shot 6D Object Pose Estimation using Vision Transformers",
+      "SAM-6D: Segment Anything Model Meets Zero-Shot 6D Object Pose Estimation",
+      "UNOPose: Unseen Object Pose Estimation with an Unposed RGB-D Reference Image",
+      "Scalable Unseen Objects 6-DoF Absolute Pose Estimation With Robotic Integration",
+      "High-resolution open-vocabulary object 6D pose estimation",
+      "PoseGAM: Robust Unseen Object Pose Estimation via Geometry-Aware Multi-View Reasoning"
+    ],
+    "evidence": "DenseFusion：'方法强依赖外部分割网络质量，分割失败则位姿估计崩溃'；Diff9D：'依赖上游Mask R-CNN实例分割，分割错误会级联影响位姿精度'；FoundPose：'推理依赖外部分割网络提供掩码'；ZS6D：'CNOS分割质量是显著瓶颈（使用GT mask后AR提升77%-119%）'；SAM-6D：'两阶段级联误差传播——ISM漏检或误分割直接导致PEM失败'；UNOPose：'分割质量对最终位姿影响明显，GT分割比UNOSeg高约3%'；SinRef-6D：'依赖外部分割器…cluttered场景或遮挡严重时分割失败将直接导致位姿崩溃'；Oryon：'预测掩码与Oracle掩码间AR差距达14.3'",
+    "tension": "ZS6D的GT-mask实验（AR提升77-119%）量化证明了分割是性能天花板，但全部方法仍将分割视为冻结前端；无人尝试将位姿估计的梯度回传至分割网络做联合训练，也未见对'分割不确定性感知的位姿估计'的系统探索"
+  },
+  {
+    "theme": "视觉基础模型（DINOv2/CLIP/MASt3R）的冻结特征被当作跨域、跨物体的通用几何对应建立器，'无需任务微调即可泛化'是核心赌注",
+    "type": "共享假设",
+    "cards": [
+      "FoundPose: Unseen Object Pose Estimation with Foundation Features",
+      "GS-Pose: Generalizable Segmentation-Based 6D Object Pose Estimation with 3D Gaussian Splatting",
+      "ZS6D: Zero-shot 6D Object Pose Estimation using Vision Transformers",
+      "Zero-Shot Category-Level Object Pose Estimation",
+      "UNOPose: Unseen Object Pose Estimation with an Unposed RGB-D Reference Image",
+      "SAM-6D: Segment Anything Model Meets Zero-Shot 6D Object Pose Estimation",
+      "Pos3R: 6D Pose Estimation for Unseen Objects Made Easy",
+      "Learning Cross-View Semantic Priors for Single-Reference Unseen Object Pose Estimation",
+      "GCE-Pose: Global Context Enhancement for Category-level Object Pose Estimation",
+      "FreePose: Zero-Shot 6D Object Pose Estimation Using Pretrained Foundation Models"
+    ],
+    "evidence": "FoundPose：'DINOv2中间层patch描述子具有跨合成-真实域的泛化能力'；GS-Pose：'DINOv2的通用特征足以在不微调的情况下支持跨物体的分割和旋转感知匹配'；ZS6D：'自监督预训练ViT的描述子具有足够通用性和判别力，无需任务微调即可区分物体视角并建立有意义的局部patch对应'；Zero-Shot Category-Level：'自监督ViT特征天然编码了可跨实例、跨类别迁移的部件级语义理解'；UNOPose：'视觉基础模型(SAM、DINOv2)对未见物体具有足够的分割与特征泛化能力'；Pos3R：'MASt3R的3D一致性特征能够在合成渲染模板与真实图像之间产生高质量稠密对应'；GCE-Pose：'类别级语义特征…通过多视角DINOv2特征对齐到几何原型后取均值获得'；FreePose：'预训练视觉+几何基础模型特征反投影融合，免训练零样本，BOP5 可比 SOTA'",
+    "tension": "该假设在低纹理/对称物体上从未被正面验证——ZS6D在T-LESS上承认'无纹理对称物体导致局部对应歧义'；DINOv2特征的语义层级与几何精度之间的张力（语义足够但亚像素精度不足）无人系统量化；所有方法冻结使用，未探索轻量适配（LoRA等）是否能在保持泛化的同时提升几何精度；EgoXtreme 进一步显示冻结特征在极端光照/运动模糊下对应建立直接失败"
+  },
+  {
+    "theme": "物体对称性引发的位姿歧义是全领域公认的首要开放难题，但解决方案碎片化且互不兼容",
+    "type": "共同瓶颈",
+    "cards": [
+      "BOP: Benchmark for 6D Object Pose Estimation",
+      "Confronting Ambiguity in 6D Object Pose Estimation via Score-Based Diffusion on SE(3)",
+      "DenseFusion: 6D Object Pose Estimation by Iterative Dense Fusion",
+      "OnePose++: Keypoint-Free One-Shot Object Pose Estimation without CAD Models",
+      "Normalized Object Coordinate Space for Category-Level 6D Object Pose and Size Estimation",
+      "T-LESS: An RGB-D Dataset for 6D Pose Estimation of Texture-Less Objects",
+      "ZS6D: Zero-shot 6D Object Pose Estimation using Vision Transformers",
+      "Scan2CAD: Learning CAD Model Alignment in RGB-D Scans"
+    ],
+    "evidence": "BOP：提出VSD'仅在可见表面区域计算…自然处理对称性和遮挡引发的姿态歧义'；Score-Based Diffusion：'由物体对称性和遮挡引起的位姿歧义将图像-位姿的一对一映射退化为一对多问题'，用SE(3)扩散建模后验；DenseFusion：'对高度对称且无纹理物体（如碗、香蕉）仍存在朝向歧义'；OnePose++：'对称物体（eggbox、glue）ADD(S)指标下仍有明显差距（glue 48.0 vs PVNet 95.7），对称性歧义未显式处理'；NOCS：'对称物体处理依赖预定义对称轴，泛化性有限'；T-LESS：30个物体'存在对称性与互相似性'；Scan2CAD：'对称性仅标注了C2/C4/C∞，更复杂对称未处理'",
+    "tension": "评估端（BOP-VSD）、生成端（扩散后验）、表征端、标注端（NOCS预定义对称轴）各有局部方案，但无一条技术路线同时解决'未知对称性的自动发现+多模态位姿的紧凑表达+评估指标的对称感知'；对称性标注获取成本高这一根本问题使大多数方法选择回避而非正面处理"
+  },
+  {
+    "theme": "从CAD模型依赖→参考图像→单张/零参考的渐进解放路线，构成未见物体位姿估计的核心演进轴",
+    "type": "同赛道",
+    "cards": [
+      "DeepIM: Deep Iterative Matching for 6D Pose Estimation",
+      "MegaPose: 6D Pose Estimation of Novel Objects via Render and Compare",
+      "Gen6D: Generalizable Model-Free 6-DoF Object Pose Estimation from RGB Images",
+      "OnePose++: Keypoint-Free One-Shot Object Pose Estimation without CAD Models",
+      "GS-Pose: Generalizable Segmentation-Based 6D Object Pose Estimation with 3D Gaussian Splatting",
+      "iG-6DoF: Model-Free 6DoF Pose Estimation for Unseen Object via Iterative 3D Gaussian Splatting",
+      "UNOPose: Unseen Object Pose Estimation with an Unposed RGB-D Reference Image",
+      "Scalable Unseen Objects 6-DoF Absolute Pose Estimation With Robotic Integration",
+      "Zero-Shot Category-Level Object Pose Estimation",
+      "Object Pose Transformer: Unifying Unseen Object Pose Estimation"
+    ],
+    "evidence": "DeepIM/MegaPose：'需要已知且准确的3D模型用于渲染'；Gen6D：'不依赖3D CAD模型…仅通过少量已知位姿的参考图像'；OnePose++：'one-shot无CAD模型…利用LoFTR粗匹配构建半稠密点云'；GS-Pose/iG-6DoF：'用分割后的多视角参考图像重建3DGS模型'（仍需多参考图）；UNOPose：'仅利用单张无位姿RGB-D参考图像'；SinRef-6D：'仅用单张参考视图即可估计任意新视角下未见物体绝对位姿的极简设定'；Zero-Shot Category-Level：'无任何位姿标注、无类别特定CAD模型'；OPT-Pose：'无CAD模型、无类别先验…统一绝对SA(3)与相对SE(3)'",
+    "tension": "每减少一级先验（CAD→多参考→单参考→零参考），精度均出现显著下降（SinRef-6D: Nr=16时AR仅0.432 vs Nr=128时0.587），但无人量化'先验信息量-精度'的Pareto前沿；完全零先验（OPT-Pose）仍依赖多视图输入弥补信息不足，单视图零先验的可行性边界未被厘清"
+  },
+  {
+    "theme": "点图回归（pointmap regression）正在取代传统特征匹配+SfM流水线，成为几何视觉的新基础设施，但尺度不确定性与可扩展性是未解代价",
+    "type": "通用套路",
+    "cards": [
+      "DUSt3R: Geometric 3D Vision Made Easy",
+      "Grounding Image Matching in 3D with MASt3R",
+      "MASt3R-SLAM: Real-Time Dense SLAM with 3D Reconstruction Priors",
+      "G-MASt3R-SfM: Graph-based View Pruning and Multi-stage Optimization for Robust SfM",
+      "MASt3R-Fusion: Integrating Feed-Forward Visual Model with IMU, GNSS for High-Functionality SLAM",
+      "Speedy MASt3R",
+      "Sonar-MASt3R: Real-Time Opti-Acoustic Fusion in Turbid, Unstructured Environments",
+      "An Evaluation of DUSt3R/MASt3R/VGGT 3D Reconstruction on Photogrammetric Aerial Blocks"
+    ],
+    "evidence": "DUSt3R：'将成对重建问题转化为点图回归…无需任何相机标定或位姿先验'，局限'输出点图存在未知全局尺度因子'；MASt3R：'在DUSt3R上新增密集局部特征头…将匹配任务根植于三维重建'；MASt3R-SLAM：'以MASt3R双视图三维重建先验为基础…实时单目稠密SLAM'；G-MASt3R-SfM：'MASt3R虽能鲁棒匹配，但对非重叠图像对仍会输出错误对应…位姿估计精度显著退化'；MASt3R-Fusion：'点图回归存在尺度不确定与尺度估计不稳定的问题…纯视觉MASt3R-SLAM在大尺度场景下几乎无法完成SLAM'；Speedy MASt3R：'91ms/对图像仅对应约11FPS，对严格实时场景仍偏慢'；评估文：'191图规模下VGGT位姿漂移达42m'",
+    "tension": "点图回归将几何先验编码进网络权重的思路在双视图/小场景上效果显著，但尺度不确定性需外部传感器（IMU/GNSS/声呐）弥补、大规模多图一致性靠后处理图优化（G-MASt3R-SfM）或SLAM回环维持——'前馈回归能否替代全局优化'这一根本问题尚无定论；推理速度（91ms/对）与可扩展性（191图即崩溃）是该范式走向实际部署的双重瓶颈"
+  },
+  {
+    "theme": "扩散/生成模型被引入位姿空间建模（替代判别式回归），以处理多模态后验与域泛化，但迭代采样速度与判别式方法的精度差距构成张力",
+    "type": "通用套路",
+    "cards": [
+      "Confronting Ambiguity in 6D Object Pose Estimation via Score-Based Diffusion on SE(3)",
+      "Diff9D: Diffusion-Based Domain-Generalized Category-Level 9-DoF Object Pose Estimation",
+      "RayPose: Ray Bundling Diffusion for Template Views in Unseen 6D Object Pose Estimation"
+    ],
+    "evidence": "Score-Based Diffusion：'在SE(3)李群上构建基于分数的扩散生成模型，以图像为条件联合估计旋转与平移的后验分布'，局限'去噪为迭代采样，推理速度受去噪步数制约'；Diff9D：'将位姿估计重新定义为生成问题：基于DDPM对9-DoF位姿进行前向加噪与反向去噪…生成式建模比判别式回归对域偏移更鲁棒'，局限'反向扩散需顺序执行多步，实时性受限（仅17.2 FPS近实时）'；RayPose：'将模板基6D姿态估计重构为射线束对齐问题…嵌入扩散Transformer架构…对噪声姿态图进行逐步去噪'",
+    "tension": "生成式方法的核心卖点是建模多模态后验（对称/遮挡）和域泛化，但三者均需外部精修器（MegaPose refiner）或多步采样才能达到SOTA精度——'生成建模位姿'究竟是本征优势还是增加了不必要的计算路径，尚无消融实验将生成范式与等计算预算的判别式多假设方法做公平对比"
+  },
+  {
+    "theme": "test-time 精化路线分裂为两叉：可微渲染优化（免训练但慢且初始化敏感）与学习式稠密对应前馈（快但要合成数据训练），尚无方法兼得两者",
+    "type": "路线分叉",
+    "cards": [
+      "MegaPose: 6D Pose Estimation of Novel Objects via Render and Compare",
+      "GS-Pose: Generalizable Segmentation-Based 6D Object Pose Estimation with 3D Gaussian Splatting",
+      "GenFlow: Generalizable Recurrent Flow for 6D Pose Refinement of Novel Objects",
+      "GoTrack: Generic 6DoF Object Pose Refinement and Tracking",
+      "FoundPose: Unseen Object Pose Estimation with Foundation Features",
+      "Pos3R: 6D Pose Estimation for Unseen Objects Made Easy",
+      "COG: Confidence-aware Optimal Geometric Correspondence for Unsupervised Single-Reference Unseen Object Pose Estimation",
+      "Finding NeMO: A Geometry-Aware Representation of Template Views for Few-Shot Perception",
+      "FreePose: Zero-Shot 6D Object Pose Estimation Using Pretrained Foundation Models"
+    ],
+    "evidence": "优化派：MegaPose'神经网络预测位姿残差迭代精炼，66.5ms/步'；GS-Pose'GS-Refiner对可学习SE(3)变换做可微渲染优化，粗估计档与精化档两档报告——精化器是强制组件'。对应派：GenFlow'级联递归flow，5×8次更新98.2ms/外层，同初始化下更少迭代超过MegaPose精化器'；GoTrack'预测稠密flow+可见性掩码→2D-3D→PnP-RANSAC，且内点权重比q=s′/s直接当位姿质量分，无需专门打分网络'；COG'置信度作为最优传输边际约束产出软对应，无监督版媲美有监督'；NeMO'pointmap+学习式置信度图C过滤后RANSAC-PnP'；FreePose'免训练3D-3D最近邻+TEASER鲁棒配准，UR3实抓65%'。免训练粗估计端：FoundPose'最佳性能需结合MegaPose精修器，削弱完全免训练的纯粹性'；Pos3R'粗估计AR 39.5，接入MegaPose精化后AR 57.3'",
+    "tension": "精化路线已分裂为两条：可微渲染逐帧优化（免训练、初始化敏感、慢、精化是必需品）vs 学习式稠密对应前馈（快、自带几何可解释的质量分、但要合成数据训练）。2026 年的新进展把竞争焦点推向'位姿置信度从哪来'：GoTrack 用内点权重比（几何副产品，免费）、NeMO/COG 用学习式置信度（要训练）、FreePose 干脆把鲁棒性外包给 TEASER 配准器（免训练）——三种置信度来源的假设择优能力无人同基准对比；'免训练几何精化能否靠对应内点统计获得与学习式打分器同级的假设择优能力'仍是未被正面回答的问题"
+  },
+  {
+    "theme": "鲁棒性与泛化性是正交的两个失败维度：极端条件（运动模糊/动态光照/烟雾）击穿所有SOTA泛化方法，图像修复无效，时序建模是唯一被验证有效的出路",
+    "type": "共同瓶颈",
+    "cards": [
+      "EgoXtreme: A Dataset for Robust Object Pose Estimation in Egocentric Views under Extreme Conditions",
+      "FoundPose: Unseen Object Pose Estimation with Foundation Features",
+      "MegaPose: 6D Pose Estimation of Novel Objects via Render and Compare",
+      "GenFlow: Generalizable Recurrent Flow for 6D Pose Refinement of Novel Objects"
+    ],
+    "evidence": "EgoXtreme：'SOTA零样本方法在极端光照/烟雾/运动模糊下泛化崩塌（PicoPose应急极端光-31.6%p@0.3d，GigaPose加烟-9.91%p）'；'FoundPose稀疏特征匹配在裁剪+模糊下经常凑不够PnP-RANSAC最少对应数，直接无输出'；'去模糊/去雾/低光增强等图像修复预处理不涨点甚至掉点（应急场景去雾仅4.74@0.1d）'；'时序跟踪（Direct/Fusion/Hybrid）在快运动场景显著改善（Bat极端0.1d：Direct 0.0 vs 逐帧14.13）'",
+    "tension": "现有方法的全部优化都押在'泛化'维度（新物体/新类别/杂乱场景），而真实部署的另一维度'鲁棒'（运动模糊/动态光/遮挡介质）被系统性忽略——EgoXtreme证明两者正交且预训练规模解决不了；图像修复路线已被证伪，时序建模是唯一验证有效的方向，但6D物体位姿领域的时序方法（跟踪式传递除外）几乎空白——单帧假设是整个方法族的隐性教条"
+  }
+]

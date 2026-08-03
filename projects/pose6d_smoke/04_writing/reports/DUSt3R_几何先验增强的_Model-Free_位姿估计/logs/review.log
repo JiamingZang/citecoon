@@ -1,0 +1,28 @@
+[20:00:38] review_report DUSt3R_几何先验增强的_Model-Free_位姿估计
+
+I'll review the report against the project's source library. Let me start by reading the report and exploring the available sources.
+
+Now let me read the key source files to verify claims.
+
+Let me read more source cards to verify specific claims.
+
+Let me read the remaining cards referenced in the report.
+
+Let me read the remaining referenced cards.
+
+Let me check one more card and the DUSt3R paper for verification.
+
+I've completed reading all source materials. Now I'll write the review report.
+
+The file already has a previous review. I'll overwrite it with my independent adversarial review.
+
+审校完成，已写入 `reports/DUSt3R_几何先验增强的_Model-Free_位姿估计/review.md`。
+
+**结果摘要**：P0=0, P1=0, P2=5。总体判定：**可发布（建议修订 P2 后发布）**。
+
+5 条 P2 问题：
+1. FoundPose 在 §3.3 标为"model-free（需 CAD）"与 §1.1 定义矛盾
+2. RayPose 对 MegaPose 精修器依赖省略了"才能达到最优性能"限定
+3. ADD-0.1d 被归为"BOP 标准度量"但所引卡片核心指标为 VSD
+4. 头部"20 篇精读卡片"与实际引用 16 篇不对应
+5. 母题引文加

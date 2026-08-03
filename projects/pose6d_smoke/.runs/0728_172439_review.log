@@ -1,0 +1,6 @@
+== 含特征级渲染精修
+审校完成（success）：P0=1 P1=4 P2=4，判定【需修订后发布】。清单: 
+results/pose6d_smoke/reports/MASt3R自举3DGS模板的免训练PnP位姿估计_含特征级渲染
+精修/review.md
+问题局部时用 revise_report（或 saagent 
+revise）按清单定向修；结构性缺陷/大面积编造才重跑 write_tech_report。

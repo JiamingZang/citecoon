@@ -1,0 +1,15 @@
+{
+  "problem": "当前序列模型架构（Transformer、状态空间模型、线性注意力、快速权重等）各自独立发展、符号体系各异，缺乏统一原理来解释为何某些架构表现更优，阻碍了系统性的设计改进。",
+  "method": "将关联回忆形式化为\"记忆+检索\"两步过程，其中记忆步骤被转化为对输入 token 的加权回归问题（test-time regression），在每次前向传播中重新求解回归器。任何序列层由三个设计选择唯一确定：(1) 回归权重 γ_i^(t)，(2) 回归器函数类 M（参数化/非参数化），(3) 测试时优化算法（批量梯度下降、SGD、精确解、核回归等）。线性注意力、SSM、fast-weight、在线学习层和 softmax attention 均为该框架的特例。",
+  "core_assumption": "架构的关联回忆能力与其语言建模性能强相关（Olsson et al., Arora et al. 的经验发现）；记忆步骤可被充分建模为对上下文 token 的回归问题，即存在一个在测试时仅依赖输入 token 即可拟合的回归器。",
+  "limitation": "作者指出线性注意力因未建模 token 间相关性而表达力不足；参数化回归层虽有高效递推但表达力受限（图1标注 less expressive）。文本未完整展示实验对比与消融，框架能否指导实际超越 softmax attention 的新架构仍待验证；高阶 softmax 泛化（local linear regression 动机）的实际训练稳定性与规模化效果未充分讨论；框架侧重因果序列，对非因果/通用掩码注意力的适用性仅一句带过。",
+  "eval_setup": "Section 5 实证验证 test-time regression 层在前向传播中隐式执行回归；Section 6 在下一 token 预测任务中检验 key-value 对构造方式。具体数据集、基线、指标在给定文本中未展开。",
+  "resources": "",
+  "paper_id": "arxiv:2501.12352",
+  "paper_ids": [
+    "arxiv:2501.12352"
+  ],
+  "paper_title": "Test-time regression: a unifying framework for designing sequence models with associative memory",
+  "year": 2025,
+  "citation_count": 0
+}

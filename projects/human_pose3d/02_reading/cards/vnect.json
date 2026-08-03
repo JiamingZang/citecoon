@@ -1,0 +1,15 @@
+{
+  "problem": "从单目RGB相机实时获取时间一致的全3D人体骨骼姿态。该问题本质欠约束且存在深度模糊，已有方法要么依赖深度传感器/多视角，要么只能离线处理、无法达到实时帧率，且逐帧预测存在时序抖动。",
+  "method": "提出两阶段框架：(1) 基于ResNet50/100的全卷积CNN，将2D heatmap公式扩展到3D——为每个关节额外预测X、Y、Z三张location-map，并在对应2D heatmap峰值位置读取3D坐标，从而将3D预测强绑定于图像证据；训练时引入中间监督（骨长图）与多尺度输入。(2) 运动学骨骼拟合：将CNN输出的2D与3D关节位置以最小二乘方式拟合到参数化骨骼模型，并结合时序历史施加平滑约束与多级滤波，输出相机坐标系下时间一致的全局3D姿态。用户仅需提供一次身高即可恢复真实尺度。",
+  "core_assumption": "将3D坐标编码为location-map并在2D峰值处读取，能使3D预测与图像外观强关联，从而比直接回归更准确地反映图像中的关节构型。运动学骨骼模型加时序平滑足以在单目条件下消解剩余的深度与尺度模糊。训练数据（Human3.6M + MPI-INF-3DHP + 2D数据集）的分布足以支撑野外泛化。",
+  "limitation": "作者承认：仅支持单人，缺乏多人3D数据集；2D检测失误会导致3D出现大偏差（>300mm离群值），MPJPE因此劣于Mehta等；标注3D数据仍远不能覆盖真实世界的姿态/体型/外观分布。进一步读出：自遮挡活动（坐/躺）PCK仅约48%，性能显著下降；依赖边界框跟踪器裁剪人物区域，跟踪丢失则系统失效；时序平滑在快速运动或突变动作下可能引入延迟；未处理人与人交互及严重遮挡场景；location-map本身无结构约束，其质量完全依赖2D峰值精度，形成级联误差瓶颈。",
+  "eval_setup": "数据集：Human3.6M（受试者9/11全动作全相机）、MPI-INF-3DHP测试集（8类活动）；基线：Mehta et al. 2016、Zhou et al. 2015/2016、Pavlakos et al. 2016、Tekin et al. 2016b/c、Yu et al. 2016、Ionescu et al. 2014、Kinect；指标：3D PCK@150mm、AUC、MPJPE(mm)，14关节；规模：实时30 Hz，另在10+段社区视频与手机流上定性验证。",
+  "resources": "硬件：6核Xeon CPU 3.8 GHz + 单块Titan X (Pascal) GPU；推理耗时：CNN≈18 ms、骨骼拟合≈7–10 ms、预处理/滤波≈5 ms；训练数据：Human3.6M + MPI-INF-3DHP + LSP/MPII 2D标注；代码/项目页：http://gvv.mpi-inf.mpg.de/projects/VNect/",
+  "paper_id": "W2611932403",
+  "paper_ids": [
+    "W2611932403"
+  ],
+  "paper_title": "VNect",
+  "year": 2017,
+  "citation_count": 1168
+}

@@ -1,0 +1,15 @@
+{
+  "problem": "端到端3D人体姿态估计网络的训练受限于精确3D标注的稀缺——现有3D数据集多在MoCap摄影棚中采集，难以覆盖自然图像的多样性（如MPII、LSP等2D数据集的丰富场景）。本文旨在用更弱的监督信号替代精确3D真值来训练ConvNet。",
+  "method": "提出利用人体关节的序数深度关系（closer/farther/equal）作为弱监督信号，设计可微排序损失（logistic ranking loss）训练ConvNet预测关节深度。该序数监督可灵活嵌入三种架构：(1)直接深度预测；(2)结合2D关键点L2回归的坐标预测；(3)将体素体积的2D平面与深度维度分解为独立边缘化分布进行监督的体积预测。此外，引入一个基于双线性单元的多层感知机重建组件，将预测的2D关键点和序数深度映射为度量一致的3D姿态，该组件仅需MoCap数据训练。",
+  "core_assumption": "人类标注者能比估计度量深度更容易、更可靠地判断关节间的相对远近（序数深度），且这种二元序数关系足以大幅消解单目2D-to-3D重建歧义；同时假设排序损失不要求所有关节对都有标注、也不要求全局严格一致，网络可从部分且含噪的关系中学到共识。",
+  "limitation": "作者承认：序数监督无法提供度量深度，预测深度值不匹配真实深度，需依赖重建组件桥接；当架构更强（双hourglass体积回归）时弱监督与全监督的差距拉大，说明在低误差区间精确3D真值仍不可替代。进一步局限：(1)标注仍需人工逐图判断，扩展到更大规模数据集的成本未充分讨论；(2)对严重遮挡或极端视角下序数关系本身不可判的情况缺乏建模；(3)重建组件训练时用噪声深度模拟序数输入，该噪声分布与真实标注误差的匹配程度未验证；(4)后续无人跟进的开放问题包括：如何将序数监督推广到多人场景、如何与自监督/无监督方法结合以彻底消除人工标注。",
+  "eval_setup": "数据集：Human3.6M（S1/5/6/7/8训练，S9/11测试，10fps）、HumanEva-I（S1-S3训练/验证）、MPI-INF-3DHP（仅测试，域偏移）、LSP(2k)+MPII(13k)序数标注用于混合训练。基线：Martinez et al.(ICCV'17)、Zhou et al.(ICCV'17)、Pavlakos et al.(CVPR'17)、Tekin et al.(ICCV'17)等。指标：MPJPE(mm)、Procrustes重建误差(mm)、PCK3D、AUC。规模：14关节，batch 4，300k-2.5M迭代。",
+  "resources": "项目主页 https://www.seas.upenn.edu/~pavlakos/projects/ordinal 提供代码与LSP+MPII序数标注；标注效率约每图1分钟(17问×3.5s)；训练使用hourglass网络+rmsprop(lr=2.5e-4)，重建组件batch 64训练200k迭代；具体GPU型号未明确。",
+  "paper_id": "W2798646183",
+  "paper_ids": [
+    "W2798646183"
+  ],
+  "paper_title": "Ordinal Depth Supervision for 3D Human Pose Estimation",
+  "year": 2018,
+  "citation_count": 445
+}

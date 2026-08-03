@@ -1,0 +1,15 @@
+{
+  "problem": "视频中从2D关键点序列提升为3D人体姿态估计存在固有歧义（多个3D姿态可映射到同一组2D关键点），且3D标注依赖昂贵的动捕设备，标注数据稀缺时模型性能严重受限。",
+  "method": "提出基于膨胀时间卷积的全卷积架构（VideoPose3D），以2D关键点坐标时间序列为输入，通过B个残差块（每块含膨胀卷积+1×1卷积+BN+ReLU+Dropout）以指数级扩展感受野（243帧），实现确定性2D→3D映射，可沿时间维并行化。同时提出back-projection半监督训练：对无标注视频预测2D关键点→估计3D姿态→重投影回2D，利用重投影一致性（含骨长约束项）作为自监督信号，仅需相机内参。",
+  "core_assumption": "时间上下文足以消解2D→3D的深度歧义；2D关键点检测器（如CPN、Mask R-CNN）提供足够精确的输入；半监督中3D→2D重投影的循环一致性可作为有效训练信号，且骨长约束能强制姿态满足运动学合理性。",
+  "limitation": "作者承认：性能上限受2D检测器精度制约（GT 2D可再降22.6mm）；骨长项对半监督至关重要，去除后性能大幅下降。读出局限：仅在室内实验室数据集（Human3.6M、HumanEva-I）验证，未涉及户外、多人、严重遮挡场景；半监督需已知相机内参；未讨论跨视角/跨域泛化；膨胀卷积对极长序列的建模能力是否饱和未深入分析；未涉及3D形状/网格恢复。",
+  "eval_setup": "数据集：Human3.6M（Protocol 1 MPJPE / Protocol 2 P-MPJPE）、HumanEva-I；基线：Pavlakos、Martinez、Sun、Fang、Yang、Hossain&Little、Lee等（2017-2018）；指标：MPJPE、P-MPJPE、MPJVE（速度误差）、N-MPJPE；规模：243帧模型16.95M参数/33.87M FLOPs，推理~150k FPS（单GP100 GPU，batch=1）；半监督在0.1%-100%标注量下对比。",
+  "resources": "代码与模型开源：https://github.com/facebookresearch/VideoPose3D ；推理单块NVIDIA GP100 GPU；训练算力未明确给出；半监督仅需相机内参，无需多视角外参或GT 2D标注。",
+  "paper_id": "W2903549000",
+  "paper_ids": [
+    "W2903549000"
+  ],
+  "paper_title": "3D Human Pose Estimation in Video With Temporal Convolutions and Semi-Supervised Training",
+  "year": 2019,
+  "citation_count": 1273
+}

@@ -1,0 +1,15 @@
+{
+  "paper_id": "arxiv:2602.04343",
+  "paper_title": "Finding NeMO: A Geometry-Aware Representation of Template Views for Few-Shot Perception",
+  "problem": "few-shot 新物体感知：如何把少量 RGB 模板的视觉与几何信息编成一个可复用、可变换的物体中心表示（不依赖相机参数、不为每个新物体重训）。",
+  "method": "NeMO 表示：ViT+多视图注意力（Leap 式，anchor 图定义物体初始朝向）抽模板特征；MLP 点编码器 λ 采 M 个 3D 点，经 Transformer Decoder（点特征 query × 图像特征 key-value）融合视觉与几何；联合学 UDF（无符号距离场）把初始点云推向估计表面，得 χ={表面点 s_i + 特征}，可对 χ 做任意刚体变换/增点。解码器对查询图输出 modal/amodal 掩码 + 稠密 pointmap（2D→χ 坐标系 3D）+ 学习式置信度图 C，C 过滤后 RANSAC+PnP 出位姿。与 Leap 的区别：连续 UDF 替代离散神经体素，点数可变、可用 CAD 表面点偏置采样。",
+  "core_assumption": "视觉与几何信息可以从网络权重中分离存进\"神经记忆对象\"（K≥2 模板即可，无需相机内外参）；学习式置信度图 C 足以评估 2D-3D 映射质量、支撑 RANSAC-PnP 前的对应过滤；训练时对 NeMO 点云施加随机刚体变换能让解码器学到与锚视图无关的坐标系。",
+  "limitation": "需要 K≥2 模板与合成数据训练（非免训练）；UDF 表面估计精度决定 pointmap 上限；置信度图在对称/无纹理物体上的校准性未讨论；amodal 掩码监督依赖合成数据的完备标注。",
+  "eval_setup": "合成 RGB-D 渲染训练（GT 位姿+amodal/modal 掩码+内参）；few-shot 感知协议（3DV 2026）；下游位姿走 pointmap→C 过滤→RANSAC+PnP；损失=表面点回归+modal/amodal dice+BCE+置信度加权 L1 pointmap+certain/uncertain 双损失；点数 M 可变。",
+  "resources": "3DV 2026；原文已落 papers/（finding_nemo_...md）。",
+  "year": 2026,
+  "citation_count": 2,
+  "paper_ids": [
+    "arxiv:2602.04343"
+  ]
+}

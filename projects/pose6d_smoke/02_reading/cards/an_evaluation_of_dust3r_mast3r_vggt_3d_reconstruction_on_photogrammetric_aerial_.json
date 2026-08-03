@@ -1,0 +1,15 @@
+{
+  "problem": "DUSt3R/MASt3R/VGGT 等基于 Transformer 的 3D 重建基础模型在稀疏无序图像集上表现优异，但其在摄影测量航空影像块上的潜力尚未被探索。需评估这些预训练模型能否在极低重叠、极稀疏输入下替代传统 SfM/MVS 流水线，以加速高冗余航摄数据的重建。",
+  "method": "本文为评估性工作：在 UseGeo 数据集上对预训练 DUSt3R/MASt3R/VGGT 与 COLMAP（高/低分辨率两变体）进行系统比较。DUSt3R/MASt3R 采用 ViT-Large 编码器+DPT 解码器，通过成对点图回归后融合；VGGT 采用 ViT-Large 编码器+任务头，单次前向处理多张图像直接输出点云与位姿，免去成对后处理。输入图像被缩放至最大边 518 像素；以 CloudCompare 二次高度函数计算精度（C2C 距离）与完整性（1m 阈值），并以相机中心欧氏距离与四元数角度差评估位姿。",
+  "core_assumption": "预训练的 DUSt3R/MASt3R/VGGT 无需微调即可泛化到航空摄影测量影像；低分辨率（≤518px）输入下模型仍能提供有意义的点云与位姿估计；评估指标（C2C 精度、1m 完整性、位姿误差）足以反映其在摄影测量场景中的实用价值。",
+  "limitation": "作者承认：三者在高分辨率影像和大规模图像集上表现受限，位姿估计可靠性随图像数与场景几何复杂度上升而显著下降；学习法缺乏极线约束与多视图一致性，精度低但完整性高。191 图规模下 VGGT 点云出现建筑重叠、道路错插等不一致，位姿漂移达 42m，无法独立用于大范围航测。本人另读出：对高分辨率输入支持不足（缩到 518px 损失精度）且未对 Fast3R/FastVGGT 等新模型做系统评测；仅在单一数据集（UseGeo，城市/城郊）上验证，泛化到其他地形、其他传感器未涉及。",
+  "eval_setup": "数据集：UseGeo（829 张高分辨率影像，3 个区域，平均航高 80m，重叠 60–80%，同步 LiDAR 约 51 pts/m²，GSD≈2cm）。基线：COLMAP_HR 与 COLMAP_LR。指标：点云精度 σ_MEAN（C2C 垂直距离）、完整性（1m 阈值内真值点占比）、相机中心欧氏距离、四元数旋转角差。规模：单图至 191 图；重叠率 10–70% 五档成功率测试。硬件：AMD Ryzen Threadripper PRO 5955WX（16 核）、512GB RAM、NVIDIA RTX 6000 Ada 52GB，Ubuntu 22.04.5。",
+  "resources": "预训练权重：DUSt3R/MASt3R/VGGT；数据集：UseGeo（公开）；算力：单卡 RTX 6000 Ada 52GB；运行时数据见原文 Table 9（VGGT 约为 MASt3R 的 12%，MASt3R 约为 COLMAP_HR 的 9%）。",
+  "paper_id": "arxiv:2507.14798",
+  "paper_ids": [
+    "arxiv:2507.14798"
+  ],
+  "paper_title": "An Evaluation of DUSt3R/MASt3R/VGGT 3D Reconstruction on Photogrammetric Aerial Blocks",
+  "year": 2025,
+  "citation_count": 0
+}

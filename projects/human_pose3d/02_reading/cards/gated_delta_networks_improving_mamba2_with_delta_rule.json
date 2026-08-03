@@ -1,0 +1,15 @@
+{
+  "problem": "线性Transformer在检索和长上下文任务中表现受限：Mamba2的均匀衰减无法区分不同键值对的重要性，遗忘不够精准；DeltaNet虽能选择性更新单个键值对，却缺乏快速清除过时信息的能力，导致在真实任务上表现平平。",
+  "method": "提出门控delta规则，将Mamba2的标量衰减α_t与DeltaNet的delta更新(I−β_t k_t k_t^⊤)统一为S_t = α_t S_{t−1}(I−β_t k_t k_t^⊤) + β_t v_t k_t^⊤，α→0时快速清空记忆，α→1时退化为纯delta规则做精准更新。基于WY表示将Yang et al.的并行算法扩展至含门控项的情形，保持分块并行(chunkwise parallelism)以实现硬件高效训练。架构上沿用Llama宏结构，以门控delta规则替换自注意力，并设计混合模型(H1: GatedDeltaNet+SWA; H2: Mamba2+GatedDeltaNet+SWA)进一步提升性能与吞吐。",
+  "core_assumption": "门控(快速全局擦除)与delta规则(定向替换)在记忆管理上是互补的，二者组合能覆盖单一机制无法处理的场景；delta规则的分块并行算法可在引入逐时间步标量衰减后仍保持等价的矩阵化计算，从而不牺牲训练效率。",
+  "limitation": "作者承认：线性Transformer固定状态维度限制了检索容量，对局部平移/比较建模不足，因此仍需混合注意力层弥补；delta规则存在理论局限(Irie et al. 2023)，在真实数据上仅中等表现。可进一步读出的开放问题：(1)门控+delta仍为线性递推，表达力受限于状态维度，超大规模长上下文精确检索仍有上限；(2)更具表达力的非线性递推变体(TTT、Titans)与并行训练存在根本矛盾，本文未解决；(3)实验仅在1.3B/100B规模验证，向更大模型和更长上下文(>128K)的可扩展性未知；(4)混合架构中各层比例与排列的搜索空间未充分探讨。",
+  "eval_setup": "1.3B参数，FineWeb-Edu 100B tokens训练；基线：RetNet、HGRN2、Mamba、Mamba2、Samba、DeltaNet；评测涵盖语言建模(perplexity)、常识推理(10个下游任务)、上下文检索(RULER S-NIAH 1/2/3，序列长度1K-8K)、长度外推、长上下文理解；AdamW，峰值lr 4e-4，余弦退火，1B token warmup。",
+  "resources": "代码开源: https://github.com/NVlabs/GatedDeltaNet；训练数据FineWeb-Edu公开可得；算力需求文中未明确给出GPU型号与数量。",
+  "paper_id": "arxiv:2412.06464",
+  "paper_ids": [
+    "arxiv:2412.06464"
+  ],
+  "paper_title": "Gated Delta Networks: Improving Mamba2 with Delta Rule",
+  "year": 2024,
+  "citation_count": 0
+}

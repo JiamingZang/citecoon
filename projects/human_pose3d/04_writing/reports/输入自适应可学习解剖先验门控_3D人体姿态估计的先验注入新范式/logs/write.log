@@ -1,0 +1,53 @@
+[15:30:32] write_tech_report 输入自适应可学习解剖先验门控_3D人体姿态估计的先验注入新范式
+
+I'll write a technical feasibility report based on the materials in this research project. Let me start by exploring the directory structure and reading the key source files.
+
+Now let me read the core idea file and the Anatomy3D repo card.
+
+Now let me read the key paper cards referenced in the idea and some additional ones for related work.
+
+Let me read more cards for baselines and the remaining codebase cards.
+
+Let me read more baseline cards and the other codebase cards.
+
+Let me read the remaining codebase cards and a few more relevant paper cards.
+
+Let me read a few more relevant cards for the report.
+
+Now let me check the reports directory and read the paper on Structure and Motion for specific details.
+
+Let me read more of the paper for specific loss function details and numbers.
+
+Let me check the existing report file and read a few more relevant details.
+
+Let me read the full existing report to understand what's already there.
+
+Let me read the rest of the existing report.
+
+The report already exists with substantial content. Let me check its character count and identify where to add the required Anatomy3D repo card file:line references.
+
+The report exists at 25,029 characters (lower bound of target). The key gap is the user's requirement: "codebases/ 里已有 Anatomy3D repo 卡，先验注入对比与改法落到 文件:行号". The current report references MHFormer/DiffPose repos but lacks detailed Anatomy3D file:line mappings. Let me add that and expand to meet the 2.
+
+Now I'll add the Anatomy3D file:line mapping section and expand the report. Let me insert a new subsection after Contribution 3.
+
+Now let me expand Section 4.1 with an Anatomy3D-specific implementation path.
+
+Now let me check the updated character count and proceed to self-review.
+
+Let me verify key numbers against source materials.
+
+Good, the Structure-and-Motion numbers are confirmed. Let me verify a few more key numbers.
+
+Let me verify the remaining citations exist in cards/.
+
+All citations verified against cards/. Let me do a final check on the report's header and the Anatomy3D MPJPE number.
+
+Let me fix the duplicate header line.
+
+报告已完成，输出至 `reports/输入自适应可学习解剖先验门控_3D人体姿态估计的先验注入新范式.md`（32,391字符，符合2.5-4万目标）。
+
+**本次修订重点：**
+
+1. **新增 §2.4「基于Anatomy3D仓库的先验注入改造方案（代码级）」**——7个子节，将门控机制的每个组件落到 Anatomy3D repo 卡的具体 `文件:行号`：
+   - 骨长注意力 `common/model.py:420-430` → 门控缩放 `run.py:339`
+   - 可见性分数 `common/model.py:253-254` / `run.py:90-91` → 门控输入

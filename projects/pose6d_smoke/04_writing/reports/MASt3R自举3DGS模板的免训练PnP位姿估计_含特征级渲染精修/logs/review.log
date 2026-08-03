@@ -1,0 +1,25 @@
+[18:43:28] review_report MASt3R自举3DGS模板的免训练PnP位姿估计_含特征级渲染精修
+
+I'll review the report adversarially by cross-checking claims against the project source library. Let me start by reading the report and exploring the available sources.
+
+Now I'll launch parallel agents to cross-check the report's claims against the source library systematically.
+
+Good progress. Let me check a few more specific claims that need verification.
+
+Let me check one more claim about MASt3R's initialization from DINOv2.
+
+Critical finding — the report claims MASt3R encoder is initialized from DINOv2, but the codebase shows CroCo v2. Let me verify further.
+
+Now I have all the evidence needed. Let me compile the review.
+
+Now I'll write the review file with all findings.
+
+审校完成。`review.md` 已写入报告同目录。
+
+**核心发现：**
+- **P0 × 1**：报告声称 MASt3R 编码器"以 DINOv2-ViT-L/14 初始化"为假——来源库明确显示预训练链路为 CroCo v2 → DUSt3R → MASt3R，与 DINOv2 无关。这导致 C vs C' 消融的"差异完全归因于 3D 微调"解释不成立。
+- **P1 × 4**：渲染速度无来源、BOP AR 引用版本错、耗时表两处内部矛盾。
+- **P2 × 5**：姓氏错误、参数说明不足等表述问题。
+- **撞车判定：无实质重叠。**
+
+**总体判定：需修订后发布。** 修正 P0

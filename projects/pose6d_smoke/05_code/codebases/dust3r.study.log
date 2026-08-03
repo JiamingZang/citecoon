@@ -1,0 +1,26 @@
+[17:07:04] study_codebase https://github.com/naver/dust3r
+
+I'll check if `./dust3r/` exists, clone if needed, then analyze the codebase for your research focus areas.
+
+Cloning the repository now.
+
+Clone succeeded. Now I'll explore the codebase in parallel across the key research dimensions.
+
+All four research agents returned. Let me get the directory structure for the architecture overview.
+
+Now I'll verify a few key line numbers before writing the card.
+
+Let me verify a few more key locations.
+
+Now I have enough verified data. Let me write the card.
+
+Writing the card now.
+
+侦察完成。卡片已写入 `./dust3r.md`，覆盖了全部 6 个必需章节：
+
+- **架构总览**：双阶段（逐对推理 + 全局对齐）的非对称 CroCo 架构
+- **关键事实**：12 条带文件路径:行号和原代码片段的核心发现（点图/置信度/内参/外参获取方式、两视图vs多视图分支、O(N^2)复杂度、裁剪输入可行性、PnP/刚体配准已有实现等）
+- **硬编码参数**：20+ 项常量及其位置和可配置性
+- **环境与复现**：依赖、权重URL、最小运行命令
+- **改造接口点**：5 个最小侵入修改方案（裁剪输入、中间量提取、冻结位姿、精度/速度权衡、PnP后端扩展）
+- **风险与未知**：8 项未查证事项（croco子模块、裁剪精度、显存峰值、尺度歧义等）

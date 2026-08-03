@@ -1,0 +1,31 @@
+[17:20:08] study_codebase https://github.com/mks0601/3DMPPE_ROOTNET_RELEASE
+
+开始侦察 RootNet 仓库：先检查目录是否存在，不存在则浅克隆。
+
+目录不存在，执行浅克隆。
+
+克隆遇到权限问题，尝试设置临时目录后重试。
+
+目录已部分创建，检查内容后清理重试。
+
+克隆实际已成功（权限错误仅影响 shell 临时文件）。立即创建卡片骨架。
+
+骨架已建。现在并行探索仓库结构和关键代码文件。
+
+现在并行读取核心文件：model.py、config.py、base.py、train.py。
+
+核心模型已读取。现在读取数据集文件，查找 k_value 的计算方式和相机投影反算。
+
+找到了 k_value 计算公式和投影反算。继续读取 pose_utils.py（投影函数）和 test.py、README。
+
+所有核心文件已读取。再看一下 demo.py 中推理时 k_value 的处理。
+
+所有关键代码已查证完毕。现在将完整卡片写入。
+
+侦察完成。卡片已写入 `./3DMPPE_ROOTNET_RELEASE.md`，六个章节全部填充完毕，无遗留占位。
+
+核心发现摘要：
+- **k_value 公式**在 `data/dataset.py:73`：`sqrt(bbox_real_w × bbox_real_h × fx × fy / area)`，物理含义≈相机距离 Z
+- **深度头**极简（`main/model.py:67-72`）：GAP → Conv1x1(2048→1) → gamma × k
+- **反投影**在 `common/utils/pose_utils.py:13-18`（pixel2cam）+ `data/Human36M/Human36M.py:155-160`（评估调用）
+- **损失**仅 L1（`main/model.py:111-112`），无序数深度、无面积修正——改造挂载点已在卡片"
