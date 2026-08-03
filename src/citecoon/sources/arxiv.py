@@ -227,11 +227,33 @@ class ArxivSource:
     async def fulltext(
         self, arxiv_id: str, max_pages: int | None = None, max_chars: int = 60000
     ) -> str:
-        """Download the PDF and extract text. Extracts the WHOLE document by default
-        (max_pages=None) so late sections — Related Work, References — are captured;
-        first-N-pages truncation used to drop exactly the lineage signal we need.
-        Empty string on failure."""
+        """全文获取：先试 arXiv HTML 版（~3s），老论文无 HTML 时降级 PDF。
+
+        PDF 全文下载在此网络环境下实测 30s+（arXiv 限速+大文件），HTML 版
+        快一个量级且正文完整（含 Related Work / References）。两种都失败
+        返回空串，由调用方降级到 OpenAlex OA pdf_url / 提示用户本地读。
+        """
         aid = arxiv_id.split(":")[-1]
+
+        def _html_to_text(data: bytes) -> str:
+            try:
+                from trafilatura import extract
+                return extract(data, include_comments=False,
+                               include_tables=False) or ""
+            except Exception:
+                import re
+                text = re.sub(rb"<script.*?</script>", b" ", data, flags=re.S)
+                text = re.sub(rb"<style.*?</style>", b" ", text, flags=re.S)
+                text = re.sub(rb"<[^>]+>", b" ", text)
+                return re.sub(rb"\s+", b" ", text).decode("utf-8", "ignore")
+
+        r = await self._fetch(f"https://arxiv.org/html/{aid}",
+                              follow_redirects=True, timeout=30.0)
+        if r is not None and r.status_code == 200:
+            text = await asyncio.to_thread(_html_to_text, r.content)
+            if text.strip():
+                return text[:max_chars].strip()
+
         url = f"https://arxiv.org/pdf/{aid}"
         r = await self._fetch(url, follow_redirects=True, timeout=60.0)  # PDFs are larger
         if r is None:
