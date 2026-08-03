@@ -117,12 +117,23 @@ def build_read_tools(ctx: RunContext) -> list[Tool]:
             except Exception as e:  # noqa: BLE001
                 full = ""
                 pdf_url = f"https://arxiv.org/pdf/{aid.split(':')[-1]}"
-                parts.append(
-                    f"[PDF 下载失败: {e}]\n"
-                    f"论文 PDF 链接: {pdf_url}\n"
-                    f"请直接询问用户是否能帮忙下载此 PDF 到本地，"
-                    f"然后用 read_local_pdf 工具读取本地文件路径。"
-                )
+                # 多源全文降级：arXiv 拉取失败时试 paper.pdf_url（OpenAlex
+                # OA / S2 openAccessPdf 元数据里带的直接 PDF 链接），避免
+                # 单源故障把整条精读链卡死
+                if not full and paper.pdf_url and "arxiv.org" not in paper.pdf_url:
+                    try:
+                        data = await ctx.arxiv.fetch_pdf_fulltext(paper.pdf_url)
+                        sections = data.get("sections") or {}
+                        full = data.get("full_text") or ""
+                    except Exception:  # noqa: BLE001
+                        full = ""
+                if not full:
+                    parts.append(
+                        f"[PDF 下载失败: {e}]\n"
+                        f"论文 PDF 链接: {pdf_url}\n"
+                        f"请直接询问用户是否能帮忙下载此 PDF 到本地，"
+                        f"然后用 read_local_pdf 工具读取本地文件路径。"
+                    )
             else:
                 over_budget = session_reads["n"] >= 8 and not p.deep and not p.section
                 if full:

@@ -260,5 +260,28 @@ class ArxivSource:
         text = await self.fulltext(arxiv_id, max_pages=None, max_chars=max_chars)
         return {"full_text": text, "sections": split_sections(text)}
 
+    async def fetch_pdf_fulltext(self, pdf_url: str,
+                                 max_chars: int = 60000) -> dict:
+        """多源全文降级：从任意直接 PDF 链接（OpenAlex OA / S2 openAccessPdf）
+        下载并解析全文，返回与 fulltext_sections 同构的 dict。"""
+        r = await self._fetch(pdf_url, follow_redirects=True, timeout=60.0)
+        if r is None:
+            return {"full_text": "", "sections": {}}
+
+        def _parse(data: bytes) -> str:
+            import fitz
+            try:
+                doc = fitz.open(stream=data, filetype="pdf")
+            except Exception:
+                return ""
+            pages = list(doc)
+            parts = [page.get_text() for page in pages]
+            doc.close()
+            return "\n".join(parts)
+
+        text = await asyncio.to_thread(_parse, r.content)
+        text = text[:max_chars].strip()
+        return {"full_text": text, "sections": split_sections(text)}
+
     async def aclose(self) -> None:
         await self._client.aclose()
